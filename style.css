@@ -2,11 +2,11 @@
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    padding: 0; /* Set padding to 0, container will handle it */
+    padding: 0;
     background-color: #1a2a40; /* Darker background, inspired by MLBB night theme */
     color: #e0e0e0; /* Lighter text for contrast */
     display: flex; /* Use flexbox for body */
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column; /* Stack children vertically */
     min-height: 100vh; /* Ensure body takes full viewport height */
 }
 
@@ -83,6 +83,18 @@ h2 .fas {
     color: #ffd700; /* Gold for strong text */
 }
 
+/* Styling for generic links within content sections (like in info-section paragraphs) */
+.info-section a {
+    color: #ffd700; /* Warna emas terang untuk visibilitas */
+    text-decoration: none; /* Hapus default underline */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.info-section a:hover {
+    color: #e0b000; /* Warna emas lebih gelap saat hover */
+    text-decoration: underline; /* Tambahkan underline saat hover */
+}
+
 
 .form-group {
     margin-bottom: 15px;
@@ -101,7 +113,8 @@ h2 .fas {
 }
 
 .form-group input[type="number"],
-.form-group select {
+.form-group select,
+.form-group textarea { /* Tambahkan textarea di sini */
     width: calc(100% - 20px); /* Adjust for padding */
     padding: 10px;
     border: 1px solid #778da9;
@@ -114,7 +127,8 @@ h2 .fas {
 }
 
 .form-group input[type="number"]:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus { /* Tambahkan textarea di sini */
     border-color: #ffd700; /* Gold focus border */
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
@@ -175,6 +189,7 @@ h2 .fas {
     margin-top: 20px;
 }
 
+/* Styling for generic buttons (calculate, reset) */
 button {
     display: flex;
     align-items: center;
@@ -211,6 +226,42 @@ button:active {
 .reset-button:hover {
     background-color: #da190b;
 }
+
+/* Styling for links that act like buttons, e.g., "Kembali ke Kalkulator" */
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #ffd700; /* Emas terang */
+    color: #1a2a40; /* Teks gelap */
+    border: 2px solid #e0b000;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+}
+
+.button:hover {
+    background-color: #e0b000;
+    border-color: #cc9900;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 215, 0, 0.6);
+}
+
+.button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(255, 215, 0, 0.2);
+}
+
+.button .fas {
+    margin-right: 10px;
+}
+
 
 /* Result Section */
 .result-section {
@@ -276,14 +327,12 @@ button:active {
 /* Footer Styling */
 footer {
     text-align: center;
-    margin-top: auto; /* Push footer to the bottom when flex-direction is column */
     padding: 20px;
-    background-color: #283a54; /* Same as container background */
+    background-color: #1a2a40; /* Sama dengan background body */
     color: #b0b0b0;
     border-top: 1px solid #4a6381;
-    /* Remove border-radius on footer as it will span full width */
-    width: 100%; /* Ensure footer spans full width */
-    box-sizing: border-box; /* Include padding in width */
+    width: 100%; /* Memastikan lebar penuh */
+    box-sizing: border-box; /* Pastikan padding termasuk dalam lebar */
 }
 
 footer p {
@@ -291,22 +340,121 @@ footer p {
 }
 
 .footer-links {
-    display: flex; /* Use flexbox for links */
-    justify-content: center; /* Center links horizontally */
-    flex-wrap: wrap; /* Allow links to wrap on small screens */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-top: 10px;
 }
 
 .footer-links a {
     color: #a0c4ff; /* Lighter blue for links */
     text-decoration: none;
-    margin: 0 8px; /* Adjust margin for spacing */
+    margin: 0 8px;
     transition: color 0.3s ease;
-    white-space: nowrap; /* Prevent links from breaking in the middle */
+    white-space: nowrap;
 }
 
 .footer-links a:hover {
     color: #ffd700; /* Gold on hover */
+}
+
+/* Feedback Section Styling - REVISI UNTUK LEBIH FRIENDLY */
+.feedback-section { /* Menargetkan feedback section */
+    margin-top: 40px;
+    padding: 30px; /* Padding lebih besar untuk ruang */
+    background-color: #364f6b; /* Warna background sama dengan form section lain */
+    border-radius: 12px; /* Lebih bulat */
+    border: 1px solid #5d7a9f;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Bayangan lebih dalam dan menonjol */
+}
+
+.feedback-section h2 {
+    text-align: center;
+    color: #ffd700; /* Emas untuk judul */
+    border-bottom: none; /* Hapus border */
+    padding-bottom: 0;
+    margin-bottom: 25px; /* Jarak bawah judul */
+}
+
+.feedback-section h2 .fas {
+    color: #a0c4ff; /* Ikon biru muda */
+}
+
+.feedback-section .description {
+    margin-bottom: 30px; /* Jarak lebih besar */
+    color: #b0b0b0;
+    text-align: center;
+}
+
+/* Input field styling for feedback form */
+.feedback-section .form-group label {
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.feedback-section input[type="text"],
+.feedback-section textarea {
+    width: calc(100% - 24px); /* Sesuaikan untuk padding 12px di setiap sisi */
+    padding: 12px; /* Padding lebih besar */
+    border: 1px solid #778da9;
+    border-radius: 8px; /* Lebih bulat */
+    background-color: #4a6381; /* Background input */
+    color: #fff; /* Warna teks input */
+    font-size: 1em;
+    box-sizing: border-box;
+    margin-top: 5px;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.feedback-section input[type="text"]:focus,
+.feedback-section textarea:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3); /* Shadow fokus lebih terang */
+    outline: none;
+}
+
+/* Send button styling */
+.feedback-section .send-feedback-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #4CAF50; /* Hijau untuk tombol kirim */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-section .send-feedback-button:hover {
+    background-color: #3e8e41; /* Hijau lebih gelap saat hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.feedback-section .send-feedback-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.feedback-section .send-feedback-button .fas {
+    margin-right: 10px;
+}
+
+/* Feedback message styling */
+.feedback-section .feedback-message {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: #a0c4ff; /* Light blue for default message */
 }
 
 
@@ -316,7 +464,7 @@ footer p {
 @media (min-width: 600px) {
     .container {
         padding: 40px;
-        width: calc(100% - 80px); /* Adjust for larger padding */
+        width: calc(100% - 80px);
     }
 
     h1 {
@@ -328,11 +476,11 @@ footer p {
     }
 
     .skin-category-grid {
-        grid-template-columns: 1fr 1fr; /* Two columns for tablets */
+        grid-template-columns: 1fr 1fr;
     }
 
     .button-group {
-        flex-direction: row; /* Buttons side-by-side on larger screens */
+        flex-direction: row;
     }
 }
 
@@ -347,11 +495,12 @@ footer p {
     }
 
     .skin-category-grid {
-        grid-template-columns: 1fr 1fr 1fr; /* Three columns for desktops */
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .form-group input[type="number"],
-    .form-group select {
+    .form-group select,
+    .form-group textarea {
         width: 100%; /* Full width within its grid column */
     }
 }
@@ -359,6 +508,6 @@ footer p {
 /* Further larger screens (e.g., 992px and up) */
 @media (min-width: 992px) {
     .skin-category-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* More flexible columns */
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     }
 }

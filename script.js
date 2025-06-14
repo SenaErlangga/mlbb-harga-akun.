@@ -1,4 +1,3 @@
-// Logika JavaScript akan kita tulis di sini nanti
 document.addEventListener('DOMContentLoaded', function() {
     const calculateBtn = document.getElementById('calculateBtn');
     const resetBtn = document.getElementById('resetBtn');
@@ -8,7 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const winRateProgressBar = document.getElementById('winRateProgressBar');
     const emblemLevel60Input = document.getElementById('emblemLevel60');
     const emblemCountSpan = document.getElementById('emblemCount');
-    const resultSection = document.querySelector('.result-section'); // Ambil elemen result section
+    const resultSection = document.querySelector('.result-section');
+
+    // Feedback Form elements
+    const feedbackForm = document.getElementById('feedbackForm');
+    const feedbackMessage = document.getElementById('feedbackMessage');
+    const feedbackUsernameInput = document.getElementById('feedbackUsername');
+    const feedbackSuggestionInput = document.getElementById('feedbackSuggestion');
+
 
     // Array of skin input IDs
     const skinInputIds = ['skinSupreme', 'skinGrand', 'skinExquisite', 'skinDeluxe', 'skinExceptional', 'skinCommon', 'skinPainted'];
@@ -123,21 +129,43 @@ document.addEventListener('DOMContentLoaded', function() {
             'Supreme': 4000, 'Grand': 3000, 'Exquisite': 2000, 'Deluxe': 400,
             'Exceptional': 200, 'Common': 100, 'Painted': 40
         };
-        const pricePerSkinPoint = 25;
+        const pricePerSkinPoint = 38;
 
-        let skinContribution = 0;
-        skinContribution += skinSupreme * skinPoinValues.Supreme * pricePerSkinPoint;
-        skinContribution += skinGrand * skinPoinValues.Grand * pricePerSkinPoint;
-        skinContribution += skinExquisite * skinPoinValues.Exquisite * pricePerSkinPoint;
-        skinContribution += skinDeluxe * skinPoinValues.Deluxe * pricePerSkinPoint;
-        skinContribution += skinExceptional * skinPoinValues.Exceptional * pricePerSkinPoint;
-        skinContribution += skinCommon * skinPoinValues.Common * pricePerSkinPoint;
-        skinContribution += skinPainted * skinPoinValues.Painted * pricePerSkinPoint;
-        totalPrice += skinContribution;
-        breakdown['Koleksi Skin'] = skinContribution;
+        let skinContributionTotal = 0;
+
+        const supremeContribution = skinSupreme * skinPoinValues.Supreme * pricePerSkinPoint;
+        if (supremeContribution > 0) breakdown['Skin Supreme'] = supremeContribution;
+        skinContributionTotal += supremeContribution;
+
+        const grandContribution = skinGrand * skinPoinValues.Grand * pricePerSkinPoint;
+        if (grandContribution > 0) breakdown['Skin Grand'] = grandContribution;
+        skinContributionTotal += grandContribution;
+
+        const exquisiteContribution = skinExquisite * skinPoinValues.Exquisite * pricePerSkinPoint;
+        if (exquisiteContribution > 0) breakdown['Skin Exquisite'] = exquisiteContribution;
+        skinContributionTotal += exquisiteContribution;
+
+        const deluxeContribution = skinDeluxe * skinPoinValues.Deluxe * pricePerSkinPoint;
+        if (deluxeContribution > 0) breakdown['Skin Deluxe'] = deluxeContribution;
+        skinContributionTotal += deluxeContribution;
+
+        const exceptionalContribution = skinExceptional * skinPoinValues.Exceptional * pricePerSkinPoint;
+        if (exceptionalContribution > 0) breakdown['Skin Exceptional'] = exceptionalContribution;
+        skinContributionTotal += exceptionalContribution;
+
+        const commonContribution = skinCommon * skinPoinValues.Common * pricePerSkinPoint;
+        if (commonContribution > 0) breakdown['Skin Common'] = commonContribution;
+        skinContributionTotal += commonContribution;
+
+        const paintedContribution = skinPainted * skinPoinValues.Painted * pricePerSkinPoint;
+        if (paintedContribution > 0) breakdown['Painted Skin'] = paintedContribution;
+        skinContributionTotal += paintedContribution;
+
+        totalPrice += skinContributionTotal;
+
 
         // B. Emblem Level 60
-        const emblemContribution = emblemLevel60 * 100000;
+        const emblemContribution = emblemLevel60 * 25000;
         totalPrice += emblemContribution;
         breakdown['Emblem Level 60'] = emblemContribution;
 
@@ -155,23 +183,23 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPrice += tierContribution;
         breakdown['Tier Saat Ini'] = tierContribution;
 
-        // E. Win Rate Global
+        // E. Win Rate Rank
         let winRateContribution = 0;
         if (winRate >= 75) {
-            winRateContribution = 900000;
+            winRateContribution = 1800000;
         } else if (winRate >= 70) {
-            winRateContribution = 500000;
+            winRateContribution = 1200000;
         } else if (winRate >= 65) {
-            winRateContribution = 300000;
+            winRateContribution = 800000;
         } else if (winRate >= 60) {
-            winRateContribution = 180000;
+            winRateContribution = 500000;
         } else if (winRate >= 55) {
-            winRateContribution = 90000;
+            winRateContribution = 250000;
         } else if (winRate >= 50) {
-            winRateContribution = 40000;
+            winRateContribution = 100000;
         }
         totalPrice += winRateContribution;
-        breakdown['Win Rate Global'] = winRateContribution;
+        breakdown['Win Rate Rank'] = winRateContribution;
 
 
         // Pastikan harga tidak minus
@@ -188,8 +216,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Display Breakdown
         let breakdownHTML = '';
         const orderedBreakdownKeys = [
-            'Harga Dasar Akun', 'Koleksi Skin', 'Emblem Level 60',
-            'Jumlah Hero', 'Tier Saat Ini', 'Win Rate Global'
+            'Harga Dasar Akun',
+            'Skin Supreme', 'Skin Grand', 'Skin Exquisite', 'Skin Deluxe',
+            'Skin Exceptional', 'Skin Common', 'Painted Skin',
+            'Emblem Level 60',
+            'Jumlah Hero',
+            'Tier Saat Ini',
+            'Win Rate Rank'
         ];
 
         orderedBreakdownKeys.forEach(key => {
@@ -200,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
         priceBreakdown.innerHTML = breakdownHTML;
 
         // --- Fitur Auto-Scroll ke Hasil ---
-        if (resultSection) { // Pastikan elemen ditemukan
+        if (resultSection) {
             resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
@@ -279,4 +312,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize progress bar and emblem count text on load
     winRateInput.dispatchEvent(new Event('input'));
     emblemLevel60Input.dispatchEvent(new Event('input'));
+
+    // --- Feedback Form Submission Handling ---
+    feedbackForm.addEventListener('submit', async function(event) {
+        event.preventDefault(); // Prevent default form submission (page reload)
+
+        const form = event.target;
+        const formData = new FormData(form);
+
+        feedbackMessage.textContent = 'Mengirim masukan...';
+        feedbackMessage.style.color = '#a0c4ff'; // Light blue for sending status
+
+        try {
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    'Accept': 'application/json' // Crucial for Formspree to return JSON
+                }
+            });
+
+            if (response.ok) {
+                feedbackMessage.textContent = 'Terima kasih! Masukan Anda telah terkirim.';
+                feedbackMessage.style.color = '#4CAF50'; // Green for success
+                form.reset(); // Clear the form fields
+            } else {
+                const data = await response.json();
+                if (data.errors) {
+                    feedbackMessage.textContent = 'Gagal mengirim: ' + data.errors.map(err => err.message).join(', ');
+                } else {
+                    feedbackMessage.textContent = 'Gagal mengirim masukan. Silakan coba lagi.';
+                }
+                feedbackMessage.style.color = '#ff6b6b'; // Red for error
+            }
+        } catch (error) {
+            console.error('Error submitting feedback:', error);
+            feedbackMessage.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
+            feedbackMessage.style.color = '#ff6b6b'; // Red for error
+        }
+    });
 });
