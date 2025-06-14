@@ -1,0 +1,364 @@
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0; /* Set padding to 0, container will handle it */
+    background-color: #1a2a40; /* Darker background, inspired by MLBB night theme */
+    color: #e0e0e0; /* Lighter text for contrast */
+    display: flex; /* Use flexbox for body */
+    flex-direction: column; /* Stack items vertically */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+}
+
+.container {
+    background-color: #283a54; /* Slightly lighter dark blue */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+    max-width: 800px; /* Max width for desktop */
+    width: calc(100% - 40px); /* Adjust for 20px padding on left/right of screen */
+    margin: 20px auto; /* Center container horizontally and add top/bottom margin */
+    border: 1px solid #4a6381; /* Subtle border */
+    flex-grow: 1; /* Allow container to grow and push footer down */
+}
+
+h1 {
+    text-align: center;
+    color: #ffd700; /* Gold color for main title */
+    margin-bottom: 10px;
+    font-size: 1.8em; /* Slightly smaller for mobile */
+}
+
+h2 {
+    color: #a0c4ff; /* Lighter blue for section titles */
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #4a6381; /* Consistent border */
+    padding-bottom: 5px;
+    font-size: 1.4em; /* Slightly smaller for mobile */
+}
+
+h2 .fas {
+    margin-right: 10px;
+    color: #ffd700; /* Gold icon color */
+}
+
+.description {
+    text-align: center;
+    color: #b0b0b0;
+    margin-bottom: 25px;
+    font-size: 0.9em;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #364f6b; /* Even lighter dark blue */
+    border-radius: 8px;
+    border: 1px solid #5d7a9f;
+}
+
+/* Info Section specific styling */
+.info-section {
+    margin-top: 40px; /* More spacing from previous sections */
+}
+
+.info-section ul {
+    list-style: none; /* Remove default bullet points */
+    padding: 0;
+    margin-top: 15px;
+}
+
+.info-section ul li {
+    background-color: #4a6381; /* Slightly lighter background for list items */
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-size: 0.95em;
+    color: #e0e0e0;
+}
+
+.info-section ul li strong {
+    color: #ffd700; /* Gold for strong text */
+}
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.form-group label .fas {
+    margin-right: 8px;
+    color: #ffd700; /* Gold icon color */
+}
+
+.form-group input[type="number"],
+.form-group select {
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 10px;
+    border: 1px solid #778da9;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box; /* Include padding in width */
+    appearance: none; /* Remove default arrow for select on some browsers */
+    background-color: #4a6381; /* Input background */
+    color: #fff; /* Input text color */
+}
+
+.form-group input[type="number"]:focus,
+.form-group select:focus {
+    border-color: #ffd700; /* Gold focus border */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
+}
+
+.form-group small {
+    display: block;
+    color: #b0b0b0;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+/* Error Message Styling */
+.error-message {
+    color: #ff6b6b; /* Red color for error */
+    font-size: 0.85em;
+    margin-top: 5px;
+    height: 1.2em; /* Reserve space to prevent layout shift */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.error-message.show {
+    opacity: 1;
+}
+
+/* Progress Bar Styling */
+.progress-bar-container {
+    width: 100%;
+    background-color: #5d7a9f;
+    border-radius: 5px;
+    height: 10px;
+    overflow: hidden; /* Ensure bar stays within container */
+    margin-top: 5px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50; /* Green color for progress */
+    border-radius: 5px;
+    width: 0%; /* Initial width */
+    transition: width 0.4s ease-out; /* Smooth transition */
+}
+
+
+/* Skin Category Grid for Responsiveness */
+.skin-category-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column for mobile */
+    gap: 15px;
+}
+
+/* Button Group Styling */
+.button-group {
+    display: flex;
+    flex-direction: column; /* Stack buttons on mobile */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px;
+    background-color: #4CAF50; /* Green for calculate */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button .fas {
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.reset-button {
+    background-color: #f44336; /* Red for reset */
+}
+
+.reset-button:hover {
+    background-color: #da190b;
+}
+
+/* Result Section */
+.result-section {
+    margin-top: 30px;
+    text-align: center;
+    padding: 25px;
+    background-color: #364f6b; /* Same as form section */
+    border: 1px solid #5d7a9f;
+    border-radius: 8px;
+}
+
+#resultPrice {
+    font-size: 2.5em;
+    font-weight: 700;
+    color: #ffd700; /* Gold color for result */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Animation for result price */
+.fade-in-result {
+    animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+.price-breakdown {
+    text-align: left;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #4a6381;
+    font-size: 0.9em;
+    color: #b0b0b0;
+    line-height: 1.6;
+}
+
+.price-breakdown p {
+    margin: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.price-breakdown p span:first-child {
+    font-weight: 600;
+    color: #e0e0e0;
+}
+
+.price-breakdown p span:last-child {
+    color: #ffd700; /* Gold for breakdown values */
+}
+
+
+.result-section .disclaimer {
+    font-size: 0.85em;
+    color: #999;
+    margin-top: 15px;
+}
+
+/* Footer Styling */
+footer {
+    text-align: center;
+    margin-top: auto; /* Push footer to the bottom when flex-direction is column */
+    padding: 20px;
+    background-color: #283a54; /* Same as container background */
+    color: #b0b0b0;
+    border-top: 1px solid #4a6381;
+    /* Remove border-radius on footer as it will span full width */
+    width: 100%; /* Ensure footer spans full width */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+footer p {
+    margin-bottom: 10px;
+}
+
+.footer-links {
+    display: flex; /* Use flexbox for links */
+    justify-content: center; /* Center links horizontally */
+    flex-wrap: wrap; /* Allow links to wrap on small screens */
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: #a0c4ff; /* Lighter blue for links */
+    text-decoration: none;
+    margin: 0 8px; /* Adjust margin for spacing */
+    transition: color 0.3s ease;
+    white-space: nowrap; /* Prevent links from breaking in the middle */
+}
+
+.footer-links a:hover {
+    color: #ffd700; /* Gold on hover */
+}
+
+
+/* Media Queries for Responsiveness */
+
+/* Tablets and larger phones (e.g., 600px and up) */
+@media (min-width: 600px) {
+    .container {
+        padding: 40px;
+        width: calc(100% - 80px); /* Adjust for larger padding */
+    }
+
+    h1 {
+        font-size: 2.2em;
+    }
+
+    h2 {
+        font-size: 1.6em;
+    }
+
+    .skin-category-grid {
+        grid-template-columns: 1fr 1fr; /* Two columns for tablets */
+    }
+
+    .button-group {
+        flex-direction: row; /* Buttons side-by-side on larger screens */
+    }
+}
+
+/* Desktops and larger (e.g., 768px and up) */
+@media (min-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    h2 {
+        font-size: 1.8em;
+    }
+
+    .skin-category-grid {
+        grid-template-columns: 1fr 1fr 1fr; /* Three columns for desktops */
+    }
+
+    .form-group input[type="number"],
+    .form-group select {
+        width: 100%; /* Full width within its grid column */
+    }
+}
+
+/* Further larger screens (e.g., 992px and up) */
+@media (min-width: 992px) {
+    .skin-category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* More flexible columns */
+    }
+}

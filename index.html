@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Harga Akun Mobile Legends</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+</body>
+</html>
+<body>
+    <div class="container">
+        <h1>Kalkulator Harga Akun Mobile Legends</h1>
+        <p class="description">Estimasi harga akun MLBB Anda berdasarkan kriteria utama.</p>
+
+        <div class="form-section">
+            <h2><i class="fas fa-info-circle"></i> Informasi Dasar Akun</h2>
+
+            <div class="form-group">
+                <label for="tier"><i class="fas fa-crown"></i> Tier Saat Ini:</label>
+                <select id="tier">
+                    <option value="Warrior">Warrior</option>
+                    <option value="Elite">Elite</option>
+                    <option value="Master">Master</option>
+                    <option value="Grandmaster">Grandmaster</option>
+                    <option value="Epic">Epic</option>
+                    <option value="Legend">Legend</option>
+                    <option value="Mythic">Mythic</option>
+                    <option value="Mythical Honor">Mythical Honor</option>
+                    <option value="Mythical Glory">Mythical Glory</option>
+                    <option value="Mythical Immortal">Mythical Immortal</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="winRate"><i class="fas fa-percent"></i> Win Rate Global Akun (%):</label>
+                <input type="number" id="winRate" min="0" max="100" step="0.1" placeholder="Cth: 55.7">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" id="winRateProgressBar" style="width: 0%;"></div>
+                </div>
+                <div class="error-message" id="winRate-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="totalHeroes"><i class="fas fa-users"></i> Jumlah Hero yang Dimiliki:</label>
+                <input type="number" id="totalHeroes" min="0" placeholder="Cth: 110">
+                <div class="error-message" id="totalHeroes-error"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="emblemLevel60"><i class="fas fa-gem"></i> Jumlah Emblem Level 60:</label>
+                <input type="number" id="emblemLevel60" min="0" max="9" placeholder="Cth: 5">
+                <small>Jumlah emblem yang sudah mencapai level 60 (<span id="emblemCount">0</span>/9).</small>
+                <div class="error-message" id="emblemLevel60-error"></div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2><i class="fas fa-tshirt"></i> Koleksi Skin</h2>
+            <p class="description">Masukkan jumlah skin yang Anda miliki untuk setiap kategori.</p>
+
+            <div class="skin-category-grid">
+                <div class="form-group">
+                    <label for="skinSupreme">Supreme:</label>
+                    <input type="number" id="skinSupreme" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="skinGrand">Grand:</label>
+                    <input type="number" id="skinGrand" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="skinExquisite">Exquisite:</label>
+                    <input type="number" id="skinExquisite" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="skinDeluxe">Deluxe:</label>
+                    <input type="number" id="skinDeluxe" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="skinExceptional">Exceptional:</label>
+                    <input type="number" id="skinExceptional" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="skinCommon">Common:</label>
+                    <input type="number" id="skinCommon" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="skinPainted">Painted Skin:</label>
+                    <input type="number" id="skinPainted" min="0">
+                </div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="calculateBtn"><i class="fas fa-calculator"></i> Hitung Harga Akun</button>
+            <button id="resetBtn" class="reset-button"><i class="fas fa-redo-alt"></i> Reset</button>
+        </div>
+
+        <div class="result-section">
+            <h2>Estimasi Harga Akun:</h2>
+            <p id="resultPrice" class="fade-in-result">Rp 0</p>
+            <div id="priceBreakdown" class="price-breakdown">
+                </div>
+            <p class="disclaimer">Estimasi ini adalah panduan dan harga sebenarnya bisa bervariasi di pasar.</p>
+        </div>
+
+        <div class="form-section info-section">
+            <h2><i class="fas fa-lightbulb"></i> Apa yang Membuat Akun MLBB Berharga?</h2>
+            <p>Harga sebuah akun Mobile Legends dipengaruhi oleh beberapa faktor utama. Memahami ini akan membantu Anda menilai akun lebih baik:</p>
+            <ul>
+                <li><strong>Koleksi Skin:</strong> Jenis dan jumlah skin adalah penentu harga terbesar. Skin kategori Supreme, Grand, dan Exquisite yang langka memiliki nilai jual sangat tinggi karena sulit didapatkan.</li>
+                <li><strong>Level Emblem:</strong> Emblem yang sudah mencapai Level 60 (maksimal) sangat krusial untuk performa di dalam game dan menambah nilai signifikan pada akun.</li>
+                <li><strong>Jumlah Hero:</strong> Semakin banyak hero yang terbuka, semakin fleksibel akun tersebut untuk dimainkan di berbagai role dan strategi.</li>
+                <li><strong>Tier Saat Ini:</strong> Tier tinggi menunjukkan pencapaian dan skill pemain, membuat akun lebih menarik bagi pembeli yang ingin langsung bermain di level kompetitif.</li>
+                <li><strong>Win Rate Global:</strong> Win Rate yang tinggi mencerminkan rekam jejak performa akun yang baik dan seringkali menjadi daya tarik tambahan bagi pembeli.</li>
+            </ul>
+            <p>Perlu diingat, faktor-faktor ini saling memengaruhi dan harga akhir di pasar bisa bervariasi.</p>
+        </div>
+    </div>
+</div> <footer>
+        <p>&copy; 2025 Kalkulator Harga Akun MLBB. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="about.html">Tentang Kami</a> |
+            <a href="privacy.html">Kebijakan Privasi</a> |
+            <a href="contact.html">Kontak</a>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
