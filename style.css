@@ -358,30 +358,30 @@ footer p {
     color: #ffd700; /* Gold on hover */
 }
 
-/* Feedback Section Styling - REVISI UNTUK LEBIH FRIENDLY */
-.feedback-section { /* Menargetkan feedback section */
+/* Feedback Section Styling */
+.feedback-section {
     margin-top: 40px;
-    padding: 30px; /* Padding lebih besar untuk ruang */
-    background-color: #364f6b; /* Warna background sama dengan form section lain */
-    border-radius: 12px; /* Lebih bulat */
+    padding: 30px;
+    background-color: #364f6b;
+    border-radius: 12px;
     border: 1px solid #5d7a9f;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); /* Bayangan lebih dalam dan menonjol */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .feedback-section h2 {
     text-align: center;
-    color: #ffd700; /* Emas untuk judul */
-    border-bottom: none; /* Hapus border */
+    color: #ffd700;
+    border-bottom: none;
     padding-bottom: 0;
-    margin-bottom: 25px; /* Jarak bawah judul */
+    margin-bottom: 25px;
 }
 
 .feedback-section h2 .fas {
-    color: #a0c4ff; /* Ikon biru muda */
+    color: #a0c4ff;
 }
 
 .feedback-section .description {
-    margin-bottom: 30px; /* Jarak lebih besar */
+    margin-bottom: 30px;
     color: #b0b0b0;
     text-align: center;
 }
@@ -395,11 +395,11 @@ footer p {
 .feedback-section input[type="text"],
 .feedback-section textarea {
     width: calc(100% - 24px); /* Sesuaikan untuk padding 12px di setiap sisi */
-    padding: 12px; /* Padding lebih besar */
+    padding: 12px;
     border: 1px solid #778da9;
-    border-radius: 8px; /* Lebih bulat */
-    background-color: #4a6381; /* Background input */
-    color: #fff; /* Warna teks input */
+    border-radius: 8px;
+    background-color: #4a6381;
+    color: #fff;
     font-size: 1em;
     box-sizing: border-box;
     margin-top: 5px;
@@ -410,7 +410,7 @@ footer p {
 .feedback-section input[type="text"]:focus,
 .feedback-section textarea:focus {
     border-color: #ffd700;
-    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3); /* Shadow fokus lebih terang */
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
     outline: none;
 }
 
@@ -421,9 +421,9 @@ footer p {
     justify-content: center;
     width: 100%;
     padding: 15px 20px;
-    background-color: #4CAF50; /* Hijau untuk tombol kirim */
-    color: white;
+    background-color: #4CAF50;
     border: none;
+    color: white;
     border-radius: 8px;
     font-size: 1.1em;
     font-weight: 600;
@@ -434,7 +434,7 @@ footer p {
 }
 
 .feedback-section .send-feedback-button:hover {
-    background-color: #3e8e41; /* Hijau lebih gelap saat hover */
+    background-color: #3e8e41;
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
@@ -448,15 +448,120 @@ footer p {
     margin-right: 10px;
 }
 
-/* Feedback message styling */
 .feedback-section .feedback-message {
     text-align: center;
     margin-top: 15px;
     font-size: 0.95em;
     font-weight: 600;
-    color: #a0c4ff; /* Light blue for default message */
+    color: #a0c4ff;
 }
 
+/* Comments Display Section Styling */
+.comments-display-section { /* Menargetkan bagian display komentar */
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #364f6b;
+    border-radius: 12px;
+    border: 1px solid #5d7a9f;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.comments-display-section h2 {
+    text-align: center;
+    color: #ffd700;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 25px;
+}
+
+.comments-display-section h2 .fas {
+    color: #a0c4ff;
+}
+
+.comments-display-section .description {
+    margin-bottom: 30px;
+    color: #b0b0b0;
+    text-align: center;
+}
+
+.comments-list {
+    margin-top: 20px;
+    min-height: 100px; /* Minimal tinggi agar tidak kosong melompong */
+}
+
+.comment-item {
+    background-color: #4a6381; /* Warna latar belakang per komentar */
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-username {
+    font-weight: 700;
+    color: #a0c4ff; /* Nama user warna biru muda */
+    font-size: 1.1em;
+}
+
+.comment-timestamp {
+    font-size: 0.8em;
+    color: #b0b0b0;
+}
+
+.comment-body {
+    font-size: 0.95em;
+    color: #e0e0e0;
+    line-height: 1.5;
+    word-wrap: break-word; /* Memastikan teks panjang tidak keluar batas */
+}
+
+.loading-comments {
+    text-align: center;
+    color: #a0c4ff;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.no-comments {
+    text-align: center;
+    color: #b0b0b0;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.refresh-comments-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: #5d7a9f; /* Warna abu-biru */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.refresh-comments-button:hover {
+    background-color: #4a6381;
+    transform: translateY(-1px);
+}
+
+.refresh-comments-button .fas {
+    margin-right: 8px;
+}
 
 /* Media Queries for Responsiveness */
 
@@ -501,7 +606,7 @@ footer p {
     .form-group input[type="number"],
     .form-group select,
     .form-group textarea {
-        width: 100%; /* Full width within its grid column */
+        width: 100%;
     }
 }
 
