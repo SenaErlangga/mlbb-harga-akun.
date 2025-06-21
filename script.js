@@ -412,6 +412,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="comment-body">
                     ${comment.suggestion || ''}
                 </div>
+                ${comment.adminreply ? ` <div class="admin-reply">
+                    <p><strong>Balasan Admin:</strong></p>
+                    <p>${comment.adminreply}</p>
+                </div>
+                ` : ''}
             `;
             commentsList.appendChild(commentItem);
         });
