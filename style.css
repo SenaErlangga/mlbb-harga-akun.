@@ -457,7 +457,7 @@ footer p {
 }
 
 /* Comments Display Section Styling */
-.comments-display-section { /* Menargetkan bagian display komentar */
+.comments-display-section {
     margin-top: 40px;
     padding: 30px;
     background-color: #364f6b;
@@ -486,11 +486,11 @@ footer p {
 
 .comments-list {
     margin-top: 20px;
-    min-height: 100px; /* Minimal tinggi agar tidak kosong melompong */
+    min-height: 100px;
 }
 
 .comment-item {
-    background-color: #4a6381; /* Warna latar belakang per komentar */
+    background-color: #4a6381;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 15px;
@@ -506,7 +506,7 @@ footer p {
 
 .comment-username {
     font-weight: 700;
-    color: #a0c4ff; /* Nama user warna biru muda */
+    color: #a0c4ff;
     font-size: 1.1em;
 }
 
@@ -519,7 +519,25 @@ footer p {
     font-size: 0.95em;
     color: #e0e0e0;
     line-height: 1.5;
-    word-wrap: break-word; /* Memastikan teks panjang tidak keluar batas */
+    word-wrap: break-word;
+}
+
+.admin-reply { /* Styling untuk Balasan Admin */
+    background-color: #364f6b; /* Warna lebih gelap untuk kontras */
+    border-left: 4px solid #a0c4ff; /* Garis biru di samping */
+    padding: 10px 15px;
+    margin-top: 15px;
+    border-radius: 0 5px 5px 0; /* Bulat di kanan saja */
+}
+
+.admin-reply p {
+    margin: 0;
+    color: #e0e0e0;
+    font-size: 0.9em;
+}
+
+.admin-reply p strong {
+    color: #ffd700; /* Emas untuk "Balasan Admin" */
 }
 
 .loading-comments {
@@ -542,7 +560,7 @@ footer p {
     justify-content: center;
     width: 100%;
     padding: 12px 20px;
-    background-color: #5d7a9f; /* Warna abu-biru */
+    background-color: #5d7a9f;
     color: white;
     border: none;
     border-radius: 8px;
