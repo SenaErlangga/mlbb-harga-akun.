@@ -15,6 +15,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const feedbackUsernameInput = document.getElementById('feedbackUsername');
     const feedbackSuggestionInput = document.getElementById('feedbackSuggestion');
 
+    // Comments display elements
+    const commentsList = document.getElementById('commentsList');
+    const refreshCommentsBtn = document.getElementById('refreshCommentsBtn');
+    // Ambil Web App URL dari form action untuk GET request
+    const GOOGLE_APPS_SCRIPT_URL = feedbackForm.action; // URL yang sama untuk POST dan GET
+
 
     // Array of skin input IDs
     const skinInputIds = ['skinSupreme', 'skinGrand', 'skinExquisite', 'skinDeluxe', 'skinExceptional', 'skinCommon', 'skinPainted'];
@@ -313,6 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
     winRateInput.dispatchEvent(new Event('input'));
     emblemLevel60Input.dispatchEvent(new Event('input'));
 
+
     // --- Feedback Form Submission Handling ---
     feedbackForm.addEventListener('submit', async function(event) {
         event.preventDefault(); // Prevent default form submission (page reload)
@@ -328,27 +335,91 @@ document.addEventListener('DOMContentLoaded', function() {
                 method: form.method,
                 body: formData,
                 headers: {
-                    'Accept': 'application/json' // Crucial for Formspree to return JSON
+                    'Accept': 'application/json' // Crucial for Formspree/Apps Script to return JSON
                 }
             });
 
             if (response.ok) {
-                feedbackMessage.textContent = 'Terima kasih! Masukan Anda telah terkirim.';
-                feedbackMessage.style.color = '#4CAF50'; // Green for success
-                form.reset(); // Clear the form fields
-            } else {
-                const data = await response.json();
-                if (data.errors) {
-                    feedbackMessage.textContent = 'Gagal mengirim: ' + data.errors.map(err => err.message).join(', ');
+                const data = await response.json(); // Apps Script returns JSON
+                if (data.status === 'success') {
+                    feedbackMessage.textContent = data.message; // Use message from Apps Script
+                    feedbackMessage.style.color = '#4CAF50'; // Green for success
+                    form.reset(); // Clear the form fields
+                    loadComments(); // Refresh comments after successful submission
                 } else {
-                    feedbackMessage.textContent = 'Gagal mengirim masukan. Silakan coba lagi.';
+                    feedbackMessage.textContent = data.message || 'Gagal mengirim masukan. Silakan coba lagi.';
+                    feedbackMessage.style.color = '#ff6b6b'; // Red for error
                 }
-                feedbackMessage.style.color = '#ff6b6b'; // Red for error
+            } else {
+                feedbackMessage.textContent = 'Gagal mengirim masukan. Status: ' + response.status;
+                feedbackMessage.style.color = '#ff6b6b';
             }
         } catch (error) {
             console.error('Error submitting feedback:', error);
             feedbackMessage.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
-            feedbackMessage.style.color = '#ff6b6b'; // Red for error
+            feedbackMessage.style.color = '#ff6b6b';
         }
     });
+
+
+    // --- Function to Load and Display Comments ---
+    async function loadComments() {
+        commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>'; // Show loading state
+
+        try {
+            // Menggunakan method GET untuk mengambil data komentar
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.status === 'success' && data.comments) {
+                    displayComments(data.comments);
+                } else {
+                    commentsList.innerHTML = '<p class="no-comments">Gagal memuat komentar. ' + (data.message || '') + '</p>';
+                }
+            } else {
+                commentsList.innerHTML = '<p class="no-comments">Gagal memuat komentar. (Status: ' + response.status + ')</p>';
+            }
+        } catch (error) {
+            console.error('Error loading comments:', error);
+            commentsList.innerHTML = '<p class="no-comments">Terjadi kesalahan jaringan saat memuat komentar. Silakan coba refresh.</p>';
+        }
+    }
+
+    // Function to render comments to the DOM
+    function displayComments(comments) {
+        commentsList.innerHTML = ''; // Clear previous comments
+
+        if (comments.length === 0) {
+            commentsList.innerHTML = '<p class="no-comments">Belum ada komentar atau saran.</p>';
+            return;
+        }
+
+        comments.forEach(comment => {
+            const commentItem = document.createElement('div');
+            commentItem.classList.add('comment-item');
+
+            commentItem.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-username">${comment.username || 'Anonim'}</span>
+                    <span class="comment-timestamp">${comment.timestamp || ''}</span>
+                </div>
+                <div class="comment-body">
+                    ${comment.suggestion || ''}
+                </div>
+            `;
+            commentsList.appendChild(commentItem);
+        });
+    }
+
+    // --- Event Listeners for Comments Section ---
+    refreshCommentsBtn.addEventListener('click', loadComments); // Refresh button calls loadComments
+
+    // Load comments when the page first loads
+    loadComments();
 });
