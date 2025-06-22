@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const priceBreakdown = document.getElementById('priceBreakdown');
     const winRateInput = document.getElementById('winRate');
     const winRateProgressBar = document.getElementById('winRateProgressBar');
+    const totalRankMatchesInput = document.getElementById('totalRankMatches');
     const emblemLevel60Input = document.getElementById('emblemLevel60');
     const emblemCountSpan = document.getElementById('emblemCount');
     const resultSection = document.querySelector('.result-section');
@@ -27,7 +28,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Konfigurasi Input Skin ---
-    const skinInputIds = ['skinSupreme', 'skinGrand', 'skinExquisite', 'skinDeluxe', 'skinExceptional', 'skinCommon', 'skinPainted'];
+    const skinInputIds = [
+        'skinSupreme', 'skinGrand', 'skinExquisite', 'skinDeluxe', 
+        'skinExceptional', 'skinCommon', 'skinPainted'
+    ];
 
     // --- Fungsi Helper Umum ---
     function formatToIDR(amount) {
@@ -71,6 +75,15 @@ document.addEventListener('DOMContentLoaded', function() {
             clearError('totalHeroes');
         }
 
+        const totalRankMatches = parseInt(totalRankMatchesInput.value);
+        if (isNaN(totalRankMatches) || totalRankMatches < 0) {
+            showError('totalRankMatches', 'Total Ranked Matches harus angka positif.');
+            isValid = false;
+        } else {
+            clearError('totalRankMatches');
+        }
+
+
         const emblemLevel60 = parseInt(emblemLevel60Input.value);
         if (isNaN(emblemLevel60) || emblemLevel60 < 0 || emblemLevel60 > 7) {
             showError('emblemLevel60', 'Jumlah Emblem Level 60 harus antara 0-7.');
@@ -109,13 +122,14 @@ document.addEventListener('DOMContentLoaded', function() {
         let breakdown = {};
 
         // 1. Harga Dasar Akun
-        const basePrice = 50000;
+        const basePrice = 10000;
         totalPrice += basePrice;
         breakdown['Harga Dasar Akun'] = basePrice;
 
         // 2. Ambil Input dari Formulir
         const tier = document.getElementById('tier').value;
         const winRate = parseFloat(winRateInput.value) || 0;
+        const totalRankMatches = parseInt(totalRankMatchesInput.value) || 0;
         const emblemLevel60 = parseInt(emblemLevel60Input.value) || 0;
 
         const skinSupreme = parseInt(document.getElementById('skinSupreme').value) || 0;
@@ -128,77 +142,99 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
         // 3. Perhitungan Berdasarkan Bobot/Nilai
+
+        // A. Skin (Poin Koleksi) - REVISI HARGA PER POIN
         const skinPoinValues = {
             'Supreme': 4000, 'Grand': 3000, 'Exquisite': 2000, 'Deluxe': 400,
-            'Exceptional': 200, 'Common': 100, 'Painted': 40
+            'Exceptional': 200, 'Common': 10, 'Painted': 40
         };
-        const pricePerSkinPoint = 38; 
+        const pricePerSkinPoint = 20; // REVISI AKHIR: Rp 20 per poin (dulu 25)
 
         let skinContributionTotal = 0;
 
-        const supremeContribution = skinSupreme * skinPoinValues.Supreme * pricePerSkinPoint;
+        const supremeContribution = supremeContribution * skinPoinValues.Supreme * pricePerSkinPoint;
         if (supremeContribution > 0) breakdown['Skin Supreme'] = supremeContribution;
         skinContributionTotal += supremeContribution;
 
-        const grandContribution = skinGrand * skinPoinValues.Grand * pricePerSkinPoint;
+        const grandContribution = grandContribution * skinPoinValues.Grand * pricePerSkinPoint;
         if (grandContribution > 0) breakdown['Skin Grand'] = grandContribution;
         skinContributionTotal += grandContribution;
 
-        const exquisiteContribution = skinExquisite * skinPoinValues.Exquisite * pricePerSkinPoint;
+        const exquisiteContribution = exquisiteContribution * skinPoinValues.Exquisite * pricePerSkinPoint;
         if (exquisiteContribution > 0) breakdown['Skin Exquisite'] = exquisiteContribution;
         skinContributionTotal += exquisiteContribution;
 
-        const deluxeContribution = skinDeluxe * skinPoinValues.Deluxe * pricePerSkinPoint;
+        const deluxeContribution = deluxeContribution * skinPoinValues.Deluxe * pricePerSkinPoint;
         if (deluxeContribution > 0) breakdown['Skin Deluxe'] = deluxeContribution;
         skinContributionTotal += deluxeContribution;
 
-        const exceptionalContribution = skinExceptional * skinPoinValues.Exceptional * pricePerSkinPoint;
+        const exceptionalContribution = exceptionalContribution * skinPoinValues.Exceptional * pricePerSkinPoint;
         if (exceptionalContribution > 0) breakdown['Skin Exceptional'] = exceptionalContribution;
         skinContributionTotal += exceptionalContribution;
 
-        const commonContribution = skinCommon * skinPoinValues.Common * pricePerSkinPoint;
+        const commonContribution = commonContribution * skinPoinValues.Common * pricePerSkinPoint;
         if (commonContribution > 0) breakdown['Skin Common'] = commonContribution;
         skinContributionTotal += commonContribution;
 
-        const paintedContribution = paintedSkin * skinPoinValues.Painted * pricePerSkinPoint;
+        const paintedContribution = paintedContribution * skinPoinValues.Painted * pricePerSkinPoint;
         if (paintedContribution > 0) breakdown['Painted Skin'] = paintedContribution;
         skinContributionTotal += paintedContribution;
 
         totalPrice += skinContributionTotal;
 
 
+        // B. Emblem Level 60
         const emblemContribution = emblemLevel60 * 25000;
         totalPrice += emblemContribution;
         breakdown['Emblem Level 60'] = emblemContribution;
 
-        const heroContribution = 0; // Hero dihargai Rp 0
+        // C. Jumlah Hero (tetap 0)
+        const heroContribution = 0;
         breakdown['Jumlah Hero'] = heroContribution;
 
+        // D. Tier Saat Ini
         const tierValues = {
-            'Warrior': 0, 'Elite': 0, 'Master': 0, 'Grandmaster': 20000,
-            'Epic': 50000, 'Legend': 100000, 'Mythic': 200000,
-            'Mythical Honor': 400000, 'Mythical Glory': 750000, 'Mythical Immortal': 1250000
+            'Warrior': 0, 'Elite': 0, 'Master': 0, 'Grandmaster': 0,
+            'Epic': 10000,
+            'Legend': 50000,
+            'Mythic': 150000,
+            'Mythical Honor': 300000,
+            'Mythical Glory': 1000000,
+            'Mythical Immortal': 2000000
         };
         const tierContribution = tierValues[tier] || 0;
         totalPrice += tierContribution;
         breakdown['Tier Saat Ini'] = tierContribution;
 
-        let winRateContribution = 0;
+        // E. Win Rate Rank (dengan Multiplier Match Rank)
+        let winRateBaseValue = 0;
         if (winRate >= 75) {
-            winRateContribution = 1800000;
+            winRateBaseValue = 2000000;
         } else if (winRate >= 70) {
-            winRateContribution = 1200000;
+            winRateBaseValue = 800000;
         } else if (winRate >= 65) {
-            winRateContribution = 800000;
+            winRateBaseValue = 300000;
         } else if (winRate >= 60) {
-            winRateContribution = 500000;
-        } else if (winRate >= 55) {
-            winRateContribution = 250000;
-        } else if (winRate >= 50) {
-            winRateContribution = 100000;
+            winRateBaseValue = 100000;
         }
+
+        let matchMultiplier = 0;
+        if (totalRankMatches >= 2000) {
+            matchMultiplier = 1;
+        } else if (totalRankMatches >= 1000) {
+            matchMultiplier = 0.5;
+        } else if (totalRankMatches < 1000) {
+             matchMultiplier = 0;
+        }
+
+        let winRateContribution = winRateBaseValue * matchMultiplier;
         totalPrice += winRateContribution;
         breakdown['Win Rate Rank'] = winRateContribution;
+        if (winRateBaseValue > 0 && matchMultiplier === 0) {
+             breakdown['Catatan WR'] = 'WR tidak dihitung penuh karena match < 1000';
+        } else if (winRateBaseValue > 0 && matchMultiplier === 0.5) {
+            breakdown['Catatan WR'] = 'WR dihitung 50% karena match 1000-1999';
+        }
 
 
         if (totalPrice < 0) {
@@ -219,12 +255,13 @@ document.addEventListener('DOMContentLoaded', function() {
             'Emblem Level 60',
             'Jumlah Hero',
             'Tier Saat Ini',
-            'Win Rate Rank'
+            'Win Rate Rank',
+            'Catatan WR'
         ];
 
         orderedBreakdownKeys.forEach(key => {
-            if (breakdown[key] !== undefined && (breakdown[key] > 0 || (key === 'Harga Dasar Akun' && breakdown[key] > 0))) {
-                breakdownHTML += `<p><span>${key}:</span> <span>${formatToIDR(breakdown[key])}</span></p>`;
+            if (breakdown[key] !== undefined && (breakdown[key] > 0 || (key === 'Harga Dasar Akun' && breakdown[key] > 0) || key === 'Catatan WR')) {
+                breakdownHTML += `<p><span>${key}:</span> <span>${key === 'Catatan WR' ? breakdown[key] : formatToIDR(breakdown[key])}</span></p>`;
             }
         });
         priceBreakdown.innerHTML = breakdownHTML;
@@ -238,6 +275,7 @@ document.addEventListener('DOMContentLoaded', function() {
     resetBtn.addEventListener('click', function() {
         document.getElementById('tier').value = 'Warrior';
         winRateInput.value = '';
+        totalRankMatchesInput.value = '';
         document.getElementById('totalHeroes').value = '';
         emblemLevel60Input.value = '';
 
@@ -248,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         clearError('winRate');
+        clearError('totalRankMatches');
         clearError('totalHeroes');
         clearError('emblemLevel60');
         skinInputIds.forEach(id => clearError(id));
@@ -281,6 +320,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     document.getElementById('totalHeroes').addEventListener('input', () => clearError('totalHeroes'));
+    totalRankMatchesInput.addEventListener('input', () => clearError('totalRankMatches'));
+
 
     skinInputIds.forEach(id => {
         const inputElement = document.getElementById(id);
@@ -426,7 +467,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 const data = await response.json();
                 if (data.status === 'success' && typeof data.count === 'number') {
-                    visitorCountSpan.textContent = data.count.toLocaleString('id-ID') + " Player"; // KOREKSI DI SINI
+                    visitorCountSpan.textContent = data.count.toLocaleString('id-ID') + " Player";
                 } else {
                     console.error('Failed to get visitor count:', data.message || 'Unknown error');
                     visitorCountSpan.textContent = 'N/A';
@@ -443,9 +484,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Event Listeners Utama ---
-    refreshCommentsBtn.addEventListener('click', loadComments);
+    refreshCommentsBtn.addEventListener('click', loadComments); // Refresh button calls loadComments
 
-    // --- Panggil Fungsi Saat Halaman Dimuat ---
+    // Load comments when the page first loads
     loadComments();
+
+    // Load visitor count when the page first loads
     loadVisitorCount(); // Panggil fungsi counter
 });
