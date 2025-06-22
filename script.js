@@ -317,27 +317,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(form);
 
         feedbackMessage.textContent = 'Mengirim masukan...';
-        feedbackMessage.style.color = '#a0c4ff'; 
+        feedbackMessage.style.color = '#a0c4ff'; // Light blue for sending status
 
         try {
             const response = await fetch(form.action, {
                 method: form.method,
                 body: formData,
                 headers: {
-                    'Accept': 'application/json' 
+                    'Accept': 'application/json' // Crucial for Formspree/Apps Script to return JSON
                 }
             });
 
             if (response.ok) {
-                const data = await response.json(); 
+                const data = await response.json(); // Apps Script returns JSON
                 if (data.status === 'success') {
-                    feedbackMessage.textContent = data.message;
-                    feedbackMessage.style.color = '#4CAF50'; 
-                    form.reset(); 
-                    loadComments(); // Refresh komentar setelah pengiriman sukses
+                    feedbackMessage.textContent = data.message; // Use message from Apps Script
+                    feedbackMessage.style.color = '#4CAF50'; // Green for success
+                    form.reset(); // Clear the form fields
+                    loadComments(); // Refresh comments after successful submission
                 } else {
                     feedbackMessage.textContent = data.message || 'Gagal mengirim masukan. Silakan coba lagi.';
-                    feedbackMessage.style.color = '#ff6b6b'; 
+                    feedbackMessage.style.color = '#ff6b6b'; // Red for error
                 }
             } else {
                 feedbackMessage.textContent = 'Gagal mengirim masukan. Status: ' + response.status;
@@ -351,12 +351,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- Fungsi untuk Memuat dan Menampilkan Komentar ---
+    // --- Function to Load and Display Comments ---
     async function loadComments() {
-        commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>';
+        commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>'; // Show loading state
 
         try {
-            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getComments', {
+            // Menggunakan method GET untuk mengambil data komentar
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getComments', { // Tambah parameter action
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'
@@ -379,9 +380,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Fungsi untuk me-render komentar ke DOM
+    // Function to render comments to the DOM
     function displayComments(comments) {
-        commentsList.innerHTML = ''; 
+        commentsList.innerHTML = ''; // Clear previous comments
 
         if (comments.length === 0) {
             commentsList.innerHTML = '<p class="no-comments">Belum ada komentar atau saran.</p>';
@@ -410,9 +411,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Fungsi untuk Memuat dan Menampilkan Jumlah Pengunjung ---
+    // --- Function to Load and Display Visitor Count ---
     async function loadVisitorCount() {
-        if (!visitorCountSpan) return; 
+        if (!visitorCountSpan) return; // Exit if element not found
 
         try {
             const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getCounter', { // Panggil Apps Script untuk counter
@@ -425,7 +426,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 const data = await response.json();
                 if (data.status === 'success' && typeof data.count === 'number') {
-                    visitorCountSpan.textContent = data.count.toLocaleString('id-ID');
+                    visitorCountSpan.textContent = data.count.toLocaleString('id-ID') + " Player"; // KOREKSI DI SINI
                 } else {
                     console.error('Failed to get visitor count:', data.message || 'Unknown error');
                     visitorCountSpan.textContent = 'N/A';
