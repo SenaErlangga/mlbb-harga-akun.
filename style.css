@@ -10,6 +10,29 @@ body {
     min-height: 100vh; /* Ensure body takes full viewport height */
 }
 
+/* Fixed Visitor Counter Styling */
+#fixedVisitorCounter {
+    position: fixed; /* Membuat elemen melayang */
+    top: 15px; /* Jarak dari atas */
+    right: 15px; /* Jarak dari kanan */
+    background-color: rgba(40, 58, 84, 0.9); /* Latar belakang semi-transparan */
+    color: #ffd700; /* Warna emas */
+    padding: 8px 12px; /* Padding kecil */
+    border-radius: 8px; /* Sudut membulat */
+    font-size: 0.9em; /* Ukuran font kecil */
+    font-weight: 600;
+    z-index: 1000; /* Pastikan di atas elemen lain */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Bayangan */
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Jarak antara ikon dan angka */
+}
+
+#fixedVisitorCounter .fas {
+    font-size: 1.1em; /* Ukuran ikon */
+}
+
+
 .container {
     background-color: #283a54; /* Slightly lighter dark blue */
     padding: 30px;
@@ -306,331 +329,332 @@ button:active {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
-}
-
-.price-breakdown p span:first-child {
-    font-weight: 600;
-    color: #e0e0e0;
-}
-
-.price-breakdown p span:last-child {
-    color: #ffd700; /* Gold for breakdown values */
-}
-
-
-.result-section .disclaimer {
-    font-size: 0.85em;
-    color: #999;
-    margin-top: 15px;
-}
-
-/* Footer Styling */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #1a2a40; /* Sama dengan background body */
-    color: #b0b0b0;
-    border-top: 1px solid #4a6381;
-    width: 100%; /* Memastikan lebar penuh */
-    box-sizing: border-box; /* Pastikan padding termasuk dalam lebar */
-}
-
-footer p {
-    margin-bottom: 10px;
-}
-
-.footer-links {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.footer-links a {
-    color: #a0c4ff; /* Lighter blue for links */
-    text-decoration: none;
-    margin: 0 8px;
-    transition: color 0.3s ease;
-    white-space: nowrap;
-}
-
-.footer-links a:hover {
-    color: #ffd700; /* Gold on hover */
-}
-
-/* Feedback Section Styling */
-.feedback-section {
-    margin-top: 40px;
-    padding: 30px;
-    background-color: #364f6b;
-    border-radius: 12px;
-    border: 1px solid #5d7a9f;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-}
-
-.feedback-section h2 {
-    text-align: center;
-    color: #ffd700;
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 25px;
-}
-
-.feedback-section h2 .fas {
-    color: #a0c4ff;
-}
-
-.feedback-section .description {
-    margin-bottom: 30px;
-    color: #b0b0b0;
-    text-align: center;
-}
-
-/* Input field styling for feedback form */
-.feedback-section .form-group label {
-    font-weight: 600;
-    color: #e0e0e0;
-}
-
-.feedback-section input[type="text"],
-.feedback-section textarea {
-    width: calc(100% - 24px); /* Sesuaikan untuk padding 12px di setiap sisi */
-    padding: 12px;
-    border: 1px solid #778da9;
-    border-radius: 8px;
-    background-color: #4a6381;
-    color: #fff;
-    font-size: 1em;
-    box-sizing: border-box;
-    margin-top: 5px;
-    resize: vertical;
-    min-height: 100px;
-}
-
-.feedback-section input[type="text"]:focus,
-.feedback-section textarea:focus {
-    border-color: #ffd700;
-    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
-    outline: none;
-}
-
-/* Send button styling */
-.feedback-section .send-feedback-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 15px 20px;
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    border-radius: 8px;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    margin-top: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.feedback-section .send-feedback-button:hover {
-    background-color: #3e8e41;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-}
-
-.feedback-section .send-feedback-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.feedback-section .send-feedback-button .fas {
-    margin-right: 10px;
-}
-
-.feedback-section .feedback-message {
-    text-align: center;
-    margin-top: 15px;
-    font-size: 0.95em;
-    font-weight: 600;
-    color: #a0c4ff;
-}
-
-/* Comments Display Section Styling */
-.comments-display-section {
-    margin-top: 40px;
-    padding: 30px;
-    background-color: #364f6b;
-    border-radius: 12px;
-    border: 1px solid #5d7a9f;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-}
-
-.comments-display-section h2 {
-    text-align: center;
-    color: #ffd700;
-    border-bottom: none;
-    padding-bottom: 0;
-    margin-bottom: 25px;
-}
-
-.comments-display-section h2 .fas {
-    color: #a0c4ff;
-}
-
-.comments-display-section .description {
-    margin-bottom: 30px;
-    color: #b0b0b0;
-    text-align: center;
-}
-
-.comments-list {
-    margin-top: 20px;
-    min-height: 100px;
-}
-
-.comment-item {
-    background-color: #4a6381;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.comment-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 8px;
-}
-
-.comment-username {
-    font-weight: 700;
-    color: #a0c4ff;
-    font-size: 1.1em;
-}
-
-.comment-timestamp {
-    font-size: 0.8em;
-    color: #b0b0b0;
-}
-
-.comment-body {
-    font-size: 0.95em;
-    color: #e0e0e0;
-    line-height: 1.5;
-    word-wrap: break-word;
-}
-
-.admin-reply { /* Styling untuk Balasan Admin */
-    background-color: #364f6b; /* Warna lebih gelap untuk kontras */
-    border-left: 4px solid #a0c4ff; /* Garis biru di samping */
-    padding: 10px 15px;
-    margin-top: 15px;
-    border-radius: 0 5px 5px 0; /* Bulat di kanan saja */
-}
-
-.admin-reply p {
-    margin: 0;
-    color: #e0e0e0;
-    font-size: 0.9em;
-}
-
-.admin-reply p strong {
-    color: #ffd700; /* Emas untuk "Balasan Admin" */
-}
-
-.loading-comments {
-    text-align: center;
-    color: #a0c4ff;
-    font-style: italic;
-    margin-bottom: 20px;
-}
-
-.no-comments {
-    text-align: center;
-    color: #b0b0b0;
-    font-style: italic;
-    margin-bottom: 20px;
-}
-
-.refresh-comments-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 12px 20px;
-    background-color: #5d7a9f;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    margin-top: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.refresh-comments-button:hover {
-    background-color: #4a6381;
-    transform: translateY(-1px);
-}
-
-.refresh-comments-button .fas {
-    margin-right: 8px;
-}
-
-/* Media Queries for Responsiveness */
-
-/* Tablets and larger phones (e.g., 600px and up) */
-@media (min-width: 600px) {
-    .container {
-        padding: 40px;
-        width: calc(100% - 80px);
     }
 
-    h1 {
-        font-size: 2.2em;
+    .price-breakdown p span:first-child {
+        font-weight: 600;
+        color: #e0e0e0;
     }
 
-    h2 {
-        font-size: 1.6em;
+    .price-breakdown p span:last-child {
+        color: #ffd700; /* Gold for breakdown values */
     }
 
-    .skin-category-grid {
-        grid-template-columns: 1fr 1fr;
+
+    .result-section .disclaimer {
+        font-size: 0.85em;
+        color: #999;
+        margin-top: 15px;
     }
 
-    .button-group {
-        flex-direction: row;
-    }
-}
-
-/* Desktops and larger (e.g., 768px and up) */
-@media (min-width: 768px) {
-    h1 {
-        font-size: 2.5em;
-    }
-
-    h2 {
-        font-size: 1.8em;
+    /* Footer Styling */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #1a2a40; /* Sama dengan background body */
+        color: #b0b0b0;
+        border-top: 1px solid #4a6381;
+        width: 100%; /* Memastikan lebar penuh */
+        box-sizing: border-box; /* Pastikan padding termasuk dalam lebar */
     }
 
-    .skin-category-grid {
-        grid-template-columns: 1fr 1fr 1fr;
+    footer p {
+        margin-bottom: 10px;
     }
 
-    .form-group input[type="number"],
-    .form-group select,
-    .form-group textarea {
+    .footer-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .footer-links a {
+        color: #a0c4ff; /* Lighter blue for links */
+        text-decoration: none;
+        margin: 0 8px;
+        transition: color 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .footer-links a:hover {
+        color: #ffd700; /* Gold on hover */
+    }
+
+    /* Feedback Section Styling */
+    .feedback-section {
+        margin-top: 40px;
+        padding: 30px;
+        background-color: #364f6b;
+        border-radius: 12px;
+        border: 1px solid #5d7a9f;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .feedback-section h2 {
+        text-align: center;
+        color: #ffd700;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 25px;
+    }
+
+    .feedback-section h2 .fas {
+        color: #a0c4ff;
+    }
+
+    .feedback-section .description {
+        margin-bottom: 30px;
+        color: #b0b0b0;
+        text-align: center;
+    }
+
+    /* Input field styling for feedback form */
+    .feedback-section .form-group label {
+        font-weight: 600;
+        color: #e0e0e0;
+    }
+
+    .feedback-section input[type="text"],
+    .feedback-section textarea {
+        width: calc(100% - 24px); /* Sesuaikan untuk padding 12px di setiap sisi */
+        padding: 12px;
+        border: 1px solid #778da9;
+        border-radius: 8px;
+        background-color: #4a6381;
+        color: #fff;
+        font-size: 1em;
+        box-sizing: border-box;
+        margin-top: 5px;
+        resize: vertical;
+        min-height: 100px;
+    }
+
+    .feedback-section input[type="text"]:focus,
+    .feedback-section textarea:focus {
+        border-color: #ffd700;
+        box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
+        outline: none;
+    }
+
+    /* Send button styling */
+    .feedback-section .send-feedback-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         width: 100%;
+        padding: 15px 20px;
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        border-radius: 8px;
+        font-size: 1.1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        margin-top: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
-}
 
-/* Further larger screens (e.g., 992px and up) */
-@media (min-width: 992px) {
-    .skin-category-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    .feedback-section .send-feedback-button:hover {
+        background-color: #3e8e41;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     }
-}
+
+    .feedback-section .send-feedback-button:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .feedback-section .send-feedback-button .fas {
+        margin-right: 10px;
+    }
+
+    .feedback-section .feedback-message {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 0.95em;
+        font-weight: 600;
+        color: #a0c4ff;
+    }
+
+    /* Comments Display Section Styling */
+    .comments-display-section {
+        margin-top: 40px;
+        padding: 30px;
+        background-color: #364f6b;
+        border-radius: 12px;
+        border: 1px solid #5d7a9f;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .comments-display-section h2 {
+        text-align: center;
+        color: #ffd700;
+        border-bottom: none;
+        padding-bottom: 0;
+        margin-bottom: 25px;
+    }
+
+    .comments-display-section h2 .fas {
+        color: #a0c4ff;
+    }
+
+    .comments-display-section .description {
+        margin-bottom: 30px;
+        color: #b0b0b0;
+        text-align: center;
+    }
+
+    .comments-list {
+        margin-top: 20px;
+        min-height: 100px;
+    }
+
+    .comment-item {
+        background-color: #4a6381;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .comment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .comment-username {
+        font-weight: 700;
+        color: #a0c4ff;
+        font-size: 1.1em;
+    }
+
+    .comment-timestamp {
+        font-size: 0.8em;
+        color: #b0b0b0;
+    }
+
+    .comment-body {
+        font-size: 0.95em;
+        color: #e0e0e0;
+        line-height: 1.5;
+        word-wrap: break-word;
+    }
+
+    .admin-reply {
+        background-color: #364f6b;
+        border-left: 4px solid #a0c4ff;
+        padding: 10px 15px;
+        margin-top: 15px;
+        border-radius: 0 5px 5px 0;
+    }
+
+    .admin-reply p {
+        margin: 0;
+        color: #e0e0e0;
+        font-size: 0.9em;
+    }
+
+    .admin-reply p strong {
+        color: #ffd700;
+    }
+
+    .loading-comments {
+        text-align: center;
+        color: #a0c4ff;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    .no-comments {
+        text-align: center;
+        color: #b0b0b0;
+        font-style: italic;
+        margin-bottom: 20px;
+    }
+
+    .refresh-comments-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 12px 20px;
+        background-color: #5d7a9f;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1em;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        margin-top: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .refresh-comments-button:hover {
+        background-color: #4a6381;
+        transform: translateY(-1px);
+    }
+
+    .refresh-comments-button .fas {
+        margin-right: 8px;
+    }
+
+    /* Media Queries for Responsiveness */
+
+    /* Tablets and larger phones (e.g., 600px and up) */
+    @media (min-width: 600px) {
+        .container {
+            padding: 40px;
+            width: calc(100% - 80px);
+        }
+
+        h1 {
+            font-size: 2.2em;
+        }
+
+        h2 {
+            font-size: 1.6em;
+        }
+
+        .skin-category-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .button-group {
+            flex-direction: row;
+        }
+    }
+
+    /* Desktops and larger (e.g., 768px and up) */
+    @media (min-width: 768px) {
+        h1 {
+            font-size: 2.5em;
+        }
+
+        h2 {
+            font-size: 1.8em;
+        }
+
+        .skin-category-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        .form-group input[type="text"], /* Added for username field */
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+        }
+    }
+
+    /* Further larger screens (e.g., 992px and up) */
+    @media (min-width: 992px) {
+        .skin-category-grid {
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        }
+    }

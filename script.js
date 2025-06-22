@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // --- Elemen DOM Utama ---
     const calculateBtn = document.getElementById('calculateBtn');
     const resetBtn = document.getElementById('resetBtn');
     const resultPrice = document.getElementById('resultPrice');
@@ -9,28 +10,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const emblemCountSpan = document.getElementById('emblemCount');
     const resultSection = document.querySelector('.result-section');
 
-    // Feedback Form elements
+    // --- Elemen Form Masukan Feedback ---
     const feedbackForm = document.getElementById('feedbackForm');
     const feedbackMessage = document.getElementById('feedbackMessage');
     const feedbackUsernameInput = document.getElementById('feedbackUsername');
     const feedbackSuggestionInput = document.getElementById('feedbackSuggestion');
 
-    // Comments display elements
+    // --- Elemen Tampilan Komentar ---
     const commentsList = document.getElementById('commentsList');
     const refreshCommentsBtn = document.getElementById('refreshCommentsBtn');
-    // Ambil Web App URL dari form action untuk GET request
-    const GOOGLE_APPS_SCRIPT_URL = feedbackForm.action; // URL yang sama untuk POST dan GET
+    // URL Google Apps Script Web App (diambil dari action form feedback)
+    const GOOGLE_APPS_SCRIPT_URL = feedbackForm.action; 
+
+    // --- Elemen Counter Pengunjung ---
+    const visitorCountSpan = document.getElementById('visitorCount');
 
 
-    // Array of skin input IDs
+    // --- Konfigurasi Input Skin ---
     const skinInputIds = ['skinSupreme', 'skinGrand', 'skinExquisite', 'skinDeluxe', 'skinExceptional', 'skinCommon', 'skinPainted'];
 
-    // Function to format number to IDR
+    // --- Fungsi Helper Umum ---
     function formatToIDR(amount) {
         return 'Rp ' + amount.toLocaleString('id-ID');
     }
 
-    // Function to show/hide error messages
     function showError(elementId, message) {
         const errorDiv = document.getElementById(elementId + '-error');
         if (errorDiv) {
@@ -47,11 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to validate all inputs
+    // --- Validasi Input Form Utama ---
     function validateInputs() {
         let isValid = true;
 
-        // Validate Win Rate
         const winRate = parseFloat(winRateInput.value);
         if (isNaN(winRate) || winRate < 0 || winRate > 100) {
             showError('winRate', 'Win Rate harus antara 0-100%.');
@@ -60,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clearError('winRate');
         }
 
-        // Validate Total Heroes
         const totalHeroesInput = document.getElementById('totalHeroes');
         const totalHeroes = parseInt(totalHeroesInput.value);
         if (isNaN(totalHeroes) || totalHeroes < 0) {
@@ -70,7 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clearError('totalHeroes');
         }
 
-        // Validate Emblem Level 60
         const emblemLevel60 = parseInt(emblemLevel60Input.value);
         if (isNaN(emblemLevel60) || emblemLevel60 < 0 || emblemLevel60 > 7) {
             showError('emblemLevel60', 'Jumlah Emblem Level 60 harus antara 0-7.');
@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clearError('emblemLevel60');
         }
 
-        // Validate all skin inputs (ensure non-negative or empty)
         skinInputIds.forEach(id => {
             const inputElement = document.getElementById(id);
             const value = parseInt(inputElement.value);
@@ -98,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+    // --- Fungsi Perhitungan Harga Akun ---
     calculateBtn.addEventListener('click', function() {
         if (!validateInputs()) {
             resultPrice.textContent = 'Rp 0';
@@ -108,34 +108,31 @@ document.addEventListener('DOMContentLoaded', function() {
         let totalPrice = 0;
         let breakdown = {};
 
-        // --- 1. Harga Dasar Akun ---
+        // 1. Harga Dasar Akun
         const basePrice = 50000;
         totalPrice += basePrice;
         breakdown['Harga Dasar Akun'] = basePrice;
 
-        // --- 2. Ambil Input dari Formulir ---
+        // 2. Ambil Input dari Formulir
         const tier = document.getElementById('tier').value;
         const winRate = parseFloat(winRateInput.value) || 0;
         const emblemLevel60 = parseInt(emblemLevel60Input.value) || 0;
 
-        // Skin Quantities
         const skinSupreme = parseInt(document.getElementById('skinSupreme').value) || 0;
         const skinGrand = parseInt(document.getElementById('skinGrand').value) || 0;
         const skinExquisite = parseInt(document.getElementById('skinExquisite').value) || 0;
         const skinDeluxe = parseInt(document.getElementById('skinDeluxe').value) || 0;
         const skinExceptional = parseInt(document.getElementById('skinExceptional').value) || 0;
         const skinCommon = parseInt(document.getElementById('skinCommon').value) || 0;
-        const skinPainted = parseInt(document.getElementById('skinPainted').value) || 0;
+        const paintedSkin = parseInt(document.getElementById('skinPainted').value) || 0;
 
 
-        // --- 3. Perhitungan Berdasarkan Bobot/Nilai ---
-
-        // A. Skin (Poin Koleksi)
+        // 3. Perhitungan Berdasarkan Bobot/Nilai
         const skinPoinValues = {
             'Supreme': 4000, 'Grand': 3000, 'Exquisite': 2000, 'Deluxe': 400,
             'Exceptional': 200, 'Common': 100, 'Painted': 40
         };
-        const pricePerSkinPoint = 38;
+        const pricePerSkinPoint = 38; 
 
         let skinContributionTotal = 0;
 
@@ -163,23 +160,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (commonContribution > 0) breakdown['Skin Common'] = commonContribution;
         skinContributionTotal += commonContribution;
 
-        const paintedContribution = skinPainted * skinPoinValues.Painted * pricePerSkinPoint;
+        const paintedContribution = paintedSkin * skinPoinValues.Painted * pricePerSkinPoint;
         if (paintedContribution > 0) breakdown['Painted Skin'] = paintedContribution;
         skinContributionTotal += paintedContribution;
 
         totalPrice += skinContributionTotal;
 
 
-        // B. Emblem Level 60
         const emblemContribution = emblemLevel60 * 25000;
         totalPrice += emblemContribution;
         breakdown['Emblem Level 60'] = emblemContribution;
 
-        // C. Jumlah Hero (tetap 0)
-        const heroContribution = 0;
+        const heroContribution = 0; // Hero dihargai Rp 0
         breakdown['Jumlah Hero'] = heroContribution;
 
-        // D. Tier Saat Ini
         const tierValues = {
             'Warrior': 0, 'Elite': 0, 'Master': 0, 'Grandmaster': 20000,
             'Epic': 50000, 'Legend': 100000, 'Mythic': 200000,
@@ -189,7 +183,6 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPrice += tierContribution;
         breakdown['Tier Saat Ini'] = tierContribution;
 
-        // E. Win Rate Rank
         let winRateContribution = 0;
         if (winRate >= 75) {
             winRateContribution = 1800000;
@@ -208,7 +201,6 @@ document.addEventListener('DOMContentLoaded', function() {
         breakdown['Win Rate Rank'] = winRateContribution;
 
 
-        // Pastikan harga tidak minus
         if (totalPrice < 0) {
             totalPrice = 0;
         }
@@ -219,7 +211,6 @@ document.addEventListener('DOMContentLoaded', function() {
         void resultPrice.offsetWidth;
         resultPrice.classList.add('fade-in-result');
 
-        // Display Breakdown
         let breakdownHTML = '';
         const orderedBreakdownKeys = [
             'Harga Dasar Akun',
@@ -238,13 +229,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         priceBreakdown.innerHTML = breakdownHTML;
 
-        // --- Fitur Auto-Scroll ke Hasil ---
         if (resultSection) {
             resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
 
-    // Reset Button Functionality
+    // --- Reset Button Functionality ---
     resetBtn.addEventListener('click', function() {
         document.getElementById('tier').value = 'Warrior';
         winRateInput.value = '';
@@ -269,7 +259,7 @@ document.addEventListener('DOMContentLoaded', function() {
         priceBreakdown.innerHTML = '';
     });
 
-    // Event listeners for visual updates and error clearing on input
+    // --- Event Listeners untuk Update Visual Form ---
     winRateInput.addEventListener('input', function() {
         const value = parseFloat(winRateInput.value);
         if (!isNaN(value) && value >= 0 && value <= 100) {
@@ -292,7 +282,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('totalHeroes').addEventListener('input', () => clearError('totalHeroes'));
 
-    // Handle skin inputs: empty value, placeholder, and blur behavior
     skinInputIds.forEach(id => {
         const inputElement = document.getElementById(id);
         inputElement.value = '';
@@ -315,40 +304,40 @@ document.addEventListener('DOMContentLoaded', function() {
         inputElement.addEventListener('input', () => clearError(id));
     });
 
-    // Initialize progress bar and emblem count text on load
+    // --- Inisialisasi Visual Form saat Halaman Dimuat ---
     winRateInput.dispatchEvent(new Event('input'));
     emblemLevel60Input.dispatchEvent(new Event('input'));
 
 
     // --- Feedback Form Submission Handling ---
     feedbackForm.addEventListener('submit', async function(event) {
-        event.preventDefault(); // Prevent default form submission (page reload)
+        event.preventDefault(); // Mencegah form reload halaman
 
         const form = event.target;
         const formData = new FormData(form);
 
         feedbackMessage.textContent = 'Mengirim masukan...';
-        feedbackMessage.style.color = '#a0c4ff'; // Light blue for sending status
+        feedbackMessage.style.color = '#a0c4ff'; 
 
         try {
             const response = await fetch(form.action, {
                 method: form.method,
                 body: formData,
                 headers: {
-                    'Accept': 'application/json' // Crucial for Formspree/Apps Script to return JSON
+                    'Accept': 'application/json' 
                 }
             });
 
             if (response.ok) {
-                const data = await response.json(); // Apps Script returns JSON
+                const data = await response.json(); 
                 if (data.status === 'success') {
-                    feedbackMessage.textContent = data.message; // Use message from Apps Script
-                    feedbackMessage.style.color = '#4CAF50'; // Green for success
-                    form.reset(); // Clear the form fields
-                    loadComments(); // Refresh comments after successful submission
+                    feedbackMessage.textContent = data.message;
+                    feedbackMessage.style.color = '#4CAF50'; 
+                    form.reset(); 
+                    loadComments(); // Refresh komentar setelah pengiriman sukses
                 } else {
                     feedbackMessage.textContent = data.message || 'Gagal mengirim masukan. Silakan coba lagi.';
-                    feedbackMessage.style.color = '#ff6b6b'; // Red for error
+                    feedbackMessage.style.color = '#ff6b6b'; 
                 }
             } else {
                 feedbackMessage.textContent = 'Gagal mengirim masukan. Status: ' + response.status;
@@ -362,13 +351,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 
-    // --- Function to Load and Display Comments ---
+    // --- Fungsi untuk Memuat dan Menampilkan Komentar ---
     async function loadComments() {
-        commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>'; // Show loading state
+        commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>';
 
         try {
-            // Menggunakan method GET untuk mengambil data komentar
-            const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getComments', {
                 method: 'GET',
                 headers: {
                     'Accept': 'application/json'
@@ -391,9 +379,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to render comments to the DOM
+    // Fungsi untuk me-render komentar ke DOM
     function displayComments(comments) {
-        commentsList.innerHTML = ''; // Clear previous comments
+        commentsList.innerHTML = ''; 
 
         if (comments.length === 0) {
             commentsList.innerHTML = '<p class="no-comments">Belum ada komentar atau saran.</p>';
@@ -412,7 +400,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="comment-body">
                     ${comment.suggestion || ''}
                 </div>
-                ${comment.adminreply ? ` <div class="admin-reply">
+                ${comment.adminreply && comment.adminreply.trim() !== '' ? ` <div class="admin-reply">
                     <p><strong>Balasan Admin:</strong></p>
                     <p>${comment.adminreply}</p>
                 </div>
@@ -422,9 +410,41 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // --- Event Listeners for Comments Section ---
-    refreshCommentsBtn.addEventListener('click', loadComments); // Refresh button calls loadComments
+    // --- Fungsi untuk Memuat dan Menampilkan Jumlah Pengunjung ---
+    async function loadVisitorCount() {
+        if (!visitorCountSpan) return; 
 
-    // Load comments when the page first loads
+        try {
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getCounter', { // Panggil Apps Script untuk counter
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.status === 'success' && typeof data.count === 'number') {
+                    visitorCountSpan.textContent = data.count.toLocaleString('id-ID');
+                } else {
+                    console.error('Failed to get visitor count:', data.message || 'Unknown error');
+                    visitorCountSpan.textContent = 'N/A';
+                }
+            } else {
+                console.error('Failed to fetch visitor count. Status:', response.status);
+                visitorCountSpan.textContent = 'N/A';
+            }
+        } catch (error) {
+            console.error('Network error fetching visitor count:', error);
+            visitorCountSpan.textContent = 'N/A';
+        }
+    }
+
+
+    // --- Event Listeners Utama ---
+    refreshCommentsBtn.addEventListener('click', loadComments);
+
+    // --- Panggil Fungsi Saat Halaman Dimuat ---
     loadComments();
+    loadVisitorCount(); // Panggil fungsi counter
 });
