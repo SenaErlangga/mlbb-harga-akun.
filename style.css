@@ -224,9 +224,8 @@ h2 .fas {
     margin-top: 20px;
 }
 
-/* Styling for generic buttons (calculate, reset) */
-/* TARGET BUTTONS DENGAN CLASS BARU UNTUK MENCEGAH KONFLIK */
-.main-action-button { /* Ini class baru untuk tombol Hitung dan Reset */
+/* Styling untuk tombol utama (Hitung dan Reset) */
+.main-action-button { 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -273,8 +272,8 @@ h2 .fas {
 }
 
 
-/* Styling for links that act like buttons, e.g., "Kembali ke Kalkulator" */
-.button { /* Class ini tetap untuk link kembali, sudah diatur */
+/* Styling untuk link yang bertindak sebagai tombol, e.g., "Kembali ke Kalkulator" */
+.button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -323,10 +322,10 @@ h2 .fas {
     border-radius: 8px;
 }
 
-#resultPrice { /* INI STYLING HARGA ESTIMASI */
+#resultPrice { /* STYLING HARGA ESTIMASI */
     font-size: 2.5em; /* Default/desktop size */
     font-weight: 700;
-    color: #ffd700; /* Warna emas */
+    color: #ffd700;
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -356,177 +355,169 @@ h2 .fas {
     margin: 5px 0;
     display: flex;
     justify-content: space-between;
-    }
+}
 
-    .price-breakdown p span:first-child {
-        font-weight: 600;
-        color: #e0e0e0;
-    }
+.price-breakdown p span:first-child {
+    font-weight: 600;
+    color: #e0e0e0;
+}
 
-    .price-breakdown p span:last-child {
-        color: #ffd700;
-    }
+.price-breakdown p span:last-child {
+    color: #ffd700;
+}
 
 
-    .result-section .disclaimer {
-        font-size: 0.85em;
-        color: #999;
-        margin-top: 15px;
-    }
+.result-section .disclaimer {
+    font-size: 0.85em;
+    color: #999;
+    margin-top: 15px;
+}
 
-    /* Footer Styling */
-    footer {
-        text-align: center;
-        padding: 20px;
-        background-color: #1a2a40;
-        color: #b0b0b0;
-        border-top: 1px solid #4a6381;
-        width: 100%;
-        box-sizing: border-box;
-    }
+/* Footer Styling */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1a2a40;
+    color: #b0b0b0;
+    border-top: 1px solid #4a6381;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-    footer p {
-        margin-bottom: 10px;
-    }
+footer p {
+    margin-bottom: 10px;
+}
 
-    .footer-links {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 10px;
-    }
+.footer-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
 
-    .footer-links a {
-        color: #a0c4ff;
-        text-decoration: none;
-        margin: 0 8px;
-        transition: color 0.3s ease;
-        white-space: nowrap;
-    }
+.footer-links a {
+    color: #a0c4ff;
+    text-decoration: none;
+    margin: 0 8px;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+}
 
-    .footer-links a:hover {
-        color: #ffd700;
-    }
+.footer-links a:hover {
+    color: #ffd700;
+}
 
-    /* Feedback Section Styling */
-    .feedback-section {
-        margin-top: 40px;
-        padding: 30px;
-        background-color: #364f6b;
-        border-radius: 12px;
-        border: 1px solid #5d7a9f;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    }
+/* Feedback Section Styling */
+.feedback-section {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #364f6b;
+    border-radius: 12px;
+    border: 1px solid #5d7a9f;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
 
-    .feedback-section h2 {
-        text-align: center;
-        color: #ffd700;
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 25px;
-    }
+.feedback-section h2 {
+    text-align: center;
+    color: #ffd700;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 25px;
+}
 
-    .feedback-section h2 .fas {
-        color: #a0c4ff;
-    }
+.feedback-section h2 .fas {
+    color: #a0c4ff;
+}
 
-    .feedback-section .description {
-        margin-bottom: 30px;
-        color: #b0b0b0;
-        text-align: center;
-    }
+.feedback-section .description {
+    margin-bottom: 30px;
+    color: #b0b0b0;
+    text-align: center;
+}
 
-    /* Input field styling for feedback form */
-    .feedback-section input[type="text"],
-    .feedback-section textarea {
-        width: 100%; /* Dibuat 100% */
-        padding: 12px;
-        border: 1px solid #778da9;
-        border-radius: 8px;
-        background-color: #4a6381;
-        color: #fff;
-        font-size: 1em;
-        box-sizing: border-box;
-        margin-top: 5px;
-        resize: vertical;
-        min-height: 100px;
-    }
+/* Input field styling for feedback form */
+.feedback-section input[type="text"],
+.feedback-section textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #778da9;
+    border-radius: 8px;
+    background-color: #4a6381;
+    color: #fff;
+    font-size: 1em;
+    box-sizing: border-box;
+    margin-top: 5px;
+    resize: vertical;
+    min-height: 100px;
+}
 
-    .feedback-section input[type="text"]:focus,
-    .feedback-section textarea:focus {
-        border-color: #ffd700;
-        box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
-        outline: none;
-    }
+.feedback-section input[type="text"]:focus,
+.feedback-section textarea:focus {
+    border-color: #ffd700;
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3);
+    outline: none;
+}
 
-    /* Send button styling */
-    .feedback-section .send-feedback-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        padding: 15px 20px;
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        border-radius: 8px;
-        font-size: 1.1em;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-        margin-top: 20px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
+/* Send button styling */
+.feedback-section .send-feedback-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 15px 20px;
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    margin-top: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 
-    .feedback-section .send-feedback-button:hover {
-        background-color: #3e8e41;
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    }
+.feedback-section .send-feedback-button:hover {
+    background-color: #3e8e41;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
 
-    .feedback-section .send-feedback-button:active {
-        transform: translateY(0);
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
+.feedback-section .send-feedback-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-    .feedback-section .send-feedback-button .fas {
-        margin-right: 10px;
-    }
+.feedback-section .send-feedback-button .fas {
+    margin-right: 10px;
+}
 
-    .feedback-section .feedback-message {
-        text-align: center;
-        margin-top: 15px;
-        font-size: 0.95em;
-        font-weight: 600;
-        color: #a0c4ff;
-    }
+/* Comments Display Section Styling */
+.comments-display-section {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: #364f6b;
+    border-radius: 12px;
+    border: 1px solid #5d7a9f;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
 
-    /* Comments Display Section Styling */
-    .comments-display-section {
-        margin-top: 40px;
-        padding: 30px;
-        background-color: #364f6b;
-        border-radius: 12px;
-        border: 1px solid #5d7a9f;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-    }
+.comments-display-section h2 {
+    text-align: center;
+    color: #ffd700;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 25px;
+}
 
-    .comments-display-section h2 {
-        text-align: center;
-        color: #ffd700;
-        border-bottom: none;
-        padding-bottom: 0;
-        margin-bottom: 25px;
-    }
+.comments-display-section h2 .fas {
+    color: #a0c4ff;
+}
 
-    .comments-display-section h2 .fas {
-        color: #a0c4ff;
-    }
-
-    .comments-display-section .description {
-        margin-bottom: 30px;
-        color: #b0b0b0;
-        text-align: center;
+.comments-display-section .description {
+    margin-bottom: 30px;
+    color: #b0b0b0;
+    text-align: center;
     }
 
     .comments-list {
@@ -704,3 +695,31 @@ h2 .fas {
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         }
     }
+    .share-button { /* Styling dasar untuk setiap tombol share */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 15px; /* Pastikan ini ada dan bukan default */
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-decoration: none;
+    color: white; /* Pastikan ini ada */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+}
+
+.share-button .fab { /* Styling untuk ikon Font Awesome di dalam tombol */
+    margin-right: 8px;
+    font-size: 1.2em;
+}
+
+/* Warna spesifik */
+.share-button.whatsapp {
+    background-color: #09ad45; /* Hijau WhatsApp */
+}
+.share-button.facebook {
+    background-color: #3407b1; /* biru facebook */
+}
+
