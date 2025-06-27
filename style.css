@@ -8,6 +8,7 @@ body {
     display: flex; /* Use flexbox for body */
     flex-direction: column; /* Stack children vertically */
     min-height: 100vh; /* Ensure body takes full viewport height */
+    overflow-x: hidden; /* TAMBAH INI: Mencegah scroll horizontal */
 }
 
 /* Fixed Visitor Counter Styling */
@@ -135,15 +136,18 @@ h2 .fas {
     color: #ffd700; /* Gold icon color */
 }
 
+/* REVISI: Input, Select, Textarea menjadi 100% width, box-sizing: border-box sudah ada */
 .form-group input[type="number"],
 .form-group select,
-.form-group textarea { /* Tambahkan textarea di sini */
-    width: calc(100% - 20px); /* Adjust for padding */
-    padding: 10px;
+.form-group textarea,
+.feedback-section input[type="text"], /* Tambah ini agar input username feedback juga 100% */
+.feedback-section textarea { /* Pastikan textarea feedback juga 100% */
+    width: 100%; /* REVISI: Dibuat 100% */
+    padding: 10px; /* Padding ini sudah aman karena box-sizing: border-box */
     border: 1px solid #778da9;
     border-radius: 6px;
     font-size: 1em;
-    box-sizing: border-box; /* Include padding in width */
+    box-sizing: border-box; /* Sangat penting: Memastikan padding termasuk dalam width */
     appearance: none; /* Remove default arrow for select on some browsers */
     background-color: #4a6381; /* Input background */
     color: #fff; /* Input text color */
@@ -151,7 +155,9 @@ h2 .fas {
 
 .form-group input[type="number"]:focus,
 .form-group select:focus,
-.form-group textarea:focus { /* Tambahkan textarea di sini */
+.form-group textarea:focus,
+.feedback-section input[type="text"]:focus, /* Tambah ini */
+.feedback-section textarea:focus { /* Tambah ini */
     border-color: #ffd700;
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
@@ -633,16 +639,18 @@ button:active {
     /* Adjustments for button specifically on mobile and smaller tablets */
     @media (max-width: 767px) { /* Ini akan diterapkan pada layar dengan lebar sampai 767px */
         .button {
-            padding: 12px 18px; /* Kurangi padding untuk layar kecil */
-            font-size: 1em;     /* Ukuran font default 1em cocok untuk readability di mobile */
+            padding: 10px 15px !important; /* Force override dengan !important */
+            font-size: 0.9em !important;   /* Force override dengan !important */
+            min-height: auto !important;   /* Pastikan tidak ada min-height yang mengganggu */
+            line-height: normal !important; /* Pastikan line-height tidak terlalu tinggi */
         }
     }
 
     /* Further smaller screens (e.g., typical smartphones) */
     @media (max-width: 480px) {
         .button {
-            padding: 10px 15px; /* Padding lebih kecil lagi */
-            font-size: 0.9em;   /* Font lebih kecil lagi untuk layar sangat sempit */
+            padding: 8px 12px !important;
+            font-size: 0.8em !important;
         }
     }
 
