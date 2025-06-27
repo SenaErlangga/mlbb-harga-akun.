@@ -11,21 +11,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="logo_web.png"> 
-</head>
+    </head>
 <body>
     <div id="fixedVisitorCounter">
         <i class="fas fa-users"></i> <span id="visitorCount">0</span>
     </div>
 
     <div class="container">
-        <h1>Kalkulator Harga Akun Mobile Legends</h1>
-        <p class="description">Estimasi harga akun MLBB Anda berdasarkan kriteria utama.</p>
+        <h1>Kalkulator Harga Akun Mobile Legends (GRATIS)!</h1>
+        <p class="description">Estimasi harga akun MLBB berdasarkan akun lu.</p>
 
         <div class="form-section">
             <h2><i class="fas fa-info-circle"></i> Informasi Dasar Akun</h2>
 
             <div class="form-group">
-                <label for="tier"><i class="fas fa-crown"></i> Tier Saat Ini:</label>
+                <label for="tier"><i class="fas fa-crown"></i>Pilih Tier lu yang sekarang:</label>
                 <select id="tier">
                     <option value="Warrior">Warrior</option>
                     <option value="Elite">Elite</option>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="form-group">
-                <label for="winRate"><i class="fas fa-percent"></i> Win Rate Rank All Season (%):</label>
+                <label for="winRate"><i class="fas fa-percent"></i>WR Rank All Season(%):</label>
                 <input type="number" id="winRate" min="0" max="100" step="0.1" placeholder="Cth: 55.7">
                 <div class="progress-bar-container">
                     <div class="progress-bar" id="winRateProgressBar" style="width: 0%;"></div>
@@ -50,9 +50,9 @@
             </div>
             
             <div class="form-group">
-                <label for="totalRankMatches"><i class="fas fa-gamepad"></i> Total Match Rank All Season:</label>
+                <label for="totalRankMatches"><i class="fas fa-gamepad"></i> Total Rank All Season:</label>
                 <input type="number" id="totalRankMatches" min="0" placeholder="Cth: 2500">
-                <small>Jumlah total pertandingan Ranked yang dimainkan.</small>
+                <small>Jumlah total seluruh Match Rank lu.</small>
                 <div class="error-message" id="totalRankMatches-error"></div>
             </div>
 
@@ -63,16 +63,16 @@
             </div>
 
             <div class="form-group">
-                <label for="emblemLevel60"><i class="fas fa-gem"></i> Jumlah Emblem Level 60:</label>
+                <label for="emblemLevel60"><i class="fas fa-gem"></i> Jumlah Emblem Level 60/MAX:</label>
                 <input type="number" id="emblemLevel60" min="0" max="7" placeholder="Cth: 5">
-                <small>Jumlah emblem yang sudah mencapai level 60 (<span id="emblemCount">0</span>/7).</small>
+                <small>Jumlah emblem yang udah MAX (<span id="emblemCount">0</span>/7).</small>
                 <div class="error-message" id="emblemLevel60-error"></div>
             </div>
         </div>
 
         <div class="form-section">
             <h2><i class="fas fa-tshirt"></i> Koleksi Skin</h2>
-            <p class="description">Masukkan jumlah skin yang Anda miliki untuk setiap kategori.</p>
+            <p class="description">Masukkin jumlah skin yang lu punya sesuai kategori.</p>
 
             <div class="skin-category-grid">
                 <div class="form-group">
@@ -107,20 +107,35 @@
         </div>
         
         <div class="button-group">
-            <button id="calculateBtn"><i class="fas fa-calculator"></i> Hitung Harga Akun</button>
-            <button id="resetBtn" class="reset-button"><i class="fas fa-redo-alt"></i> Reset</button>
+            <button id="calculateBtn" class="main-action-button calculate-button"><i class="fas fa-calculator"></i> Hitung Harga Akun</button>
+            <button id="resetBtn" class="main-action-button reset-button"><i class="fas fa-redo-alt"></i> Reset</button>
         </div>
 
         <div class="result-section">
-            <h2>Estimasi Harga Akun:</h2>
+            <h2>Estimasi Harga Akun lu:</h2>
             <p id="resultPrice" class="fade-in-result">Rp 0</p>
             <div id="priceBreakdown" class="price-breakdown">
                 </div>
-            <p class="disclaimer">Estimasi ini adalah panduan dan harga sebenarnya bisa bervariasi di pasar.</p>
+            <p class="disclaimer">Estimasi ini cuma prediksi aja ya dan harga sebenarnya bisa bervariasi di pasar.</p>
         </div>
-
+        
+        <div class="form-section share-section">
+            <h2><i class="fas fa-share-alt"></i>Bermanfaat kan ywdh cepet bagiin!</h2>
+            <p class="description">Bantuin teman-teman lu buat cek harga akun MLBB juga!</p>
+            <div class="share-buttons">
+                <a href="https://wa.me/?text=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D%0A${encodeURIComponent('https://kalkulatorakun.netlify.app/')}" target="_blank" class="share-button whatsapp" aria-label="Bagikan ke WhatsApp">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://kalkulatorakun.netlify.app/')}&quote=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D" target="_blank" class="share-button facebook" aria-label="Bagikan ke Facebook">
+                    <i class="fab fa-facebook-f"></i> Facebook
+                </a>
+                <a href="https://twitter.com/intent/tweet?text=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D&url=${encodeURIComponent('https://kalkulatorakun.netlify.app/')}" target="_blank" class="share-button twitter" aria-label="Bagikan ke Twitter">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
+            </div>
+        </div>
         <div class="form-section info-section">
-            <h2><i class="fas fa-lightbulb"></i> Apa yang Membuat Akun MLBB Berharga?</h2>
+            <h2><i class="fas fa-lightbulb"></i> Apa yang Membuat Akun MLBB kita Berharga bang?</h2>
             <p>Harga sebuah akun Mobile Legends dipengaruhi oleh beberapa faktor utama. Memahami ini akan membantu Anda menilai akun lebih baik:</p>
             <ul>
                 <li><strong>Koleksi Skin:</strong> Jenis dan jumlah skin adalah penentu harga terbesar. Skin kategori Supreme, Grand, dan Exquisite yang langka memiliki nilai jual sangat tinggi karena sulit didapatkan.</li>
@@ -128,33 +143,33 @@
                 <li><strong>Tier Saat Ini:</strong> Tier tinggi menunjukkan pencapaian dan skill pemain, membuat akun lebih menarik bagi pembeli yang ingin langsung bermain di level kompetitif.</li>
                 <li><strong>Win Rate Rank & Match:</strong> Win Rate di pertandingan Ranked yang tinggi, **terutama jika didukung oleh jumlah pertandingan yang banyak**, mencerminkan rekam jejak performa akun yang kuat dan seringkali menjadi daya tarik utama.</li>
             </ul>
-            <p>Perlu diingat, faktor-faktor ini saling memengaruhi dan harga akhir di pasar bisa bervariasi.</p>
+            <p>Perlu diinget, Alesan di atas itu saling memengaruhi dan harga akhir di pasar bisa beda.</p>
         </div>
 
         <div class="form-section feedback-section">
-            <h2><i class="fas fa-comment-dots"></i> Kirim Masukan &amp; Saran</h2>
-            <p class="description">Punya saran atau ide untuk kalkulator ini? Silakan sampaikan di sini!</p>
+            <h2><i class="fas fa-comment-dots"></i> Kasih Masukan &amp; Saran</h2>
+            <p class="description">Punya saran atau ide untuk kalkulator ini? gass komen!</p>
             <form action="https://script.google.com/macros/s/AKfycbwD0pyo1yYfEnGUbNX7uT4Qwv1SYsI7PpLBKvqlNqRLttMe7oTDpFAe6MBNomG2zf4Ryg/exec" method="POST" id="feedbackForm">
                 <div class="form-group">
-                    <label for="username"><i class="fas fa-user"></i> Username (Opsional):</label>
-                    <input type="text" name="username" id="feedbackUsername" placeholder="Cth: GamerPro">
+                    <label for="username"><i class="fas fa-user"></i>Username/Nama:</label>
+                    <input type="text" name="username" id="feedbackUsername" placeholder="Cth: RRQ-Fahri">
                 </div>
                 <div class="form-group">
-                    <label for="suggestion"><i class="fas fa-comment-alt"></i> Masukan / Saran Anda:</label>
-                    <textarea name="suggestion" id="feedbackSuggestion" rows="5" required placeholder="Tulis masukan atau saran Anda di sini..."></textarea>
+                    <label for="suggestion"><i class="fas fa-comment-alt"></i>Ketik saran lu di mari:</label>
+                    <textarea name="suggestion" id="feedbackSuggestion" rows="5" required placeholder="Tulis di mari terserah"></textarea>
                 </div>
-                <button type="submit" class="send-feedback-button"><i class="fas fa-paper-plane"></i> Kirim Masukan</button>
+                <button type="submit" class="send-feedback-button"><i class="fas fa-paper-plane"></i>GAS KOMEN!</button>
             </form>
             <p id="feedbackMessage" class="feedback-message"></p>
         </div>
 
         <div class="form-section comments-display-section">
             <h2><i class="fas fa-comments"></i> Komentar &amp; Saran Pengunjung</h2>
-            <p class="description">Lihat apa kata pengunjung lain tentang kalkulator ini!</p>
+            <p class="description">Lihat apa kata Player lain tentang kalkulator ini!</p>
             <div id="commentsList" class="comments-list">
                 <p class="loading-comments">Memuat komentar...</p>
                 </div>
-            <button id="refreshCommentsBtn" class="refresh-comments-button"><i class="fas fa-sync-alt"></i> Refresh Komentar</button>
+            <button id="refreshCommentsBtn" class="refresh-comments-button"><i class="fas fa-sync-alt"></i> Perbarui Komentar</button>
         </div>
 
     </div>

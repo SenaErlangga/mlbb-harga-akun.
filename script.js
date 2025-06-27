@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const priceBreakdown = document.getElementById('priceBreakdown');
     const winRateInput = document.getElementById('winRate');
     const winRateProgressBar = document.getElementById('winRateProgressBar');
-    const totalRankMatchesInput = document.getElementById('totalRankMatches');
+    const totalRankMatchesInput = document.getElementById('totalRankMatches'); 
     const emblemLevel60Input = document.getElementById('emblemLevel60');
     const emblemCountSpan = document.getElementById('emblemCount');
     const resultSection = document.querySelector('.result-section');
@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Elemen Tampilan Komentar ---
     const commentsList = document.getElementById('commentsList');
     const refreshCommentsBtn = document.getElementById('refreshCommentsBtn');
-    // URL Google Apps Script Web App (diambil dari action form feedback)
     const GOOGLE_APPS_SCRIPT_URL = feedbackForm.action; 
 
     // --- Elemen Counter Pengunjung ---
@@ -122,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let breakdown = {};
 
         // 1. Harga Dasar Akun
-        const basePrice = 10000;
+        const basePrice = 10000; 
         totalPrice += basePrice;
         breakdown['Harga Dasar Akun'] = basePrice;
 
@@ -148,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'Supreme': 4000, 'Grand': 3000, 'Exquisite': 2000, 'Deluxe': 400,
             'Exceptional': 200, 'Common': 10, 'Painted': 40
         };
-        const pricePerSkinPoint = 20; // Rp 20 per poin
+        const pricePerSkinPoint = 25; 
 
         let skinContributionTotal = 0;
 
@@ -183,16 +182,13 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPrice += skinContributionTotal;
 
 
-        // B. Emblem Level 60
         const emblemContribution = emblemLevel60 * 25000;
         totalPrice += emblemContribution;
         breakdown['Emblem Level 60'] = emblemContribution;
 
-        // C. Jumlah Hero (tetap 0)
         const heroContribution = 0;
         breakdown['Jumlah Hero'] = heroContribution;
 
-        // D. Tier Saat Ini
         const tierValues = {
             'Warrior': 0, 'Elite': 0, 'Master': 0, 'Grandmaster': 0,
             'Epic': 10000,
@@ -206,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
         totalPrice += tierContribution;
         breakdown['Tier Saat Ini'] = tierContribution;
 
-        // E. Win Rate Rank (dengan Multiplier Match Rank)
         let winRateBaseValue = 0;
         if (winRate >= 75) {
             winRateBaseValue = 2000000;

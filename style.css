@@ -1,15 +1,15 @@
 /* General Styling */
-html, body { /* Tambahkan html di sini */
+html, body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #1a2a40; /* Darker background, inspired by MLBB night theme */
-    color: #e0e0e0; /* Lighter text for contrast */
-    display: flex; /* Use flexbox for body */
-    flex-direction: column; /* Stack children vertically */
-    min-height: 100vh; /* Ensure body takes full viewport height */
-    overflow-x: hidden; /* TAMBAH INI: Mencegah scroll horizontal */
-    box-sizing: border-box; /* TAMBAH INI: Pastikan box-sizing global */
+    background-color: #1a2a40;
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
 }
 
 /* Make box-sizing global for all elements */
@@ -19,58 +19,58 @@ html, body { /* Tambahkan html di sini */
 
 /* Fixed Visitor Counter Styling */
 #fixedVisitorCounter {
-    position: fixed; /* Membuat elemen melayang */
-    top: 15px; /* Jarak dari atas */
-    right: 15px; /* Jarak dari kanan */
-    background-color: rgba(40, 58, 84, 0.9); /* Latar belakang semi-transparan */
-    color: #ffd700; /* Warna emas */
-    padding: 8px 12px; /* Padding kecil */
-    border-radius: 8px; /* Sudut membulat */
-    font-size: 0.9em; /* Ukuran font kecil */
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    background-color: rgba(40, 58, 84, 0.9);
+    color: #ffd700;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9em;
     font-weight: 600;
-    z-index: 1000; /* Pastikan di atas elemen lain */
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Bayangan */
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
-    gap: 5px; /* Jarak antara ikon dan angka */
+    gap: 5px;
 }
 
 #fixedVisitorCounter .fas {
-    font-size: 1.1em; /* Ukuran ikon */
+    font-size: 1.1em;
 }
 
 
 .container {
-    background-color: #283a54; /* Slightly lighter dark blue */
+    background-color: #283a54;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-    max-width: 800px; /* Max width for desktop */
-    width: calc(100% - 40px); /* Adjust for 20px padding on left/right of screen */
-    margin: 20px auto; /* Center container horizontally and add top/bottom margin */
-    border: 1px solid #4a6381; /* Subtle border */
-    flex-grow: 1; /* Allow container to grow and push footer down */
+    max-width: 800px;
+    width: calc(100% - 40px);
+    margin: 20px auto;
+    border: 1px solid #4a6381;
+    flex-grow: 1;
 }
 
 h1 {
     text-align: center;
-    color: #ffd700; /* Gold color for main title */
+    color: #ffd700;
     margin-bottom: 10px;
-    font-size: 1.8em; /* Slightly smaller for mobile */
+    font-size: 1.8em;
 }
 
 h2 {
-    color: #a0c4ff; /* Lighter blue for section titles */
+    color: #a0c4ff;
     margin-top: 30px;
     margin-bottom: 15px;
-    border-bottom: 1px solid #4a6381; /* Consistent border */
+    border-bottom: 1px solid #4a6381;
     padding-bottom: 5px;
-    font-size: 1.4em; /* Slightly smaller for mobile */
+    font-size: 1.4em;
 }
 
 h2 .fas {
     margin-right: 10px;
-    color: #ffd700; /* Gold icon color */
+    color: #ffd700;
 }
 
 .description {
@@ -83,24 +83,24 @@ h2 .fas {
 .form-section {
     margin-bottom: 30px;
     padding: 20px;
-    background-color: #364f6b; /* Even lighter dark blue */
+    background-color: #364f6b;
     border-radius: 8px;
     border: 1px solid #5d7a9f;
 }
 
 /* Info Section specific styling */
 .info-section {
-    margin-top: 40px; /* More spacing from previous sections */
+    margin-top: 40px;
 }
 
 .info-section ul {
-    list-style: none; /* Remove default bullet points */
+    list-style: none;
     padding: 0;
     margin-top: 15px;
 }
 
 .info-section ul li {
-    background-color: #4a6381; /* Slightly lighter background for list items */
+    background-color: #4a6381;
     margin-bottom: 10px;
     padding: 12px 15px;
     border-radius: 6px;
@@ -110,19 +110,19 @@ h2 .fas {
 }
 
 .info-section ul li strong {
-    color: #ffd700; /* Gold for strong text */
+    color: #ffd700;
 }
 
 /* Styling for generic links within content sections (like in info-section paragraphs) */
 .info-section a {
-    color: #ffd700; /* Warna emas terang untuk visibilitas */
-    text-decoration: none; /* Hapus default underline */
+    color: #ffd700;
+    text-decoration: none;
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
 .info-section a:hover {
-    color: #e0b000; /* Warna emas lebih gelap saat hover */
-    text-decoration: underline; /* Tambahkan underline saat hover */
+    color: #e0b000;
+    text-decoration: underline;
 }
 
 
@@ -139,24 +139,24 @@ h2 .fas {
 
 .form-group label .fas {
     margin-right: 8px;
-    color: #ffd700; /* Gold icon color */
+    color: #ffd700;
 }
 
-/* Input, Select, Textarea menjadi 100% width, box-sizing: border-box sudah ada */
+/* Input, Select, Textarea styling */
 .form-group input[type="number"],
 .form-group select,
 .form-group textarea,
-.feedback-section input[type="text"], /* Tambah ini agar input username feedback juga 100% */
-.feedback-section textarea { /* Pastikan textarea feedback juga 100% */
-    width: 100%; /* Dibuat 100% */
-    padding: 10px; /* Padding ini sudah aman karena box-sizing: border-box */
+.feedback-section input[type="text"],
+.feedback-section textarea {
+    width: 100%;
+    padding: 10px;
     border: 1px solid #778da9;
     border-radius: 6px;
     font-size: 1em;
-    box-sizing: border-box; /* Sangat penting: Memastikan padding termasuk dalam width */
-    appearance: none; /* Remove default arrow for select on some browsers */
-    background-color: #4a6381; /* Input background */
-    color: #fff; /* Input text color */
+    box-sizing: border-box;
+    appearance: none;
+    background-color: #4a6381;
+    color: #fff;
 }
 
 .form-group input[type="number"]:focus,
@@ -178,10 +178,10 @@ h2 .fas {
 
 /* Error Message Styling */
 .error-message {
-    color: #ff6b6b; /* Red color for error */
+    color: #ff6b6b;
     font-size: 0.85em;
     margin-top: 5px;
-    height: 1.2em; /* Reserve space to prevent layout shift */
+    height: 1.2em;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 }
@@ -196,82 +196,92 @@ h2 .fas {
     background-color: #5d7a9f;
     border-radius: 5px;
     height: 10px;
-    overflow: hidden; /* Ensure bar stays within container */
+    overflow: hidden;
     margin-top: 5px;
 }
 
 .progress-bar {
     height: 100%;
-    background-color: #4CAF50; /* Green color for progress */
+    background-color: #4CAF50;
     border-radius: 5px;
-    width: 0%; /* Initial width */
-    transition: width 0.4s ease-out; /* Smooth transition */
+    width: 0%;
+    transition: width 0.4s ease-out;
 }
 
 
 /* Skin Category Grid for Responsiveness */
 .skin-category-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Default to single column for mobile */
+    grid-template-columns: 1fr;
     gap: 15px;
 }
 
 /* Button Group Styling */
 .button-group {
     display: flex;
-    flex-direction: column; /* Stack buttons on mobile */
+    flex-direction: column;
     gap: 15px;
     margin-top: 20px;
 }
 
 /* Styling for generic buttons (calculate, reset) */
-button {
+/* TARGET BUTTONS DENGAN CLASS BARU UNTUK MENCEGAH KONFLIK */
+.main-action-button { /* Ini class baru untuk tombol Hitung dan Reset */
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     padding: 15px;
-    background-color: #4CAF50; /* Green for calculate */
     color: white;
     border: none;
     border-radius: 8px;
     font-size: 1.2em;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-button .fas {
+.main-action-button .fas {
     margin-right: 10px;
 }
 
-button:hover {
-    background-color: #45a049;
+.main-action-button:hover {
     transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
-button:active {
+.main-action-button:active {
     transform: translateY(0);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.reset-button {
-    background-color: #f44336; /* Red for reset */
+/* Warna spesifik untuk tombol Hitung */
+.calculate-button {
+    background-color: #4CAF50; /* Green */
+}
+.calculate-button:hover {
+    background-color: #45a049;
 }
 
+/* Warna spesifik untuk tombol Reset */
+.reset-button {
+    background-color: #f44336; /* Red */
+}
 .reset-button:hover {
     background-color: #da190b;
 }
 
+
 /* Styling for links that act like buttons, e.g., "Kembali ke Kalkulator" */
-.button {
+.button { /* Class ini tetap untuk link kembali, sudah diatur */
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     padding: 15px 20px;
-    background-color: #ffd700; /* Emas terang */
-    color: #1a2a40; /* Teks gelap */
+    background-color: #ffd700;
+    color: #1a2a40;
     border: 2px solid #e0b000;
     border-radius: 8px;
     font-size: 1.1em;
@@ -280,10 +290,10 @@ button:active {
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
-    user-select: none;         /* Tambah ini: Mencegah seleksi teks */
-    -webkit-user-select: none; /* Untuk kompatibilitas Safari/Chrome */
-    -ms-user-select: none;     /* Untuk kompatibilitas IE/Edge */
-    touch-action: manipulation; /* Tambah ini: Mengoptimalkan respons sentuhan */
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
 }
 
 .button:hover {
@@ -308,15 +318,15 @@ button:active {
     margin-top: 30px;
     text-align: center;
     padding: 25px;
-    background-color: #364f6b; /* Same as form section */
+    background-color: #364f6b;
     border: 1px solid #5d7a9f;
     border-radius: 8px;
 }
 
-#resultPrice {
+#resultPrice { /* INI STYLING HARGA ESTIMASI */
     font-size: 2.5em; /* Default/desktop size */
     font-weight: 700;
-    color: #ffd700; /* Gold color for result */
+    color: #ffd700; /* Warna emas */
     margin-top: 10px;
     margin-bottom: 10px;
 }
@@ -354,7 +364,7 @@ button:active {
     }
 
     .price-breakdown p span:last-child {
-        color: #ffd700; /* Gold for breakdown values */
+        color: #ffd700;
     }
 
 
@@ -368,11 +378,11 @@ button:active {
     footer {
         text-align: center;
         padding: 20px;
-        background-color: #1a2a40; /* Sama dengan background body */
+        background-color: #1a2a40;
         color: #b0b0b0;
         border-top: 1px solid #4a6381;
-        width: 100%; /* Memastikan lebar penuh */
-        box-sizing: border-box; /* Pastikan padding termasuk dalam lebar */
+        width: 100%;
+        box-sizing: border-box;
     }
 
     footer p {
@@ -387,7 +397,7 @@ button:active {
     }
 
     .footer-links a {
-        color: #a0c4ff; /* Lighter blue for links */
+        color: #a0c4ff;
         text-decoration: none;
         margin: 0 8px;
         transition: color 0.3s ease;
@@ -395,7 +405,7 @@ button:active {
     }
 
     .footer-links a:hover {
-        color: #ffd700; /* Gold on hover */
+        color: #ffd700;
     }
 
     /* Feedback Section Styling */
@@ -427,14 +437,9 @@ button:active {
     }
 
     /* Input field styling for feedback form */
-    .feedback-section .form-group label {
-        font-weight: 600;
-        color: #e0e0e0;
-    }
-
     .feedback-section input[type="text"],
     .feedback-section textarea {
-        width: calc(100% - 24px); /* Sesuaikan untuk padding 12px di setiap sisi */
+        width: 100%; /* Dibuat 100% */
         padding: 12px;
         border: 1px solid #778da9;
         border-radius: 8px;
@@ -647,12 +652,14 @@ button:active {
         }
     }
 
-    /* Adjustments for button specifically on mobile and smaller tablets */
+    /* Adjustments for result price on mobile and smaller tablets */
     @media (max-width: 767px) {
+        #resultPrice {
+            font-size: 2em; /* Lebih kecil untuk tablet/phone */
+        }
         .button {
-            /* padding: 10px 15px !important; Ini sebelumnya */
-            padding: 12px 18px !important; /* REVISI: Kembali ke ukuran ini */
-            font-size: 1em !important;     /* REVISI: Kembali ke ukuran ini */
+            padding: 10px 15px !important;
+            font-size: 0.9em !important;
             min-height: auto !important;
             line-height: normal !important;
         }
@@ -660,10 +667,12 @@ button:active {
 
     /* Further smaller screens (e.g., typical smartphones) */
     @media (max-width: 480px) {
+        #resultPrice {
+            font-size: 1.8em; /* Bahkan lebih kecil untuk smartphone */
+        }
         .button {
-            /* padding: 8px 12px !important; Ini sebelumnya */
-            padding: 10px 15px !important; /* REVISI: Kembali ke ukuran ini */
-            font-size: 0.9em !important;   /* REVISI: Kembali ke ukuran ini */
+            padding: 8px 12px !important;
+            font-size: 0.8em !important;
         }
     }
 
