@@ -1,5 +1,5 @@
 /* General Styling */
-html, body {
+html, body { /* Tambahkan html di sini */
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
@@ -8,8 +8,8 @@ html, body {
     display: flex; /* Use flexbox for body */
     flex-direction: column; /* Stack children vertically */
     min-height: 100vh; /* Ensure body takes full viewport height */
-    overflow-x: hidden; /* Mencegah scroll horizontal */
-    box-sizing: border-box; /* Global box-sizing */
+    overflow-x: hidden; /* TAMBAH INI: Mencegah scroll horizontal */
+    box-sizing: border-box; /* TAMBAH INI: Pastikan box-sizing global */
 }
 
 /* Make box-sizing global for all elements */
@@ -146,8 +146,8 @@ h2 .fas {
 .form-group input[type="number"],
 .form-group select,
 .form-group textarea,
-.feedback-section input[type="text"],
-.feedback-section textarea {
+.feedback-section input[type="text"], /* Tambah ini agar input username feedback juga 100% */
+.feedback-section textarea { /* Pastikan textarea feedback juga 100% */
     width: 100%; /* Dibuat 100% */
     padding: 10px; /* Padding ini sudah aman karena box-sizing: border-box */
     border: 1px solid #778da9;
@@ -280,10 +280,10 @@ button:active {
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
-    user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    touch-action: manipulation;
+    user-select: none;         /* Tambah ini: Mencegah seleksi teks */
+    -webkit-user-select: none; /* Untuk kompatibilitas Safari/Chrome */
+    -ms-user-select: none;     /* Untuk kompatibilitas IE/Edge */
+    touch-action: manipulation; /* Tambah ini: Mengoptimalkan respons sentuhan */
 }
 
 .button:hover {
@@ -314,7 +314,7 @@ button:active {
 }
 
 #resultPrice {
-    font-size: 2.5em;
+    font-size: 2.5em; /* Default/desktop size */
     font-weight: 700;
     color: #ffd700; /* Gold color for result */
     margin-top: 10px;
@@ -650,16 +650,20 @@ button:active {
     /* Adjustments for button specifically on mobile and smaller tablets */
     @media (max-width: 767px) {
         .button {
-            padding: 10px 15px; /* Kurangi padding untuk layar kecil */
-            font-size: 0.95em;   /* Ukuran font default 1em cocok untuk readability di mobile */
+            /* padding: 10px 15px !important; Ini sebelumnya */
+            padding: 12px 18px !important; /* REVISI: Kembali ke ukuran ini */
+            font-size: 1em !important;     /* REVISI: Kembali ke ukuran ini */
+            min-height: auto !important;
+            line-height: normal !important;
         }
     }
 
     /* Further smaller screens (e.g., typical smartphones) */
     @media (max-width: 480px) {
         .button {
-            padding: 8px 12px; /* Padding lebih kecil lagi */
-            font-size: 0.85em;   /* Font lebih kecil lagi untuk layar sangat sempit */
+            /* padding: 8px 12px !important; Ini sebelumnya */
+            padding: 10px 15px !important; /* REVISI: Kembali ke ukuran ini */
+            font-size: 0.9em !important;   /* REVISI: Kembali ke ukuran ini */
         }
     }
 
