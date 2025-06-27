@@ -630,6 +630,22 @@ button:active {
         }
     }
 
+    /* Adjustments for button specifically on mobile and smaller tablets */
+    @media (max-width: 767px) { /* Ini akan diterapkan pada layar dengan lebar sampai 767px */
+        .button {
+            padding: 12px 18px; /* Kurangi padding untuk layar kecil */
+            font-size: 1em;     /* Ukuran font default 1em cocok untuk readability di mobile */
+        }
+    }
+
+    /* Further smaller screens (e.g., typical smartphones) */
+    @media (max-width: 480px) {
+        .button {
+            padding: 10px 15px; /* Padding lebih kecil lagi */
+            font-size: 0.9em;   /* Font lebih kecil lagi untuk layar sangat sempit */
+        }
+    }
+
     /* Desktops and larger (e.g., 768px and up) */
     @media (min-width: 768px) {
         h1 {
