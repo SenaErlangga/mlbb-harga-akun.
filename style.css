@@ -1,5 +1,5 @@
 /* General Styling */
-body {
+html, body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
@@ -8,7 +8,13 @@ body {
     display: flex; /* Use flexbox for body */
     flex-direction: column; /* Stack children vertically */
     min-height: 100vh; /* Ensure body takes full viewport height */
-    overflow-x: hidden; /* TAMBAH INI: Mencegah scroll horizontal */
+    overflow-x: hidden; /* Mencegah scroll horizontal */
+    box-sizing: border-box; /* Global box-sizing */
+}
+
+/* Make box-sizing global for all elements */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 /* Fixed Visitor Counter Styling */
@@ -136,13 +142,13 @@ h2 .fas {
     color: #ffd700; /* Gold icon color */
 }
 
-/* REVISI: Input, Select, Textarea menjadi 100% width, box-sizing: border-box sudah ada */
+/* Input, Select, Textarea menjadi 100% width, box-sizing: border-box sudah ada */
 .form-group input[type="number"],
 .form-group select,
 .form-group textarea,
-.feedback-section input[type="text"], /* Tambah ini agar input username feedback juga 100% */
-.feedback-section textarea { /* Pastikan textarea feedback juga 100% */
-    width: 100%; /* REVISI: Dibuat 100% */
+.feedback-section input[type="text"],
+.feedback-section textarea {
+    width: 100%; /* Dibuat 100% */
     padding: 10px; /* Padding ini sudah aman karena box-sizing: border-box */
     border: 1px solid #778da9;
     border-radius: 6px;
@@ -156,8 +162,8 @@ h2 .fas {
 .form-group input[type="number"]:focus,
 .form-group select:focus,
 .form-group textarea:focus,
-.feedback-section input[type="text"]:focus, /* Tambah ini */
-.feedback-section textarea:focus { /* Tambah ini */
+.feedback-section input[type="text"]:focus,
+.feedback-section textarea:focus {
     border-color: #ffd700;
     outline: none;
     box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.25);
@@ -246,6 +252,7 @@ button:hover {
 
 button:active {
     transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .reset-button {
@@ -273,6 +280,10 @@ button:active {
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
     box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    touch-action: manipulation;
 }
 
 .button:hover {
@@ -637,20 +648,18 @@ button:active {
     }
 
     /* Adjustments for button specifically on mobile and smaller tablets */
-    @media (max-width: 767px) { /* Ini akan diterapkan pada layar dengan lebar sampai 767px */
+    @media (max-width: 767px) {
         .button {
-            padding: 10px 15px !important; /* Force override dengan !important */
-            font-size: 0.9em !important;   /* Force override dengan !important */
-            min-height: auto !important;   /* Pastikan tidak ada min-height yang mengganggu */
-            line-height: normal !important; /* Pastikan line-height tidak terlalu tinggi */
+            padding: 10px 15px; /* Kurangi padding untuk layar kecil */
+            font-size: 0.95em;   /* Ukuran font default 1em cocok untuk readability di mobile */
         }
     }
 
     /* Further smaller screens (e.g., typical smartphones) */
     @media (max-width: 480px) {
         .button {
-            padding: 8px 12px !important;
-            font-size: 0.8em !important;
+            padding: 8px 12px; /* Padding lebih kecil lagi */
+            font-size: 0.85em;   /* Font lebih kecil lagi untuk layar sangat sempit */
         }
     }
 

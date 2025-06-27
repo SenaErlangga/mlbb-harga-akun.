@@ -143,40 +143,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // 3. Perhitungan Berdasarkan Bobot/Nilai
 
-        // A. Skin (Poin Koleksi) - REVISI HARGA PER POIN
+        // A. Skin (Poin Koleksi)
         const skinPoinValues = {
             'Supreme': 4000, 'Grand': 3000, 'Exquisite': 2000, 'Deluxe': 400,
             'Exceptional': 200, 'Common': 10, 'Painted': 40
         };
-        const pricePerSkinPoint = 20; // REVISI AKHIR: Rp 20 per poin (dulu 25)
+        const pricePerSkinPoint = 20; // Rp 20 per poin
 
         let skinContributionTotal = 0;
 
-        const supremeContribution = supremeContribution * skinPoinValues.Supreme * pricePerSkinPoint;
+        const supremeContribution = skinSupreme * skinPoinValues.Supreme * pricePerSkinPoint;
         if (supremeContribution > 0) breakdown['Skin Supreme'] = supremeContribution;
         skinContributionTotal += supremeContribution;
 
-        const grandContribution = grandContribution * skinPoinValues.Grand * pricePerSkinPoint;
+        const grandContribution = skinGrand * skinPoinValues.Grand * pricePerSkinPoint;
         if (grandContribution > 0) breakdown['Skin Grand'] = grandContribution;
         skinContributionTotal += grandContribution;
 
-        const exquisiteContribution = exquisiteContribution * skinPoinValues.Exquisite * pricePerSkinPoint;
+        const exquisiteContribution = skinExquisite * skinPoinValues.Exquisite * pricePerSkinPoint;
         if (exquisiteContribution > 0) breakdown['Skin Exquisite'] = exquisiteContribution;
         skinContributionTotal += exquisiteContribution;
 
-        const deluxeContribution = deluxeContribution * skinPoinValues.Deluxe * pricePerSkinPoint;
+        const deluxeContribution = skinDeluxe * skinPoinValues.Deluxe * pricePerSkinPoint;
         if (deluxeContribution > 0) breakdown['Skin Deluxe'] = deluxeContribution;
         skinContributionTotal += deluxeContribution;
 
-        const exceptionalContribution = exceptionalContribution * skinPoinValues.Exceptional * pricePerSkinPoint;
+        const exceptionalContribution = skinExceptional * skinPoinValues.Exceptional * pricePerSkinPoint;
         if (exceptionalContribution > 0) breakdown['Skin Exceptional'] = exceptionalContribution;
         skinContributionTotal += exceptionalContribution;
 
-        const commonContribution = commonContribution * skinPoinValues.Common * pricePerSkinPoint;
+        const commonContribution = skinCommon * skinPoinValues.Common * pricePerSkinPoint;
         if (commonContribution > 0) breakdown['Skin Common'] = commonContribution;
         skinContributionTotal += commonContribution;
 
-        const paintedContribution = paintedContribution * skinPoinValues.Painted * pricePerSkinPoint;
+        const paintedContribution = paintedSkin * skinPoinValues.Painted * pricePerSkinPoint;
         if (paintedContribution > 0) breakdown['Painted Skin'] = paintedContribution;
         skinContributionTotal += paintedContribution;
 
@@ -484,11 +484,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // --- Event Listeners Utama ---
-    refreshCommentsBtn.addEventListener('click', loadComments); // Refresh button calls loadComments
+    refreshCommentsBtn.addEventListener('click', loadComments);
 
     // Load comments when the page first loads
     loadComments();
 
     // Load visitor count when the page first loads
-    loadVisitorCount(); // Panggil fungsi counter
+    loadVisitorCount();
 });
