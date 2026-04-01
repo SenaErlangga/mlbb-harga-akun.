@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const priceBreakdown = document.getElementById('priceBreakdown');
     const winRateInput = document.getElementById('winRate');
     const winRateProgressBar = document.getElementById('winRateProgressBar');
-    const totalRankMatchesInput = document.getElementById('totalRankMatches'); 
+    const totalRankMatchesInput = document.getElementById('totalRankMatches');
     const emblemLevel60Input = document.getElementById('emblemLevel60');
     const emblemCountSpan = document.getElementById('emblemCount');
     const resultSection = document.querySelector('.result-section');
@@ -20,17 +20,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Elemen Tampilan Komentar ---
     const commentsList = document.getElementById('commentsList');
     const refreshCommentsBtn = document.getElementById('refreshCommentsBtn');
+    // URL Google Apps Script Web App
     const GOOGLE_APPS_SCRIPT_URL = feedbackForm.action; 
 
     // --- Elemen Counter Pengunjung ---
     const visitorCountSpan = document.getElementById('visitorCount');
-
 
     // --- Konfigurasi Input Skin ---
     const skinInputIds = [
         'skinSupreme', 'skinGrand', 'skinExquisite', 'skinDeluxe', 
         'skinExceptional', 'skinCommon', 'skinPainted'
     ];
+
+    // ==========================================
+    // SUPER SECURITY: Fungsi Blokir Link & Anti-XSS
+    // ==========================================
+    function sanitizeComment(str) {
+        if (typeof str !== 'string') return '';
+
+        // 1. BLOKIR LINK: Sensor pola http, https, www, atau domain umum (.com, .net, .slot, dll)
+        // Ini biar link judi rajakayu88 dkk langsung mampus
+        let textWithoutLinks = str.replace(/(?:https?:\/\/|www\.)[^\s]+|[a-zA-Z0-9.-]+\.(?:com|net|org|info|xyz|biz|id|co|me|vip|slot|88|fun|top)[^\s]*/ig, '[🛡️ Link Diblokir Admin]');
+
+        // 2. ESCAPE HTML: Mencegah eksekusi script jahat (XSS)
+        return textWithoutLinks.replace(/[&<>'"]/g, function(tag) {
+            const charsToReplace = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            };
+            return charsToReplace[tag] || tag;
+        });
+    }
+    // ==========================================
 
     // --- Fungsi Helper Umum ---
     function formatToIDR(amount) {
@@ -82,7 +106,6 @@ document.addEventListener('DOMContentLoaded', function() {
             clearError('totalRankMatches');
         }
 
-
         const emblemLevel60 = parseInt(emblemLevel60Input.value);
         if (isNaN(emblemLevel60) || emblemLevel60 < 0 || emblemLevel60 > 7) {
             showError('emblemLevel60', 'Jumlah Emblem Level 60 harus antara 0-7.');
@@ -108,7 +131,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return isValid;
     }
 
-
     // --- Fungsi Perhitungan Harga Akun ---
     calculateBtn.addEventListener('click', function() {
         if (!validateInputs()) {
@@ -121,11 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let breakdown = {};
 
         // 1. Harga Dasar Akun
-        const basePrice = 10000; 
+        const basePrice = 10000;
         totalPrice += basePrice;
         breakdown['Harga Dasar Akun'] = basePrice;
 
-        // 2. Ambil Input dari Formulir
+        // 2. Ambil Input
         const tier = document.getElementById('tier').value;
         const winRate = parseFloat(winRateInput.value) || 0;
         const totalRankMatches = parseInt(totalRankMatchesInput.value) || 0;
@@ -139,15 +161,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const skinCommon = parseInt(document.getElementById('skinCommon').value) || 0;
         const paintedSkin = parseInt(document.getElementById('skinPainted').value) || 0;
 
-
-        // 3. Perhitungan Berdasarkan Bobot/Nilai
-
-        // A. Skin (Poin Koleksi)
+        // 3. Perhitungan
         const skinPoinValues = {
             'Supreme': 4000, 'Grand': 3000, 'Exquisite': 2000, 'Deluxe': 400,
             'Exceptional': 200, 'Common': 10, 'Painted': 40
         };
-        const pricePerSkinPoint = 25; 
+        const pricePerSkinPoint = 20; // Sesuai revisi terakhir: Rp 20 per poin
 
         let skinContributionTotal = 0;
 
@@ -181,309 +200,155 @@ document.addEventListener('DOMContentLoaded', function() {
 
         totalPrice += skinContributionTotal;
 
-
+        // Emblem
         const emblemContribution = emblemLevel60 * 25000;
         totalPrice += emblemContribution;
         breakdown['Emblem Level 60'] = emblemContribution;
 
-        const heroContribution = 0;
-        breakdown['Jumlah Hero'] = heroContribution;
-
+        // Tier
         const tierValues = {
             'Warrior': 0, 'Elite': 0, 'Master': 0, 'Grandmaster': 0,
-            'Epic': 10000,
-            'Legend': 50000,
-            'Mythic': 150000,
-            'Mythical Honor': 300000,
-            'Mythical Glory': 1000000,
-            'Mythical Immortal': 2000000
+            'Epic': 10000, 'Legend': 50000, 'Mythic': 150000,
+            'Mythical Honor': 300000, 'Mythical Glory': 1000000, 'Mythical Immortal': 2000000
         };
         const tierContribution = tierValues[tier] || 0;
         totalPrice += tierContribution;
         breakdown['Tier Saat Ini'] = tierContribution;
 
+        // Win Rate
         let winRateBaseValue = 0;
-        if (winRate >= 75) {
-            winRateBaseValue = 2000000;
-        } else if (winRate >= 70) {
-            winRateBaseValue = 800000;
-        } else if (winRate >= 65) {
-            winRateBaseValue = 300000;
-        } else if (winRate >= 60) {
-            winRateBaseValue = 100000;
-        }
+        if (winRate >= 75) winRateBaseValue = 2000000;
+        else if (winRate >= 70) winRateBaseValue = 800000;
+        else if (winRate >= 65) winRateBaseValue = 300000;
+        else if (winRate >= 60) winRateBaseValue = 100000;
 
         let matchMultiplier = 0;
-        if (totalRankMatches >= 2000) {
-            matchMultiplier = 1;
-        } else if (totalRankMatches >= 1000) {
-            matchMultiplier = 0.5;
-        } else if (totalRankMatches < 1000) {
-             matchMultiplier = 0;
-        }
+        if (totalRankMatches >= 2000) matchMultiplier = 1;
+        else if (totalRankMatches >= 1000) matchMultiplier = 0.5;
 
         let winRateContribution = winRateBaseValue * matchMultiplier;
         totalPrice += winRateContribution;
         breakdown['Win Rate Rank'] = winRateContribution;
-        if (winRateBaseValue > 0 && matchMultiplier === 0) {
-             breakdown['Catatan WR'] = 'WR tidak dihitung penuh karena match < 1000';
-        } else if (winRateBaseValue > 0 && matchMultiplier === 0.5) {
-            breakdown['Catatan WR'] = 'WR dihitung 50% karena match 1000-1999';
-        }
 
+        if (totalPrice < 0) totalPrice = 0;
 
-        if (totalPrice < 0) {
-            totalPrice = 0;
-        }
-
-        // --- 4. Tampilkan Hasil ---
+        // Tampilkan Hasil
         resultPrice.textContent = formatToIDR(totalPrice);
         resultPrice.classList.remove('fade-in-result');
         void resultPrice.offsetWidth;
         resultPrice.classList.add('fade-in-result');
 
         let breakdownHTML = '';
-        const orderedBreakdownKeys = [
-            'Harga Dasar Akun',
-            'Skin Supreme', 'Skin Grand', 'Skin Exquisite', 'Skin Deluxe',
-            'Skin Exceptional', 'Skin Common', 'Painted Skin',
-            'Emblem Level 60',
-            'Jumlah Hero',
-            'Tier Saat Ini',
-            'Win Rate Rank',
-            'Catatan WR'
-        ];
-
-        orderedBreakdownKeys.forEach(key => {
-            if (breakdown[key] !== undefined && (breakdown[key] > 0 || (key === 'Harga Dasar Akun' && breakdown[key] > 0) || key === 'Catatan WR')) {
-                breakdownHTML += `<p><span>${key}:</span> <span>${key === 'Catatan WR' ? breakdown[key] : formatToIDR(breakdown[key])}</span></p>`;
+        const orderedKeys = ['Harga Dasar Akun','Skin Supreme','Skin Grand','Skin Exquisite','Skin Deluxe','Skin Exceptional','Skin Common','Painted Skin','Emblem Level 60','Tier Saat Ini','Win Rate Rank'];
+        orderedKeys.forEach(key => {
+            if (breakdown[key] !== undefined && breakdown[key] > 0) {
+                breakdownHTML += `<p><span>${key}:</span> <span>${formatToIDR(breakdown[key])}</span></p>`;
             }
         });
         priceBreakdown.innerHTML = breakdownHTML;
 
-        if (resultSection) {
-            resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (resultSection) resultSection.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // --- Reset Button Functionality ---
+    // --- Reset Button ---
     resetBtn.addEventListener('click', function() {
         document.getElementById('tier').value = 'Warrior';
         winRateInput.value = '';
         totalRankMatchesInput.value = '';
         document.getElementById('totalHeroes').value = '';
         emblemLevel60Input.value = '';
-
         skinInputIds.forEach(id => {
-            const inputElement = document.getElementById(id);
-            inputElement.value = '';
-            inputElement.placeholder = '0';
+            document.getElementById(id).value = '';
+            document.getElementById(id).placeholder = '0';
         });
-
-        clearError('winRate');
-        clearError('totalRankMatches');
-        clearError('totalHeroes');
-        clearError('emblemLevel60');
-        skinInputIds.forEach(id => clearError(id));
-
         winRateProgressBar.style.width = '0%';
         emblemCountSpan.textContent = '0';
-
         resultPrice.textContent = 'Rp 0';
         priceBreakdown.innerHTML = '';
     });
 
-    // --- Event Listeners untuk Update Visual Form ---
+    // --- Visual Form Update ---
     winRateInput.addEventListener('input', function() {
         const value = parseFloat(winRateInput.value);
-        if (!isNaN(value) && value >= 0 && value <= 100) {
-            winRateProgressBar.style.width = value + '%';
-            clearError('winRate');
-        } else {
-            winRateProgressBar.style.width = '0%';
-        }
+        if (!isNaN(value) && value >= 0 && value <= 100) winRateProgressBar.style.width = value + '%';
+        else winRateProgressBar.style.width = '0%';
     });
 
     emblemLevel60Input.addEventListener('input', function() {
         const value = parseInt(emblemLevel60Input.value);
-        if (!isNaN(value) && value >= 0 && value <= 7) {
-            emblemCountSpan.textContent = value;
-            clearError('emblemLevel60');
-        } else {
-            emblemCountSpan.textContent = '0';
-        }
+        if (!isNaN(value) && value >= 0 && value <= 7) emblemCountSpan.textContent = value;
+        else emblemCountSpan.textContent = '0';
     });
 
-    document.getElementById('totalHeroes').addEventListener('input', () => clearError('totalHeroes'));
-    totalRankMatchesInput.addEventListener('input', () => clearError('totalRankMatches'));
-
-
-    skinInputIds.forEach(id => {
-        const inputElement = document.getElementById(id);
-        inputElement.value = '';
-        inputElement.placeholder = '0';
-
-        inputElement.addEventListener('blur', () => {
-            if (inputElement.value === '' || isNaN(parseInt(inputElement.value))) {
-                inputElement.value = '';
-                inputElement.placeholder = '0';
-                clearError(id);
-            } else if (parseInt(inputElement.value) < 0) {
-                 inputElement.value = 0;
-                 inputElement.placeholder = '';
-                 clearError(id);
-            }
-        });
-        inputElement.addEventListener('focus', () => {
-            inputElement.placeholder = '';
-        });
-        inputElement.addEventListener('input', () => clearError(id));
-    });
-
-    // --- Inisialisasi Visual Form saat Halaman Dimuat ---
-    winRateInput.dispatchEvent(new Event('input'));
-    emblemLevel60Input.dispatchEvent(new Event('input'));
-
-
-    // --- Feedback Form Submission Handling ---
+    // --- Feedback Form ---
     feedbackForm.addEventListener('submit', async function(event) {
-        event.preventDefault(); // Mencegah form reload halaman
-
-        const form = event.target;
-        const formData = new FormData(form);
-
-        feedbackMessage.textContent = 'Mengirim masukan...';
-        feedbackMessage.style.color = '#a0c4ff'; // Light blue for sending status
-
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        feedbackMessage.textContent = 'Mengirim...';
         try {
-            const response = await fetch(form.action, {
-                method: form.method,
-                body: formData,
-                headers: {
-                    'Accept': 'application/json' // Crucial for Formspree/Apps Script to return JSON
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json(); // Apps Script returns JSON
-                if (data.status === 'success') {
-                    feedbackMessage.textContent = data.message; // Use message from Apps Script
-                    feedbackMessage.style.color = '#4CAF50'; // Green for success
-                    form.reset(); // Clear the form fields
-                    loadComments(); // Refresh comments after successful submission
-                } else {
-                    feedbackMessage.textContent = data.message || 'Gagal mengirim masukan. Silakan coba lagi.';
-                    feedbackMessage.style.color = '#ff6b6b'; // Red for error
-                }
-            } else {
-                feedbackMessage.textContent = 'Gagal mengirim masukan. Status: ' + response.status;
-                feedbackMessage.style.color = '#ff6b6b';
+            const response = await fetch(event.target.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' }});
+            const data = await response.json();
+            if (data.status === 'success') {
+                feedbackMessage.textContent = data.message;
+                event.target.reset();
+                loadComments();
             }
-        } catch (error) {
-            console.error('Error submitting feedback:', error);
-            feedbackMessage.textContent = 'Terjadi kesalahan jaringan. Silakan coba lagi.';
-            feedbackMessage.style.color = '#ff6b6b';
-        }
+        } catch (e) { feedbackMessage.textContent = 'Gagal!'; }
     });
 
-
-    // --- Function to Load and Display Comments ---
+    // --- Load Comments ---
     async function loadComments() {
-        commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>'; // Show loading state
-
+        commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>';
         try {
-            // Menggunakan method GET untuk mengambil data komentar
-            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getComments', { // Tambah parameter action
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                if (data.status === 'success' && data.comments) {
-                    displayComments(data.comments);
-                } else {
-                    commentsList.innerHTML = '<p class="no-comments">Gagal memuat komentar. ' + (data.message || '') + '</p>';
-                }
-            } else {
-                commentsList.innerHTML = '<p class="no-comments">Gagal memuat komentar. (Status: ' + response.status + ')</p>';
-            }
-        } catch (error) {
-            console.error('Error loading comments:', error);
-            commentsList.innerHTML = '<p class="no-comments">Terjadi kesalahan jaringan saat memuat komentar. Silakan coba refresh.</p>';
-        }
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getComments');
+            const data = await response.json();
+            if (data.status === 'success') displayComments(data.comments);
+        } catch (e) { commentsList.innerHTML = 'Gagal memuat!'; }
     }
 
-    // Function to render comments to the DOM
+    // --- Display Comments (ANTI-LINK & ANTI-XSS) ---
     function displayComments(comments) {
-        commentsList.innerHTML = ''; // Clear previous comments
-
+        commentsList.innerHTML = '';
         if (comments.length === 0) {
-            commentsList.innerHTML = '<p class="no-comments">Belum ada komentar atau saran.</p>';
+            commentsList.innerHTML = '<p class="no-comments">Belum ada komentar.</p>';
             return;
         }
-
         comments.forEach(comment => {
             const commentItem = document.createElement('div');
             commentItem.classList.add('comment-item');
+            
+            // Sanitasi SEMUA data yang masuk biar mampus tuh bot
+            const safeUsername = sanitizeComment(comment.username || 'Anonim');
+            const safeTimestamp = sanitizeComment(comment.timestamp || '');
+            const safeSuggestion = sanitizeComment(comment.suggestion || '');
+            const safeAdminReply = sanitizeComment(comment.adminreply || '');
 
             commentItem.innerHTML = `
                 <div class="comment-header">
-                    <span class="comment-username">${comment.username || 'Anonim'}</span>
-                    <span class="comment-timestamp">${comment.timestamp || ''}</span>
+                    <span class="comment-username">${safeUsername}</span>
+                    <span class="comment-timestamp">${safeTimestamp}</span>
                 </div>
-                <div class="comment-body">
-                    ${comment.suggestion || ''}
-                </div>
-                ${comment.adminreply && comment.adminreply.trim() !== '' ? ` <div class="admin-reply">
+                <div class="comment-body">${safeSuggestion}</div>
+                ${safeAdminReply.trim() !== '' ? `
+                <div class="admin-reply">
                     <p><strong>Balasan Admin:</strong></p>
-                    <p>${comment.adminreply}</p>
-                </div>
-                ` : ''}
+                    <p>${safeAdminReply}</p>
+                </div>` : ''}
             `;
             commentsList.appendChild(commentItem);
         });
     }
 
-    // --- Function to Load and Display Visitor Count ---
+    // --- Visitor Count ---
     async function loadVisitorCount() {
-        if (!visitorCountSpan) return; // Exit if element not found
-
         try {
-            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getCounter', { // Panggil Apps Script untuk counter
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                if (data.status === 'success' && typeof data.count === 'number') {
-                    visitorCountSpan.textContent = data.count.toLocaleString('id-ID') + " Player";
-                } else {
-                    console.error('Failed to get visitor count:', data.message || 'Unknown error');
-                    visitorCountSpan.textContent = 'N/A';
-                }
-            } else {
-                console.error('Failed to fetch visitor count. Status:', response.status);
-                visitorCountSpan.textContent = 'N/A';
-            }
-        } catch (error) {
-            console.error('Network error fetching visitor count:', error);
-            visitorCountSpan.textContent = 'N/A';
-        }
+            const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getCounter');
+            const data = await response.json();
+            if (data.status === 'success') visitorCountSpan.textContent = data.count.toLocaleString('id-ID') + " Player";
+        } catch (e) { visitorCountSpan.textContent = 'N/A'; }
     }
 
-
-    // --- Event Listeners Utama ---
     refreshCommentsBtn.addEventListener('click', loadComments);
-
-    // Load comments when the page first loads
     loadComments();
-
-    // Load visitor count when the page first loads
     loadVisitorCount();
 });
