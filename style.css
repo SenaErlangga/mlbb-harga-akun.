@@ -754,4 +754,57 @@ footer p {
     }
 }
 
+/* Styling Tombol Survey di Atas */
+.survey-button-top {
+    display: inline-block;
+    background-color: #ff9800; /* Warna orange mencolok */
+    color: #1a2a40;
+    padding: 8px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 5px;
+}
+
+.survey-button-top:hover {
+    background-color: #e68a00;
+    transform: translateY(-2px);
+}
+
+/* Styling Banner Survey di Bawah Hasil */
+.survey-banner-bottom {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px dashed #ffd700;
+}
+
+.survey-banner-bottom p {
+    color: #e0e0e0;
+    font-size: 0.95em;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+.survey-button-result {
+    display: block;
+    width: 100%;
+    background-color: #ffd700;
+    color: #1a2a40;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    box-sizing: border-box;
+}
+
+.survey-button-result:hover {
+    background-color: #e0b000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+}
 
