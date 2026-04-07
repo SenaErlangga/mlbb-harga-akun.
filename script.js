@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 6. Perhitungan Highest Rank
         const highestTierValues = {
             'Dibawah Glory': 0, 'Glory Biasa': 30000, 
-            'Immortal Biasa': 50000, 'Immortal Dewa': 100000
+            'Immortal Biasa': 100000, 'Immortal Dewa': 200000
         };
         const highestTierContribution = highestTierValues[highestTier] || 0;
         if (highestTierContribution > 0) {
@@ -188,25 +188,25 @@ document.addEventListener('DOMContentLoaded', function() {
         const rareLimPrice = skinRareLim * 1500000;
         if (rareLimPrice > 0) breakdown['Kasta Kolektor Eksklusif (Unobtainable)'] = rareLimPrice;
 
-        const legendLimPrice = skinLegendLim * 350000; // REVISI: Turun jadi 350k
+        const legendLimPrice = skinLegendLim * 350000; // REVISI: Turun
         if (legendLimPrice > 0) breakdown['Kasta Supreme Limit (Event)'] = legendLimPrice;
 
         const legendPrice = skinLegend * 200000;
         if (legendPrice > 0) breakdown['Kasta Supreme Biasa (Magic Wheel)'] = legendPrice;
 
-        const grandPrice = skinGrand * 125000; // REVISI: Turun jadi 125k
+        const grandPrice = skinGrand * 80000; // REVISI: Turun 
         if (grandPrice > 0) breakdown['Kasta Grand (3000 Poin)'] = grandPrice;
 
-        const exqPrice = skinExquisite * 90000; // REVISI: Turun jadi 90k
+        const exqPrice = skinExquisite * 30000; // REVISI: Turun 
         if (exqPrice > 0) breakdown['Kasta Exquisite (2000 Poin)'] = exqPrice;
 
-        const deluxePrice = skinDeluxe * 35000; // REVISI: Turun jadi 35k
+        const deluxePrice = skinDeluxe * 5000; // REVISI: Turun 
         if (deluxePrice > 0) breakdown['Kasta Deluxe (400 Poin)'] = deluxePrice;
 
-        const recallPrice = recallEffect * 80000;
+        const recallPrice = recallEffect * 20000;
         if (recallPrice > 0) breakdown['Efek Recall Limited'] = recallPrice;
 
-        const borderPrice = borderLimited * 80000;
+        const borderPrice = borderLimited * 20000;
         if (borderPrice > 0) breakdown['Avatar Border Limited'] = borderPrice;
 
         const skinTotal = (rareLimPrice + legendLimPrice + legendPrice + grandPrice + exqPrice + deluxePrice + recallPrice + borderPrice);
