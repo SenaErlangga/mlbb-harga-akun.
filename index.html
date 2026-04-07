@@ -15,7 +15,7 @@
     <meta property="og:title" content="Kalkulator Harga Akun Mobile Legends">
     <meta property="og:site_name" content="Kalkulator Akun MLBB">
     <meta property="og:url" content="https://kalkulatorakunml.com/">
-    <meta property="og:description" content="Estimasi harga akun MLBB lu berdasarkan skin, emblem, dan tier. Update harga sesuai pasaran FJB 2026.">
+    <meta property="og:description" content="Estimasi harga akun MLBB Anda berdasarkan poin koleksi resmi dan standar pasar Jual Beli (FJB).">
     
     <script type="application/ld+json">
     {
@@ -31,45 +31,35 @@
             window.location.replace("https://kalkulatorakunml.com");
         }
     </script>
-<meta name="google-adsense-account" content="ca-pub-4669817919549764">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4669817919549764"
-     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-4669817919549764">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4669817919549764" crossorigin="anonymous"></script>
 
-    </head>
+</head>
 <body>
     <div id="fixedVisitorCounter">
         <i class="fas fa-users"></i> <span id="visitorCount">0</span>
     </div>
 
     <div class="container">
-        <h1>Kalkulator Harga Akun Mobile Legends (GRATIS)!</h1>
-        <p class="description">Estimasi harga akun MLBB berdasarkan akun lu.</p>
-
-                      <div class="announcement-box" style="border: 2px solid #ff4757; background: rgba(255, 71, 87, 0.1);">
-            <p style="margin-bottom: 10px; font-size: 1.1em;"><i class="fas fa-lock" style="color: #ff4757;"></i> <strong>SURVEY & GIVEAWAY RESMI DITUTUP!</strong></p>
-            <p style="margin-bottom: 10px;">Gila, antusiasme warga FJB dan Mobile Legends kaga ngotak! Makasih buat <span style="color: #ffd700; font-weight: bold;">500+ Suhu</span> yang udah bantu ngisi patokan standar harga.</p>
-            <hr style="border-color: #4a6381; margin: 10px 0;">
-            <p style="margin-bottom: 15px;"><i class="fas fa-cogs" style="color: #00ffcc;"></i> <strong>ON PROGRESS: KALKULATOR V2.0</strong> <br>
-            Data udah di tangan, Admin Ganteng lagi ngeracik update besar-besaran! Harga bakal makin waras, no skin receh, makin elit!</p>
-            <div style="background: linear-gradient(45deg, #fbbf24, #f59e0b); padding: 12px; border-radius: 8px; color: #451a03; font-weight: bold; text-align: center; box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);">
-                <i class="fab fa-youtube" style="color: #ef4444; font-size: 1.2em; margin-right: 5px;"></i> Pengumuman list pemenang survey akan di tempel di Web Ini! dan akan di hubungi oleh admin ganteng Terimakasih!🫡
-            </div>
+        <h1>Kalkulator Harga Akun Mobile Legends</h1>
+        <p class="description">Hitung estimasi nilai jual akun MLBB Anda secara akurat berdasarkan spesifikasi dan Koleksi Poin resmi.</p>
+        <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid #10b981; padding: 18px; border-radius: 12px; margin-bottom: 25px; text-align: left; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);">
+            <h4 style="color: #10b981; margin-top: 0; margin-bottom: 10px; font-size: 1.05em; display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-rocket"></i> PEMBARUAN V2.0 RESMI RILIS!
+            </h4>
+            <p style="color: #cbd5e1; font-size: 0.9em; margin-bottom: 15px; line-height: 1.5;">
+                Terima kasih atas ratusan hujatan dan masukan dari para Suhu FJB! 🙏 Kodingan V2.0 sudah diimplementasikan. Harga sekarang dijamin lebih waras, sesuai pasar, dan sudah ada penambahan kasta <strong>Skin Kolektor Eksklusif (Blue Spectre, M1, dll)</strong>.
+            </p>
         </div>
-
 
 
         <div class="form-section">
             <h2><i class="fas fa-info-circle"></i> Informasi Dasar Akun</h2>
 
             <div class="form-group">
-                <label for="tier"><i class="fas fa-crown"></i>Pilih Tier lu yang sekarang:</label>
+                <label for="tier"><i class="fas fa-crown"></i> Rank Saat Ini:</label>
                 <select id="tier">
-                    <option value="Warrior">Warrior</option>
-                    <option value="Elite">Elite</option>
-                    <option value="Master">Master</option>
-                    <option value="Grandmaster">Grandmaster</option>
-                    <option value="Epic">Epic</option>
-                    <option value="Legend">Legend</option>
+                    <option value="Warrior">Warrior - Legend</option>
                     <option value="Mythic">Mythic</option>
                     <option value="Mythical Honor">Mythical Honor</option>
                     <option value="Mythical Glory">Mythical Glory</option>
@@ -78,150 +68,194 @@
             </div>
 
             <div class="form-group">
-                <label for="winRate"><i class="fas fa-percent"></i>WR Rank All Season(%):</label>
-                <input type="number" id="winRate" min="0" max="100" step="0.1" placeholder="Cth: 55.7">
+                <label for="highestTier" style="color: #ff6b81;"><i class="fas fa-arrow-up"></i> Rank Tertinggi (Highest Rank):</label>
+                <select id="highestTier">
+                    <option value="Dibawah Glory">Di bawah Mythical Glory</option>
+                    <option value="Glory Biasa">Mythical Glory</option>
+                    <option value="Immortal Biasa">Mythical Immortal (< 100 Bintang)</option>
+                    <option value="Immortal Dewa">Mythical Immortal (> 100 Bintang)</option>
+                </select>
+                <small>Riwayat Rank Tertinggi sangat mempengaruhi nilai jual akun Anda.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="winRate"><i class="fas fa-percent"></i> Win Rate Rank All Season (%):</label>
+                <input type="number" id="winRate" min="0" max="100" step="0.1" placeholder="Contoh: 55.7">
                 <div class="progress-bar-container">
                     <div class="progress-bar" id="winRateProgressBar" style="width: 0%;"></div>
                 </div>
-                <div class="error-message" id="winRate-error"></div>
             </div>
             
             <div class="form-group">
-                <label for="totalRankMatches"><i class="fas fa-gamepad"></i> Total Rank All Season:</label>
-                <input type="number" id="totalRankMatches" min="0" placeholder="Cth: 2500">
-                <small>Jumlah total seluruh Match Rank lu.</small>
-                <div class="error-message" id="totalRankMatches-error"></div>
+                <label for="totalRankMatches"><i class="fas fa-gamepad"></i> Total Pertandingan Rank:</label>
+                <input type="number" id="totalRankMatches" min="0" placeholder="Contoh: 2500">
             </div>
 
             <div class="form-group">
-                <label for="totalHeroes"><i class="fas fa-users"></i> Jumlah Hero yang Dimiliki:</label>
-                <input type="number" id="totalHeroes" min="0" placeholder="Cth: 110">
-                <div class="error-message" id="totalHeroes-error"></div>
-            </div>
-
-            <div class="form-group">
-                <label for="emblemLevel60"><i class="fas fa-gem"></i> Jumlah Emblem Level 60/MAX:</label>
-                <input type="number" id="emblemLevel60" min="0" max="7" placeholder="Cth: 5">
-                <small>Jumlah emblem yang udah MAX (<span id="emblemCount">0</span>/7).</small>
-                <div class="error-message" id="emblemLevel60-error"></div>
+                <label for="emblemLevel60"><i class="fas fa-gem"></i> Jumlah Emblem Level Maksimal (60):</label>
+                <input type="number" id="emblemLevel60" min="0" max="7" placeholder="Contoh: 5">
+                <small>Jumlah Emblem yang telah mencapai batas maksimal (<span id="emblemCount">0</span>/7).</small>
             </div>
         </div>
 
         <div class="form-section">
-            <h2><i class="fas fa-tshirt"></i> Koleksi Skin</h2>
-            <p class="description">Masukkin jumlah skin yang lu punya sesuai kategori.</p>
+            <h2><i class="fas fa-gem" style="color: #00ffcc;"></i> Koleksi Skin & Item Langka</h2>
+            <p class="description" style="color: #ff4757; font-weight: bold; font-size: 0.9em;">(Berdasarkan Sistem Poin Koleksi. Skin di bawah kasta Deluxe seperti Special, Elite, dan Basic diabaikan dalam valuasi).</p>
 
             <div class="skin-category-grid">
                 <div class="form-group">
-                    <label for="skinSupreme">Supreme:</label>
-                    <input type="number" id="skinSupreme" min="0">
+                    <label for="skinLegendLim" style="color: #ff00ff;"><i class="fas fa-meteor"></i> Supreme Limit (Legend Event):</label>
+                    <input type="number" id="skinLegendLim" min="0" placeholder="0">
                 </div>
                 <div class="form-group">
-                    <label for="skinGrand">Grand:</label>
-                    <input type="number" id="skinGrand" min="0">
+                    <label for="skinLegend" style="color: #e056fd;"><i class="fas fa-crown"></i> Supreme Biasa (Magic Wheel):</label>
+                    <input type="number" id="skinLegend" min="0" placeholder="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="skinGrand" style="color: #ff4757;"><i class="fas fa-fire-alt"></i> Grand (Collector/KOF/dll):</label>
+                    <input type="number" id="skinGrand" min="0" placeholder="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="skinExquisite" style="color: #ff9f43;"><i class="fas fa-star"></i> Exquisite (Shop/Event):</label>
+                    <input type="number" id="skinExquisite" min="0" placeholder="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="skinDeluxe" style="color: #feca57;"><i class="fas fa-award"></i> Deluxe (Epic Shop/dll):</label>
+                    <input type="number" id="skinDeluxe" min="0" placeholder="0">
                 </div>
                 <div class="form-group">
-                    <label for="skinExquisite">Exquisite:</label>
-                    <input type="number" id="skinExquisite" min="0">
+                    <label for="skinRareLim" style="color: #00d2ff;"><i class="fas fa-gem"></i> Skin Kolektor Eksklusif (M1/Blue Spectre/Biomedic):</label>
+                    <input type="number" id="skinRareLim" min="0" placeholder="0">
+                    <small>Khusus skin turnamen atau event terbatas yang tidak akan dirilis ulang.</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="recallEffect" style="color: #00ffcc;"><i class="fas fa-magic"></i> Efek Recall Limited:</label>
+                    <input type="number" id="recallEffect" min="0" placeholder="0">
                 </div>
                 <div class="form-group">
-                    <label for="skinDeluxe">Deluxe:</label>
-                    <input type="number" id="skinDeluxe" min="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinExceptional">Exceptional:</label>
-                    <input type="number" id="skinExceptional" min="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinCommon">Common:</label>
-                    <input type="number" id="skinCommon" min="0">
-                </div>
-                <div class="form-group">
-                    <label for="skinPainted">Painted Skin:</label>
-                    <input type="number" id="skinPainted" min="0">
+                    <label for="borderLimited" style="color: #f39c12;"><i class="fas fa-certificate"></i> Avatar Border Limited:</label>
+                    <input type="number" id="borderLimited" min="0" placeholder="0">
                 </div>
             </div>
         </div>
-        
+
         <div class="button-group">
-            <button id="calculateBtn" class="main-action-button calculate-button"><i class="fas fa-calculator"></i> Hitung Harga Akun</button>
-            <button id="resetBtn" class="main-action-button reset-button"><i class="fas fa-redo-alt"></i> Reset</button>
+            <button id="calculateBtn" class="main-action-button calculate-button"><i class="fas fa-calculator"></i> Hitung Estimasi Harga</button>
+            <button id="resetBtn" class="main-action-button reset-button"><i class="fas fa-redo-alt"></i> Ulangi</button>
         </div>
 
         <div class="result-section">
-            <h2>Estimasi Harga Akun:</h2>
+            <h2>Estimasi Nilai Akun:</h2>
             <p id="resultPrice" class="fade-in-result">Rp 0</p>
             <div id="priceBreakdown" class="price-breakdown"></div>
-            <p class="disclaimer">Estimasi ini adalah panduan dan harga sebenarnya bisa bervariasi di pasar.</p>
-</div>
-     
-        <div class="form-section feedback-section">
-            <h2><i class="fas fa-share-alt"></i>Bermanfaat kan ywdh cepet bagiin!</h2>
-            <p class="description">Bantuin teman-teman lu buat cek harga akun MLBB juga!</p>
-            <div class="share-buttons">
-                <a href="https://wa.me/?text=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D%0Ahttps%3A%2F%2Fkalkulatorakun.netlify.app%2F" target="_blank" class="share-button whatsapp" aria-label="Bagikan ke WhatsApp">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkalkulatorakun.netlify.app%2F&quote=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D" target="_blank" class="share-button facebook" aria-label="Bagikan ke Facebook">
-                    <i class="fab fa-facebook-f"></i> Facebook
-                </a>
-            </div>
+            <p class="disclaimer">Perhatian: Estimasi ini merupakan standar dasar penilaian. Harga akhir dapat bervariasi sesuai negosiasi pasar.</p>
         </div>
-        <div class="form-section info-section">
-            <div style="margin-bottom: 10px;">
-    <span style="background-color: #ffd700; color: #1e2a38; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">
-        FAQ / Tanya Jawab
-    </span>
-</div>
-<h3 style="color: #60a5fa; margin-top: 10px;">
-    <i class="fas fa-lightbulb" style="color: #ffd700;"></i> Apa yang Membuat Akun MLBB kita Berharga bang?
-</h3>
-            <p>Harga sebuah akun Mobile Legends dipengaruhi oleh beberapa faktor utama. Memahami ini akan membantu Anda menilai akun lebih baik:</p>
-            <ul>
-                <li><strong>Koleksi Skin:</strong> Jenis dan jumlah skin adalah penentu harga terbesar. Skin kategori Supreme, Grand, dan Exquisite yang langka memiliki nilai jual sangat tinggi karena sulit didapatkan.</li>
-                <li><strong>Level Emblem:</strong> Emblem yang sudah mencapai Level 60 (maksimal) sangat krusial untuk performa di dalam game dan menambah nilai signifikan pada akun.</li>
-                <li><strong>Tier Saat Ini:</strong> Tier tinggi menunjukkan pencapaian dan skill pemain, membuat akun lebih menarik bagi pembeli yang ingin langsung bermain di level kompetitif.</li>
-                <li><strong>Win Rate Rank & Match:</strong> Win Rate di pertandingan Ranked yang tinggi, **terutama jika didukung oleh jumlah pertandingan yang banyak**, mencerminkan rekam jejak performa akun yang kuat dan seringkali menjadi daya tarik utama.</li>
-            </ul>
-            <p>Perlu diinget, Alesan di atas itu saling memengaruhi dan harga akhir di pasar bisa beda.</p>
+        <div class="form-section feedback-wa-box" style="margin-top: 20px; border: 1px dashed #25D366; background: rgba(37, 211, 102, 0.05); text-align: center; padding: 20px;">
+            <p style="margin-bottom: 15px; font-size: 0.95em; color: #e2e8f0;">
+                <i class="fas fa-exclamation-circle" style="color: #25D366;"></i> 
+                Merasa estimasi harga kurang akurat atau memiliki saran mengenai patokan harga terbaru? 
+                <strong>Segera hubungi Admin untuk memberikan masukan!</strong>
+            </p>
+            <a href="https://wa.me/628561147518" target="_blank" style="display: inline-flex; align-items: center; background-color: #25D366; color: #ffffff; padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 0.9em; transition: 0.3s; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.2);">
+                <i class="fab fa-whatsapp" style="font-size: 1.2em; margin-right: 8px;"></i> WhatsApp Admin
+            </a>
         </div>
 
         <div class="form-section feedback-section">
-            <h2><i class="fas fa-comment-dots"></i> Kasih Masukan &amp; Saran</h2>
-            <p class="description">Punya saran atau ide untuk kalkulator ini? gass komen!</p>
+            <h2><i class="fas fa-share-alt"></i> Bagikan Kalkulator Ini!</h2>
+            <p class="description">Bantu teman Anda mengetahui harga pasar akun MLBB mereka!</p>
+                        <div class="share-buttons">
+                <a href="https://wa.me/?text=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D%0Ahttps%3A%2F%2Fkalkulatorakunml.com%2F" 
+                   target="_blank" class="share-button whatsapp" 
+                   style="margin-bottom: 15px; display: flex; justify-content: center; align-items: center; text-decoration: none; width: 100%;">
+                    <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> WhatsApp
+                </a>
+
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fkalkulatorakunml.com%2F&quote=Cek%20harga%20akun%20Mobile%20Legends%20punyamu%20sekarang%20dengan%20kalkulator%20ini!%20%F0%9F%92%B0%F0%9F%94%8D" 
+                   target="_blank" class="share-button facebook" 
+                   style="display: flex; justify-content: center; align-items: center; text-decoration: none; width: 100%;">
+                    <i class="fab fa-facebook-f" style="margin-right: 8px;"></i> Facebook
+                </a>
+            </div>
+
+
+        </div>
+
+               <div class="form-section info-section">
+            <div style="margin-bottom: 10px;">
+                <span style="background-color: #ffd700; color: #1e2a38; padding: 4px 12px; border-radius: 20px; font-weight: 800; font-size: 0.85em; text-transform: uppercase; letter-spacing: 1px;">
+                    Sistem Valuasi V2.0
+                </span>
+            </div>
+            <h3 style="color: #60a5fa; margin-top: 10px;">
+                <i class="fas fa-balance-scale" style="color: #ffd700;"></i> Bagaimana Akun Dinilai?
+            </h3>
+            <p>Untuk memastikan keakuratan, perhitungan kalkulator V2.0 didasarkan pada <strong>Sistem Poin Koleksi Resmi</strong> yang dikalibrasi dengan harga pasar saat ini:</p>
+            <ul>
+                <li><strong>Kolektor Eksklusif (Unobtainable):</strong> Kasta tertinggi khusus untuk skin turnamen atau event bersejarah (seperti Layla Blue Spectre atau Aldous M1) yang sangat langka dan tidak akan dirilis ulang.</li>
+                <li><strong>Koleksi Skin & Item (Sistem Poin):</strong> Kasta skin diurutkan secara resmi dari Supreme/Legend (4000 Poin), Grand (3000 Poin), Exquisite (2000 Poin), hingga Deluxe (400 Poin).</li>
+                <li><strong>Riwayat Rank Tertinggi:</strong> Pencapaian rank tertinggi Anda (seperti Mythical Immortal) memberikan nilai tambah yang signifikan pada akun.</li>
+                <li><strong>Status "Pro Player":</strong> Akun dengan persentase kemenangan (Win Rate) di atas 70% dan menyentuh ribuan pertandingan akan mendapatkan penilaian bonus otomatis karena rekam jejak yang solid.</li>
+            </ul>
+        </div>
+
+
+        <div class="form-section feedback-section">
+            <h2><i class="fas fa-comment-dots"></i> Kirim Masukan & Saran</h2>
+            <p class="description">Berikan ulasan Anda agar kalkulator ini menjadi lebih baik!</p>
             <form action="https://script.google.com/macros/s/AKfycbwD0pyo1yYfEnGUbNX7uT4Qwv1SYsI7PpLBKvqlNqRLttMe7oTDpFAe6MBNomG2zf4Ryg/exec" method="POST" id="feedbackForm">
                 <div class="form-group">
-                    <label for="username"><i class="fas fa-user"></i>Username/Nama:</label>
-                    <input type="text" name="username" id="feedbackUsername" placeholder="Cth: RRQ-Fahri">
+                    <label for="username"><i class="fas fa-user"></i> Nama / Username:</label>
+                    <input type="text" name="username" id="feedbackUsername" placeholder="Contoh: Nolan">
                 </div>
                 <div class="form-group">
-                    <label for="suggestion"><i class="fas fa-comment-alt"></i>Ketik saran lu di mari:</label>
-                    <textarea name="suggestion" id="feedbackSuggestion" rows="5" required placeholder="Tulis di mari terserah"></textarea>
+                    <label for="suggestion"><i class="fas fa-comment-alt"></i> Pesan / Saran Anda:</label>
+                    <textarea name="suggestion" id="feedbackSuggestion" rows="5" required placeholder="Tulis masukan Anda di sini..."></textarea>
                 </div>
-                <button type="submit" class="send-feedback-button"><i class="fas fa-paper-plane"></i>GAS KOMEN!</button>
+                <button type="submit" class="send-feedback-button"><i class="fas fa-paper-plane"></i> Kirim Pesan</button>
             </form>
             <p id="feedbackMessage" class="feedback-message"></p>
         </div>
 
         <div class="form-section comments-display-section">
-            <h2><i class="fas fa-comments"></i> Komentar &amp; Saran Pengunjung</h2>
-            <p class="description">Lihat apa kata Player lain tentang kalkulator ini!</p>
+            <h2><i class="fas fa-comments"></i> Komentar Pengunjung</h2>
+            <p class="description">Ulasan dari komunitas pemain Mobile Legends.</p>
             <div id="commentsList" class="comments-list">
                 <p class="loading-comments">Memuat komentar...</p>
-                </div>
+            </div>
             <button id="refreshCommentsBtn" class="refresh-comments-button"><i class="fas fa-sync-alt"></i> Perbarui Komentar</button>
         </div>
 
     </div>
+    
+    <footer style="margin-top: 50px; padding: 30px 15px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); color: #64748b; font-size: 0.85em; font-family: sans-serif;">
+        
+        <div style="margin-bottom: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 15px;">
+            <a href="about.html" style="color: #cbd5e1; text-decoration: none; font-weight: 500; transition: 0.3s;"><i class="fas fa-info-circle"></i> Tentang Kami</a>
+            <a href="contact.html" style="color: #cbd5e1; text-decoration: none; font-weight: 500; transition: 0.3s;"><i class="fas fa-envelope"></i> Kontak</a>
+            <a href="privacy.html" style="color: #cbd5e1; text-decoration: none; font-weight: 500; transition: 0.3s;"><i class="fas fa-user-shield"></i> Kebijakan Privasi</a>
+            <a href="disclaimer.html" style="color: #cbd5e1; text-decoration: none; font-weight: 500; transition: 0.3s;"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a>
+        </div>
 
-    <footer>
-        <p>&copy; 2025-2026 Kalkulator Harga Akun ML. All rights reserved.</p>
-        <div class="footer-links">
-            <a href="about.html">Tentang Kami</a> |
-            <a href="privacy.html">Kebijakan Privasi</a> |
-            <a href="contact.html">Kontak</a>
+        <div style="margin-bottom: 12px;">
+            <strong>Kalkulator Akun Mobile Legends</strong> &copy; 2026. Hak Cipta Dilindungi.
+        </div>
+        
+        <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <span style="background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 4px 12px; border-radius: 20px; font-weight: 700; color: #38bdf8; letter-spacing: 1px; font-size: 0.8em; box-shadow: 0 0 10px rgba(56, 189, 248, 0.1);">
+                <i class="fas fa-code-branch"></i> v2.0.0 (Stable)
+            </span>
+            <span style="color: #475569;">|</span>
+            <span style="font-weight: 500; color: #94a3b8;">
+                <i class="fas fa-shield-alt" style="color: #10b981; margin-right: 4px;"></i> Sistem Valuasi Resmi
+            </span>
         </div>
     </footer>
+
 
     <script src="script.js"></script>
 </body>
