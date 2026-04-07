@@ -14,47 +14,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Elemen Form Masukan Feedback ---
     const feedbackForm = document.getElementById('feedbackForm');
     const feedbackMessage = document.getElementById('feedbackMessage');
-    const feedbackUsernameInput = document.getElementById('feedbackUsername');
-    const feedbackSuggestionInput = document.getElementById('feedbackSuggestion');
+    const GOOGLE_APPS_SCRIPT_URL = feedbackForm.action; 
 
     // --- Elemen Tampilan Komentar ---
     const commentsList = document.getElementById('commentsList');
     const refreshCommentsBtn = document.getElementById('refreshCommentsBtn');
-    // URL Google Apps Script Web App
-    const GOOGLE_APPS_SCRIPT_URL = feedbackForm.action; 
 
     // --- Elemen Counter Pengunjung ---
     const visitorCountSpan = document.getElementById('visitorCount');
 
-    // --- Konfigurasi Input Skin ---
-    const skinInputIds = [
-        'skinSupreme', 'skinGrand', 'skinExquisite', 'skinDeluxe', 
-        'skinExceptional', 'skinCommon', 'skinPainted'
+    // --- Konfigurasi Input Skin (Termasuk Kasta Skin Ghoib/Unobtainable) ---
+    const itemInputIds = [
+        'skinRareLim', 'skinLegendLim', 'skinLegend', 'skinGrand', 'skinExquisite', 
+        'skinDeluxe', 'recallEffect', 'borderLimited'
     ];
 
     // ==========================================
-    // SUPER SECURITY: Fungsi Blokir Link & Anti-XSS
+    // SUPER SECURITY V2.0: Anti-XSS, Blokir Link & Sensor Kata Kasar
     // ==========================================
     function sanitizeComment(str) {
         if (typeof str !== 'string') return '';
-
-        // 1. BLOKIR LINK: Sensor pola http, https, www, atau domain umum (.com, .net, .slot, dll)
-        // Ini biar link judi rajakayu88 dkk langsung mampus
-        let textWithoutLinks = str.replace(/(?:https?:\/\/|www\.)[^\s]+|[a-zA-Z0-9.-]+\.(?:com|net|org|info|xyz|biz|id|co|me|vip|slot|88|fun|top)[^\s]*/ig, '[🛡️ Link Diblokir Admin]');
-
-        // 2. ESCAPE HTML: Mencegah eksekusi script jahat (XSS)
-        return textWithoutLinks.replace(/[&<>'"]/g, function(tag) {
-            const charsToReplace = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                "'": '&#39;',
-                '"': '&quot;'
-            };
+        
+        // 1. Blokir Link / URL
+        let safeText = str.replace(/(?:https?:\/\/|www\.)[^\s]+|[a-zA-Z0-9.-]+\.(?:com|net|org|info|xyz|biz|id|co|me|vip|slot|88|fun|top)[^\s]*/ig, '[🛡️ Link Blocked]');
+        
+        // 2. Blokir Script XSS
+        safeText = safeText.replace(/[&<>'"]/g, function(tag) {
+            const charsToReplace = { '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' };
             return charsToReplace[tag] || tag;
         });
+
+        // 3. Sensor Kata Kasar (Pake Word Boundary biar kaga salah sensor)
+        const badWords = [
+            'anjing', 'babi', 'monyet', 'asu', 'kontol', 'memek', 'jembut', 'bangsat', 
+            'tolol', 'goblok', 'goblog', 'ngentot', 'peler', 'bajingan', 'pantek', 
+            'bngst', 'anj', 'njing', 'bgst', 'kntl', 'mmk', 'pepek', 'kimak', 'kampret'
+        ];
+        
+        const badWordsRegex = new RegExp('\\b(' + badWords.join('|') + ')\\b', 'gi');
+        safeText = safeText.replace(badWordsRegex, '***');
+
+        return safeText;
     }
-    // ==========================================
 
     // --- Fungsi Helper Umum ---
     function formatToIDR(amount) {
@@ -77,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // --- Validasi Input Form Utama ---
+    // --- Validasi Input Form ---
     function validateInputs() {
         let isValid = true;
 
@@ -85,53 +86,38 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isNaN(winRate) || winRate < 0 || winRate > 100) {
             showError('winRate', 'Win Rate harus antara 0-100%.');
             isValid = false;
-        } else {
-            clearError('winRate');
-        }
-
-        const totalHeroesInput = document.getElementById('totalHeroes');
-        const totalHeroes = parseInt(totalHeroesInput.value);
-        if (isNaN(totalHeroes) || totalHeroes < 0) {
-            showError('totalHeroes', 'Jumlah Hero harus angka positif.');
-            isValid = false;
-        } else {
-            clearError('totalHeroes');
-        }
+        } else { clearError('winRate'); }
 
         const totalRankMatches = parseInt(totalRankMatchesInput.value);
         if (isNaN(totalRankMatches) || totalRankMatches < 0) {
             showError('totalRankMatches', 'Total Ranked Matches harus angka positif.');
             isValid = false;
-        } else {
-            clearError('totalRankMatches');
-        }
+        } else { clearError('totalRankMatches'); }
 
         const emblemLevel60 = parseInt(emblemLevel60Input.value);
         if (isNaN(emblemLevel60) || emblemLevel60 < 0 || emblemLevel60 > 7) {
             showError('emblemLevel60', 'Jumlah Emblem Level 60 harus antara 0-7.');
             isValid = false;
-        } else {
-            clearError('emblemLevel60');
-        }
+        } else { clearError('emblemLevel60'); }
 
-        skinInputIds.forEach(id => {
+        itemInputIds.forEach(id => {
             const inputElement = document.getElementById(id);
-            const value = parseInt(inputElement.value);
-            if (isNaN(value) && inputElement.value !== '') {
-                 showError(id, 'Masukkan angka yang valid.');
-                 isValid = false;
-            } else if (value < 0) {
-                showError(id, 'Angka tidak boleh negatif.');
-                isValid = false;
-            } else {
-                clearError(id);
+            if(inputElement) {
+                const value = parseInt(inputElement.value);
+                if (isNaN(value) && inputElement.value !== '') {
+                     showError(id, 'Masukkan angka yang valid.');
+                     isValid = false;
+                } else if (value < 0) {
+                    showError(id, 'Angka tidak boleh negatif.');
+                    isValid = false;
+                } else { clearError(id); }
             }
         });
 
         return isValid;
     }
 
-    // --- Fungsi Perhitungan Harga Akun ---
+    // --- Fungsi Perhitungan Harga Akun V2.0 FINAL ---
     calculateBtn.addEventListener('click', function() {
         if (!validateInputs()) {
             resultPrice.textContent = 'Rp 0';
@@ -142,109 +128,112 @@ document.addEventListener('DOMContentLoaded', function() {
         let totalPrice = 0;
         let breakdown = {};
 
-        // 1. Harga Dasar Akun
-        const basePrice = 10000;
+        // 1. Harga Dasar Akun (Polosan 0 Rupiah)
+        const basePrice = 0; 
         totalPrice += basePrice;
-        breakdown['Harga Dasar Akun'] = basePrice;
 
-        // 2. Ambil Input
+        // 2. Ambil Input Data Dasar
         const tier = document.getElementById('tier').value;
+        const highestTier = document.getElementById('highestTier') ? document.getElementById('highestTier').value : 'Dibawah Glory';
         const winRate = parseFloat(winRateInput.value) || 0;
         const totalRankMatches = parseInt(totalRankMatchesInput.value) || 0;
         const emblemLevel60 = parseInt(emblemLevel60Input.value) || 0;
 
-        const skinSupreme = parseInt(document.getElementById('skinSupreme').value) || 0;
-        const skinGrand = parseInt(document.getElementById('skinGrand').value) || 0;
-        const skinExquisite = parseInt(document.getElementById('skinExquisite').value) || 0;
-        const skinDeluxe = parseInt(document.getElementById('skinDeluxe').value) || 0;
-        const skinExceptional = parseInt(document.getElementById('skinExceptional').value) || 0;
-        const skinCommon = parseInt(document.getElementById('skinCommon').value) || 0;
-        const paintedSkin = parseInt(document.getElementById('skinPainted').value) || 0;
+        // 3. Ambil Input Kasta Skin (Termasuk Unobtainable)
+        const skinRareLim = parseInt(document.getElementById('skinRareLim') ? document.getElementById('skinRareLim').value : 0) || 0;
+        const skinLegendLim = parseInt(document.getElementById('skinLegendLim') ? document.getElementById('skinLegendLim').value : 0) || 0;
+        const skinLegend = parseInt(document.getElementById('skinLegend') ? document.getElementById('skinLegend').value : 0) || 0;
+        const skinGrand = parseInt(document.getElementById('skinGrand') ? document.getElementById('skinGrand').value : 0) || 0;
+        const skinExquisite = parseInt(document.getElementById('skinExquisite') ? document.getElementById('skinExquisite').value : 0) || 0;
+        const skinDeluxe = parseInt(document.getElementById('skinDeluxe') ? document.getElementById('skinDeluxe').value : 0) || 0;
+        const recallEffect = parseInt(document.getElementById('recallEffect') ? document.getElementById('recallEffect').value : 0) || 0;
+        const borderLimited = parseInt(document.getElementById('borderLimited') ? document.getElementById('borderLimited').value : 0) || 0;
 
-        // 3. Perhitungan
-        const skinPoinValues = {
-            'Supreme': 4000, 'Grand': 3000, 'Exquisite': 2000, 'Deluxe': 400,
-            'Exceptional': 200, 'Common': 10, 'Painted': 40
-        };
-        const pricePerSkinPoint = 20; // Sesuai revisi terakhir: Rp 20 per poin
+        // 4. Perhitungan Emblem (Rp 5.000 per emblem max)
+        const emblemContribution = emblemLevel60 * 5000;
+        if (emblemContribution > 0) {
+            totalPrice += emblemContribution;
+            breakdown['Emblem Maksimal (Level 60)'] = emblemContribution;
+        }
 
-        let skinContributionTotal = 0;
-
-        const supremeContribution = skinSupreme * skinPoinValues.Supreme * pricePerSkinPoint;
-        if (supremeContribution > 0) breakdown['Skin Supreme'] = supremeContribution;
-        skinContributionTotal += supremeContribution;
-
-        const grandContribution = skinGrand * skinPoinValues.Grand * pricePerSkinPoint;
-        if (grandContribution > 0) breakdown['Skin Grand'] = grandContribution;
-        skinContributionTotal += grandContribution;
-
-        const exquisiteContribution = skinExquisite * skinPoinValues.Exquisite * pricePerSkinPoint;
-        if (exquisiteContribution > 0) breakdown['Skin Exquisite'] = exquisiteContribution;
-        skinContributionTotal += exquisiteContribution;
-
-        const deluxeContribution = skinDeluxe * skinPoinValues.Deluxe * pricePerSkinPoint;
-        if (deluxeContribution > 0) breakdown['Skin Deluxe'] = deluxeContribution;
-        skinContributionTotal += deluxeContribution;
-
-        const exceptionalContribution = skinExceptional * skinPoinValues.Exceptional * pricePerSkinPoint;
-        if (exceptionalContribution > 0) breakdown['Skin Exceptional'] = exceptionalContribution;
-        skinContributionTotal += exceptionalContribution;
-
-        const commonContribution = skinCommon * skinPoinValues.Common * pricePerSkinPoint;
-        if (commonContribution > 0) breakdown['Skin Common'] = commonContribution;
-        skinContributionTotal += commonContribution;
-
-        const paintedContribution = paintedSkin * skinPoinValues.Painted * pricePerSkinPoint;
-        if (paintedContribution > 0) breakdown['Painted Skin'] = paintedContribution;
-        skinContributionTotal += paintedContribution;
-
-        totalPrice += skinContributionTotal;
-
-        // Emblem
-        const emblemContribution = emblemLevel60 * 25000;
-        totalPrice += emblemContribution;
-        breakdown['Emblem Level 60'] = emblemContribution;
-
-        // Tier
+        // 5. Perhitungan Tier Saat Ini
         const tierValues = {
-            'Warrior': 0, 'Elite': 0, 'Master': 0, 'Grandmaster': 0,
-            'Epic': 10000, 'Legend': 50000, 'Mythic': 150000,
-            'Mythical Honor': 300000, 'Mythical Glory': 1000000, 'Mythical Immortal': 2000000
+            'Warrior': 0, 'Mythic': 10000, 'Mythical Honor': 20000, 
+            'Mythical Glory': 30000, 'Mythical Immortal': 50000
         };
         const tierContribution = tierValues[tier] || 0;
-        totalPrice += tierContribution;
-        breakdown['Tier Saat Ini'] = tierContribution;
+        if (tierContribution > 0) {
+            totalPrice += tierContribution;
+            breakdown['Rank Saat Ini (' + tier + ')'] = tierContribution;
+        }
 
-        // Win Rate
-        let winRateBaseValue = 0;
-        if (winRate >= 75) winRateBaseValue = 2000000;
-        else if (winRate >= 70) winRateBaseValue = 800000;
-        else if (winRate >= 65) winRateBaseValue = 300000;
-        else if (winRate >= 60) winRateBaseValue = 100000;
+        // 6. Perhitungan Highest Rank
+        const highestTierValues = {
+            'Dibawah Glory': 0, 'Glory Biasa': 30000, 
+            'Immortal Biasa': 50000, 'Immortal Dewa': 100000
+        };
+        const highestTierContribution = highestTierValues[highestTier] || 0;
+        if (highestTierContribution > 0) {
+            totalPrice += highestTierContribution;
+            
+            let highestTierName = highestTier;
+            if (highestTier === 'Glory Biasa') highestTierName = 'Mythical Glory';
+            else if (highestTier === 'Immortal Biasa') highestTierName = 'Mythical Immortal (< 100 Bintang)';
+            else if (highestTier === 'Immortal Dewa') highestTierName = 'Mythical Immortal (> 100 Bintang)';
+            
+            breakdown['Rank Tertinggi (' + highestTierName + ')'] = highestTierContribution;
+        }
 
-        let matchMultiplier = 0;
-        if (totalRankMatches >= 2000) matchMultiplier = 1;
-        else if (totalRankMatches >= 1000) matchMultiplier = 0.5;
+        // 7. Perhitungan Skin & Item
+        const rareLimPrice = skinRareLim * 1500000;
+        if (rareLimPrice > 0) breakdown['Kasta Kolektor Eksklusif (Unobtainable)'] = rareLimPrice;
 
-        let winRateContribution = winRateBaseValue * matchMultiplier;
-        totalPrice += winRateContribution;
-        breakdown['Win Rate Rank'] = winRateContribution;
+        const legendLimPrice = skinLegendLim * 350000; // REVISI: Turun jadi 350k
+        if (legendLimPrice > 0) breakdown['Kasta Supreme Limit (Event)'] = legendLimPrice;
+
+        const legendPrice = skinLegend * 200000;
+        if (legendPrice > 0) breakdown['Kasta Supreme Biasa (Magic Wheel)'] = legendPrice;
+
+        const grandPrice = skinGrand * 125000; // REVISI: Turun jadi 125k
+        if (grandPrice > 0) breakdown['Kasta Grand (3000 Poin)'] = grandPrice;
+
+        const exqPrice = skinExquisite * 90000; // REVISI: Turun jadi 90k
+        if (exqPrice > 0) breakdown['Kasta Exquisite (2000 Poin)'] = exqPrice;
+
+        const deluxePrice = skinDeluxe * 35000; // REVISI: Turun jadi 35k
+        if (deluxePrice > 0) breakdown['Kasta Deluxe (400 Poin)'] = deluxePrice;
+
+        const recallPrice = recallEffect * 80000;
+        if (recallPrice > 0) breakdown['Efek Recall Limited'] = recallPrice;
+
+        const borderPrice = borderLimited * 80000;
+        if (borderPrice > 0) breakdown['Avatar Border Limited'] = borderPrice;
+
+        const skinTotal = (rareLimPrice + legendLimPrice + legendPrice + grandPrice + exqPrice + deluxePrice + recallPrice + borderPrice);
+        totalPrice += skinTotal;
+
+        // 8. Auto-Detect Bonus Akun WR Dewa
+        if (winRate >= 70 && totalRankMatches >= 5000) {
+            const wrDewaBonus = 150000; 
+            totalPrice += wrDewaBonus;
+            breakdown['Bonus Valuasi: Akun Pro (>70% WR)'] = wrDewaBonus;
+        }
 
         if (totalPrice < 0) totalPrice = 0;
 
         // Tampilkan Hasil
         resultPrice.textContent = formatToIDR(totalPrice);
         resultPrice.classList.remove('fade-in-result');
-        void resultPrice.offsetWidth;
+        void resultPrice.offsetWidth; 
         resultPrice.classList.add('fade-in-result');
 
+        // Render Breakdown
         let breakdownHTML = '';
-        const orderedKeys = ['Harga Dasar Akun','Skin Supreme','Skin Grand','Skin Exquisite','Skin Deluxe','Skin Exceptional','Skin Common','Painted Skin','Emblem Level 60','Tier Saat Ini','Win Rate Rank'];
-        orderedKeys.forEach(key => {
-            if (breakdown[key] !== undefined && breakdown[key] > 0) {
+        for (let key in breakdown) {
+            if (breakdown[key] > 0) {
                 breakdownHTML += `<p><span>${key}:</span> <span>${formatToIDR(breakdown[key])}</span></p>`;
             }
-        });
+        }
         priceBreakdown.innerHTML = breakdownHTML;
 
         if (resultSection) resultSection.scrollIntoView({ behavior: 'smooth' });
@@ -253,14 +242,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Reset Button ---
     resetBtn.addEventListener('click', function() {
         document.getElementById('tier').value = 'Warrior';
+        if(document.getElementById('highestTier')) {
+            document.getElementById('highestTier').value = 'Dibawah Glory';
+        }
         winRateInput.value = '';
         totalRankMatchesInput.value = '';
-        document.getElementById('totalHeroes').value = '';
         emblemLevel60Input.value = '';
-        skinInputIds.forEach(id => {
-            document.getElementById(id).value = '';
-            document.getElementById(id).placeholder = '0';
+        
+        itemInputIds.forEach(id => {
+            const el = document.getElementById(id);
+            if(el) {
+                el.value = '';
+                el.placeholder = '0';
+            }
         });
+        
         winRateProgressBar.style.width = '0%';
         emblemCountSpan.textContent = '0';
         resultPrice.textContent = 'Rp 0';
@@ -296,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) { feedbackMessage.textContent = 'Gagal!'; }
     });
 
-    // --- Load Comments ---
+    // --- Load & Display Comments ---
     async function loadComments() {
         commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>';
         try {
@@ -306,7 +302,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) { commentsList.innerHTML = 'Gagal memuat!'; }
     }
 
-    // --- Display Comments (ANTI-LINK & ANTI-XSS) ---
     function displayComments(comments) {
         commentsList.innerHTML = '';
         if (comments.length === 0) {
@@ -317,7 +312,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const commentItem = document.createElement('div');
             commentItem.classList.add('comment-item');
             
-            // Sanitasi SEMUA data yang masuk biar mampus tuh bot
             const safeUsername = sanitizeComment(comment.username || 'Anonim');
             const safeTimestamp = sanitizeComment(comment.timestamp || '');
             const safeSuggestion = sanitizeComment(comment.suggestion || '');
