@@ -808,3 +808,74 @@ footer p {
     box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
 }
 
+/* --- STYLE MODAL IKLAN --- */
+.modal-iklan-container {
+    display: none; /* Sembunyiin dari awal */
+    position: fixed;
+    z-index: 99999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-iklan-content {
+    background: linear-gradient(145deg, #1e293b, #0f172a);
+    padding: 25px;
+    border: 1px solid #38bdf8;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 85vh; /* Biar tingginya kaga mentok layar HP */
+    overflow-y: auto; /* Biar isinya bisa di-scroll ke bawah! */
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: modalMuncul 0.3s ease-out;
+}
+
+
+.close-iklan {
+    position: absolute;
+    right: 15px;
+    color: #94a3b8;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-iklan:hover { color: #ef4444; }
+
+@keyframes modalMuncul {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- STYLE FLOATING BUTTON IKLAN --- */
+.floating-ad-btn {
+    position: fixed;
+    top: 65px; /* Jarak dari atas layar. Tinggal lu tambahin/kurangin angkanya biar pas di bawah visitor */
+    right: 15px; /* Nempel ke kanan sejajar sama visitor */
+    background: linear-gradient(45deg, #f59e0b, #d97706);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.75em;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+    z-index: 9990; /* Biar selalu di atas konten lain */
+    transition: 0.3s;
+}
+
+.floating-ad-btn:hover {
+    transform: scale(1.05);
+}
+
+
