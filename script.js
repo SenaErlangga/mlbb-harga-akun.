@@ -434,9 +434,9 @@ const btnBukaIklan = document.getElementById("btnBukaIklan");
 const closeModalIklan = document.getElementById("closeModalIklan");
 
 // Buka Modal pas tombol diklik
-btnBukaIklan.addEventListener("click", () => {
+//btnBukaIklan.addEventListener("click", () => {
     modalIklan.style.display = "flex";
-});
+//});
 
 // Tutup Modal pas (X) diklik
 closeModalIklan.addEventListener("click", () => {
