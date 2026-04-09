@@ -188,16 +188,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const rareLimPrice = skinRareLim * 1500000;
         if (rareLimPrice > 0) breakdown['Kasta Kolektor Eksklusif (Unobtainable)'] = rareLimPrice;
 
-        const legendLimPrice = skinLegendLim * 350000; // REVISI: Turun
+        const legendLimPrice = skinLegendLim * 350000; // REVISI: Turun jadi 350k
         if (legendLimPrice > 0) breakdown['Kasta Supreme Limit (Event)'] = legendLimPrice;
 
         const legendPrice = skinLegend * 200000;
         if (legendPrice > 0) breakdown['Kasta Supreme Biasa (Magic Wheel)'] = legendPrice;
 
-        const grandPrice = skinGrand * 80000; // REVISI: Turun 
+        const grandPrice = skinGrand * 80000; // REVISI: Turun
         if (grandPrice > 0) breakdown['Kasta Grand (3000 Poin)'] = grandPrice;
 
-        const exqPrice = skinExquisite * 30000; // REVISI: Turun 
+        const exqPrice = skinExquisite * 30000; // REVISI: Turun
         if (exqPrice > 0) breakdown['Kasta Exquisite (2000 Poin)'] = exqPrice;
 
         const deluxePrice = skinDeluxe * 5000; // REVISI: Turun 
@@ -292,23 +292,41 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (e) { feedbackMessage.textContent = 'Gagal!'; }
     });
 
-    // --- Load & Display Comments ---
+        // --- VARIABEL GLOBAL BUAT PAGINATION ---
+    let allComments = [];
+    let currentPage = 1;
+    const commentsPerPage = 5; // Lu bisa ganti jadi 10 kalo mau nampilin 10 komen per halaman
+
+    // --- Load & Fetch Comments ---
     async function loadComments() {
         commentsList.innerHTML = '<p class="loading-comments">Memuat komentar...</p>';
         try {
             const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getComments');
             const data = await response.json();
-            if (data.status === 'success') displayComments(data.comments);
+            if (data.status === 'success') {
+                // BALIK URUTAN: Biar komentar terbaru (paling bawah di Google Sheet) naik ke atas
+                allComments = data.comments.reverse(); 
+                currentPage = 1; // Reset selalu ke halaman 1
+                displayComments();
+            }
         } catch (e) { commentsList.innerHTML = 'Gagal memuat!'; }
     }
 
-    function displayComments(comments) {
+    // --- Render Comments per Page ---
+    function displayComments() {
         commentsList.innerHTML = '';
-        if (comments.length === 0) {
+        if (allComments.length === 0) {
             commentsList.innerHTML = '<p class="no-comments">Belum ada komentar.</p>';
             return;
         }
-        comments.forEach(comment => {
+
+        // Rumus Matematika Halaman
+        const startIndex = (currentPage - 1) * commentsPerPage;
+        const endIndex = startIndex + commentsPerPage;
+        const paginatedComments = allComments.slice(startIndex, endIndex);
+
+        // Nampilin cuma komentar di halaman saat ini
+        paginatedComments.forEach(comment => {
             const commentItem = document.createElement('div');
             commentItem.classList.add('comment-item');
             
@@ -331,7 +349,70 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             commentsList.appendChild(commentItem);
         });
+
+        // Panggil fungsi render tombol Next/Prev
+        renderPaginationControls();
     }
+
+    // --- Tombol Navigasi Halaman (Next / Prev) ---
+    function renderPaginationControls() {
+        const totalPages = Math.ceil(allComments.length / commentsPerPage);
+
+        // Bersihin tombol lama kalau udah ada
+        const oldControls = document.getElementById('paginationControls');
+        if (oldControls) oldControls.remove();
+
+        if (totalPages <= 1) return; // Kaga usah ada tombol kalau komen dikit
+
+        const controlsDiv = document.createElement('div');
+        controlsDiv.id = 'paginationControls';
+        controlsDiv.style.display = 'flex';
+        controlsDiv.style.justifyContent = 'center';
+        controlsDiv.style.alignItems = 'center';
+        controlsDiv.style.gap = '15px';
+        controlsDiv.style.marginTop = '20px';
+
+        // Tombol Sebelumnya
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '« Prev';
+        prevBtn.style.padding = '8px 15px';
+        prevBtn.style.background = currentPage === 1 ? '#334155' : '#38bdf8';
+        prevBtn.style.color = currentPage === 1 ? '#94a3b8' : '#0f172a';
+        prevBtn.style.border = 'none';
+        prevBtn.style.borderRadius = '5px';
+        prevBtn.style.fontWeight = 'bold';
+        prevBtn.style.cursor = currentPage === 1 ? 'not-allowed' : 'pointer';
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.onclick = () => { if (currentPage > 1) { currentPage--; displayComments(); } };
+
+        // Tulisan Halaman
+        const pageInfo = document.createElement('span');
+        pageInfo.textContent = `Hal ${currentPage} / ${totalPages}`;
+        pageInfo.style.color = '#cbd5e1';
+        pageInfo.style.fontSize = '0.9em';
+        pageInfo.style.fontWeight = 'bold';
+
+        // Tombol Selanjutnya
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = 'Next »';
+        nextBtn.style.padding = '8px 15px';
+        nextBtn.style.background = currentPage === totalPages ? '#334155' : '#38bdf8';
+        nextBtn.style.color = currentPage === totalPages ? '#94a3b8' : '#0f172a';
+        nextBtn.style.border = 'none';
+        nextBtn.style.borderRadius = '5px';
+        nextBtn.style.fontWeight = 'bold';
+        nextBtn.style.cursor = currentPage === totalPages ? 'not-allowed' : 'pointer';
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.onclick = () => { if (currentPage < totalPages) { currentPage++; displayComments(); } };
+
+        controlsDiv.appendChild(prevBtn);
+        controlsDiv.appendChild(pageInfo);
+        controlsDiv.appendChild(nextBtn);
+
+        // Taruh tombol-tombol ini pas di bawah daftar komentar
+        commentsList.parentNode.insertBefore(controlsDiv, commentsList.nextSibling);
+    }
+
 
     // --- Visitor Count ---
     async function loadVisitorCount() {
