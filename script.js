@@ -427,3 +427,25 @@ document.addEventListener('DOMContentLoaded', function() {
     loadComments();
     loadVisitorCount();
 });
+
+// --- LOGIKA POP-UP INFO IKLAN ---
+const modalIklan = document.getElementById("modalIklan");
+const btnBukaIklan = document.getElementById("btnBukaIklan");
+const closeModalIklan = document.getElementById("closeModalIklan");
+
+// Buka Modal pas tombol diklik
+btnBukaIklan.addEventListener("click", () => {
+    modalIklan.style.display = "flex";
+});
+
+// Tutup Modal pas (X) diklik
+closeModalIklan.addEventListener("click", () => {
+    modalIklan.style.display = "none";
+});
+
+// Tutup Modal pas ngeklik area gelap di luarnya
+window.addEventListener("click", (event) => {
+    if (event.target === modalIklan) {
+        modalIklan.style.display = "none";
+    }
+});
