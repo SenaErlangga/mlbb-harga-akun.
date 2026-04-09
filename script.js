@@ -428,15 +428,15 @@ document.addEventListener('DOMContentLoaded', function() {
     loadVisitorCount();
 });
 
-// --- LOGIKA POP-UP INFO IKLAN ---
+/* --- LOGIKA POP-UP INFO IKLAN (DIMATIIN SEMENTARA BUAT ADSENSE) ---
 const modalIklan = document.getElementById("modalIklan");
 const btnBukaIklan = document.getElementById("btnBukaIklan");
 const closeModalIklan = document.getElementById("closeModalIklan");
 
 // Buka Modal pas tombol diklik
-//btnBukaIklan.addEventListener("click", () => {
+btnBukaIklan.addEventListener("click", () => {
     modalIklan.style.display = "flex";
-//});
+});
 
 // Tutup Modal pas (X) diklik
 closeModalIklan.addEventListener("click", () => {
@@ -449,3 +449,4 @@ window.addEventListener("click", (event) => {
         modalIklan.style.display = "none";
     }
 });
+*/
