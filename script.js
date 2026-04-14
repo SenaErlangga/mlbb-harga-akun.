@@ -276,9 +276,17 @@ document.addEventListener('DOMContentLoaded', function() {
         else emblemCountSpan.textContent = '0';
     });
 
-    // --- Feedback Form ---
+        // --- Feedback Form ---
     feedbackForm.addEventListener('submit', async function(event) {
         event.preventDefault();
+
+        // 1. CARI TOMBOL SUBMIT DULU
+        const btnSubmit = feedbackForm.querySelector("button[type='submit']");
+        
+        // 2. KALO TOMBOL UDAH MATI, JANGAN PROSES LAGI (ANTI DOUBLE CLICK INSTAN)
+        if (btnSubmit && btnSubmit.disabled) {
+            return; // mental lu bang kalo maksa klik dua kali wkwk
+        }
 
         // --- SISTEM ANTI SPAM (COOLDOWN 5 MENIT) ---
         const lastCommentTime = localStorage.getItem("waktuKomenTerakhir");
@@ -286,43 +294,46 @@ document.addEventListener('DOMContentLoaded', function() {
         const waktuSekarang = new Date().getTime();
 
         if (lastCommentTime && (waktuSekarang - lastCommentTime < waktuCooldown)) {
-            // Hitung sisa waktu mundur
             const sisaWaktu = Math.ceil((waktuCooldown - (waktuSekarang - lastCommentTime)) / 60000);
-            
-            // Peringatan buat si kang spam
             alert(`Buset dah sabar ngab! 🗿 Jangan nyepam. Tunggu ${sisaWaktu} menit lagi buat komen!`);
-            
-            // Matiin tombol biar kaga bisa diklik-klik terus
-            const btnSubmit = feedbackForm.querySelector("button[type='submit']");
-            if (btnSubmit) {
-                btnSubmit.disabled = true;
-                setTimeout(() => { btnSubmit.disabled = false; }, 3000); // Tombol nyala lagi dalam 3 detik
-            }
-            
-            return; // HENTIKAN PROSES! Kaga bakal dikirim ke Google Sheet
+            return; // HENTIKAN PROSES
         }
         // -------------------------------------------
 
-          const formData = new FormData(event.target);
-        feedbackMessage.textContent = 'Mengirim...';
-        
-        // Gembok instan detik itu juga!
+        // 3. LUMPUHIN TOMBOL DETIK ITU JUGA!
+        if (btnSubmit) {
+            btnSubmit.disabled = true;
+            btnSubmit.innerHTML = 'Loading...'; // Ubah teks tombol
+        }
+
+        // 4. GEMBOK WAKTU DI MEMORI
         localStorage.setItem("waktuKomenTerakhir", new Date().getTime());
 
+        const formData = new FormData(event.target);
+        feedbackMessage.textContent = 'Mengirim...';
+        
         try {
             const response = await fetch(event.target.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' }});
             const data = await response.json();
             
             if (data.status === 'success') {
-  
                 feedbackMessage.textContent = data.message;
                 event.target.reset();
-                loadComments();
+                loadComments(); // Refresh komen
+            } else {
+                feedbackMessage.textContent = 'Gagal mengirim.';
             }
         } catch (e) { 
-            feedbackMessage.textContent = 'Gagal!'; 
+            feedbackMessage.textContent = 'Gagal jaringan!'; 
+        } finally {
+            // 5. HIDUPIN TOMBOL LAGI PAS PROSES SELESAI (Tapi tetep bakal kena cegat Cooldown di nomor 2)
+            if (btnSubmit) {
+                btnSubmit.innerHTML = 'Kirim';
+                btnSubmit.disabled = false;
+            }
         }
     });
+
 
     // --- VARIABEL GLOBAL BUAT PAGINATION ---
     let allComments = [];
