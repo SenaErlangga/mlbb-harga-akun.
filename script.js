@@ -303,16 +303,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         // -------------------------------------------
 
-        const formData = new FormData(event.target);
+          const formData = new FormData(event.target);
         feedbackMessage.textContent = 'Mengirim...';
+        
+        // Gembok instan detik itu juga!
+        localStorage.setItem("waktuKomenTerakhir", new Date().getTime());
+
         try {
             const response = await fetch(event.target.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' }});
             const data = await response.json();
             
             if (data.status === 'success') {
-                // 👇👇 CATAT WAKTU KOMEN SUKSES DI SINI 👇👇
-                localStorage.setItem("waktuKomenTerakhir", new Date().getTime());
-
+  
                 feedbackMessage.textContent = data.message;
                 event.target.reset();
                 loadComments();
