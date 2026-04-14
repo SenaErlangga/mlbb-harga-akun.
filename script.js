@@ -188,19 +188,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const rareLimPrice = skinRareLim * 1500000;
         if (rareLimPrice > 0) breakdown['Kasta Kolektor Eksklusif (Unobtainable)'] = rareLimPrice;
 
-        const legendLimPrice = skinLegendLim * 350000; // REVISI: Turun jadi 350k
+        const legendLimPrice = skinLegendLim * 350000; 
         if (legendLimPrice > 0) breakdown['Kasta Supreme Limit (Event)'] = legendLimPrice;
 
         const legendPrice = skinLegend * 200000;
         if (legendPrice > 0) breakdown['Kasta Supreme Biasa (Magic Wheel)'] = legendPrice;
 
-        const grandPrice = skinGrand * 80000; // REVISI: Turun
+        const grandPrice = skinGrand * 80000; 
         if (grandPrice > 0) breakdown['Kasta Grand (3000 Poin)'] = grandPrice;
 
-        const exqPrice = skinExquisite * 30000; // REVISI: Turun
+        const exqPrice = skinExquisite * 30000; 
         if (exqPrice > 0) breakdown['Kasta Exquisite (2000 Poin)'] = exqPrice;
 
-        const deluxePrice = skinDeluxe * 5000; // REVISI: Turun 
+        const deluxePrice = skinDeluxe * 5000; 
         if (deluxePrice > 0) breakdown['Kasta Deluxe (400 Poin)'] = deluxePrice;
 
         const recallPrice = recallEffect * 20000;
@@ -279,20 +279,50 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Feedback Form ---
     feedbackForm.addEventListener('submit', async function(event) {
         event.preventDefault();
+
+        // --- SISTEM ANTI SPAM (COOLDOWN 5 MENIT) ---
+        const lastCommentTime = localStorage.getItem("waktuKomenTerakhir");
+        const waktuCooldown = 5 * 60 * 1000; // 5 Menit (dalam milidetik)
+        const waktuSekarang = new Date().getTime();
+
+        if (lastCommentTime && (waktuSekarang - lastCommentTime < waktuCooldown)) {
+            // Hitung sisa waktu mundur
+            const sisaWaktu = Math.ceil((waktuCooldown - (waktuSekarang - lastCommentTime)) / 60000);
+            
+            // Peringatan buat si kang spam
+            alert(`Buset dah sabar ngab! 🗿 Jangan nyepam. Tunggu ${sisaWaktu} menit lagi buat komen!`);
+            
+            // Matiin tombol biar kaga bisa diklik-klik terus
+            const btnSubmit = feedbackForm.querySelector("button[type='submit']");
+            if (btnSubmit) {
+                btnSubmit.disabled = true;
+                setTimeout(() => { btnSubmit.disabled = false; }, 3000); // Tombol nyala lagi dalam 3 detik
+            }
+            
+            return; // HENTIKAN PROSES! Kaga bakal dikirim ke Google Sheet
+        }
+        // -------------------------------------------
+
         const formData = new FormData(event.target);
         feedbackMessage.textContent = 'Mengirim...';
         try {
             const response = await fetch(event.target.action, { method: 'POST', body: formData, headers: { 'Accept': 'application/json' }});
             const data = await response.json();
+            
             if (data.status === 'success') {
+                // 👇👇 CATAT WAKTU KOMEN SUKSES DI SINI 👇👇
+                localStorage.setItem("waktuKomenTerakhir", new Date().getTime());
+
                 feedbackMessage.textContent = data.message;
                 event.target.reset();
                 loadComments();
             }
-        } catch (e) { feedbackMessage.textContent = 'Gagal!'; }
+        } catch (e) { 
+            feedbackMessage.textContent = 'Gagal!'; 
+        }
     });
 
-        // --- VARIABEL GLOBAL BUAT PAGINATION ---
+    // --- VARIABEL GLOBAL BUAT PAGINATION ---
     let allComments = [];
     let currentPage = 1;
     const commentsPerPage = 5; // Lu bisa ganti jadi 10 kalo mau nampilin 10 komen per halaman
@@ -414,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
-    // --- Visitor Count ---
+      // --- Visitor Count ---
     async function loadVisitorCount() {
         try {
             const response = await fetch(GOOGLE_APPS_SCRIPT_URL + '?action=getCounter');
