@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 6. Perhitungan Highest Rank
         const highestTierValues = {
             'Dibawah Glory': 0, 'Glory Biasa': 30000, 
-            'Immortal Biasa': 100000, 'Immortal Dewa': 200000
+            'Immortal Biasa': 150000, 'Immortal Dewa': 300000
         };
         const highestTierContribution = highestTierValues[highestTier] || 0;
         if (highestTierContribution > 0) {
@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const endIndex = startIndex + commentsPerPage;
         const paginatedComments = allComments.slice(startIndex, endIndex);
 
-        // Nampilin cuma komentar di halaman saat ini
+   // Nampilin cuma komentar di halaman saat ini
         paginatedComments.forEach(comment => {
             const commentItem = document.createElement('div');
             commentItem.classList.add('comment-item');
@@ -377,7 +377,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const safeTimestamp = sanitizeComment(comment.timestamp || '');
             const safeSuggestion = sanitizeComment(comment.suggestion || '');
             const safeAdminReply = sanitizeComment(comment.adminreply || '');
+            
+            // 1. TAMBAHAN BARU: Narik data waktu admin dari server dan disanitasi
+            const safeAdminTime = sanitizeComment(comment.admintime || ''); 
 
+            // 2. TAMBAHAN BARU: UI Waktu di samping tulisan "Balasan Admin"
             commentItem.innerHTML = `
                 <div class="comment-header">
                     <span class="comment-username">${safeUsername}</span>
@@ -386,7 +390,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="comment-body">${safeSuggestion}</div>
                 ${safeAdminReply.trim() !== '' ? `
                 <div class="admin-reply">
-                    <p><strong>Balasan Admin:</strong></p>
+                    <p style="margin-bottom: 4px;">
+                        <strong>Admin Ganteng</strong> 
+                        ${safeAdminTime !== '' ? `<span style="font-size: 0.8em; color: #94a3b8; font-weight: normal; margin-left: 8px;">• ${safeAdminTime}</span>` : ''}
+                    </p>
                     <p>${safeAdminReply}</p>
                 </div>` : ''}
             `;
