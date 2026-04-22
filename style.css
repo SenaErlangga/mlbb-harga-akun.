@@ -878,4 +878,52 @@ footer p {
     transform: scale(1.05);
 }
 
+/* STYLING ARTIKEL SEO & FAQ ACCORDION */
+.seo-content-section {
+  margin-top: 40px;
+  padding: 20px;
+  background: #1e293b;
+  border-radius: 12px;
+  text-align: left;
+  border: 1px solid #334155;
+}
+
+.seo-content-section h3 { color: #facc15; margin-bottom: 15px; }
+.seo-content-section p { color: #cbd5e1; font-size: 0.95em; line-height: 1.6; margin-bottom: 15px; }
+
+.faq-container { margin-top: 25px; }
+.faq-container h4 { color: #facc15; margin-bottom: 15px; }
+
+details {
+  background: #0f172a;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  cursor: pointer;
+}
+
+summary { font-weight: bold; color: #38bdf8; outline: none; }
+details p { margin-top: 10px; border-top: 1px solid #334155; pt: 10px; }
+
+.legal-footer {
+  margin-top: 50px;
+  padding: 30px;
+  text-align: center;
+  border-top: 1px solid #334155;
+}
+
+.footer-links a {
+  color: #94a3b8;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 0.85em;
+}
+
+.footer-links a:hover { color: #facc15; }
+.legal-footer p { font-size: 0.8em; color: #64748b; margin-top: 15px; }
+
+
+
+
 
